@@ -869,7 +869,7 @@ TYPES.each do |type_name, type_data|
 
     methods = writer.functions
     methods['inspect'] = [0, 0, 'to_s']
-    methods.each do |method_name, method_data|
+    methods.sort.each do |method_name, method_data|
       method_req = method_data[0]
       method_opt = method_data[1]
       method_cname = method_data[2] || method_name
