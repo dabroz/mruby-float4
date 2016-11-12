@@ -1,3 +1,5 @@
+# encoding: utf-8
+#
 # mruby-float4 is hosted at https://github.com/dabroz/mruby-float4
 # and distributed under the MIT License (MIT). See LICENSE.
 #
