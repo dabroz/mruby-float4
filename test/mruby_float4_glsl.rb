@@ -1,3 +1,20 @@
+def assert_float(actual, expected, tolerance = 1e-7)
+  msg = "Scalar #{actual} expected to be within #{tolerance} of #{expected}"
+  assert_true((actual - expected).abs < tolerance, msg)
+end
+
+def assert_vector(actual, expected, tolerance = 1e-7)
+  msg = "Vector #{actual} expected to be within #{tolerance} of #{expected}"
+  assert_true((actual.x - expected.x).abs < tolerance, msg) &&
+    assert_true((actual.y - expected.y).abs < tolerance, msg) &&
+    (actual.data_size < 3 || assert_true((actual.z - expected.z).abs < tolerance, msg)) &&
+    (actual.data_size < 4 || assert_true((actual.w - expected.w).abs < tolerance, msg))
+end
+
+def assert_same(a, b)
+  assert_equal a.object_id, b.object_id
+end
+
 extend Vec4::GLSL
 
 assert('GLSL: float4 class') do
@@ -103,14 +120,14 @@ end
 assert('GLSL: vec4.to_vec') do
   vec = vec4(1, 2, 3, 4)
   assert_equal(vec.class, Vec4)
-  assert_equal(vec.to_vec4.class, Vec4)
-  assert_equal(vec, vec.to_vec4)
+  assert_equal(vec.to_vec.class, Vec4)
+  assert_equal(vec, vec.to_vec)
 end
 
 assert('GLSL: ivec4.to_vec') do
   vec = ivec4(1, 2, 3, 4)
   assert_equal(vec.class, IVec4)
-  assert_equal(vec.to_vec4.class, Vec4)
+  assert_equal(vec.to_vec.class, Vec4)
 end
 
 assert('GLSL: vec4 ==') do
@@ -120,7 +137,7 @@ assert('GLSL: vec4 ==') do
 end
 
 assert('GLSL: vec4 -> vec2') do
-  v = vec4(1, 2, 3, 4).to_vec2
+  v = vec4(1, 2, 3, 4).xy
   assert_equal(v.class, Vec2)
   assert_equal(v.x, 1)
   assert_equal(v.y, 2)
@@ -129,7 +146,7 @@ assert('GLSL: vec4 -> vec2') do
 end
 
 assert('GLSL: vec4 -> vec4') do
-  v = vec4(1, 2, 3, 4).to_vec4
+  v = vec4(1, 2, 3, 4).to_vec
   assert_equal(v.class, Vec4)
   assert_equal(v.x, 1)
   assert_equal(v.y, 2)
@@ -194,19 +211,6 @@ assert('GLSL: vec2 inversesqrt') do
   tolerance = 1e-7
   assert_true((vec.x - 0.5).abs < tolerance)
   assert_true((vec.y - 0.70710676908493).abs < tolerance)
-end
-
-def assert_float(actual, expected, tolerance = 1e-7)
-  msg = "Scalar #{actual} expected to be within #{tolerance} of #{expected}"
-  assert_true((actual - expected).abs < tolerance, msg)
-end
-
-def assert_vector(actual, expected, tolerance = 1e-7)
-  msg = "Vector #{actual} expected to be within #{tolerance} of #{expected}"
-  assert_true((actual.x - expected.x).abs < tolerance, msg) &&
-    assert_true((actual.y - expected.y).abs < tolerance, msg) &&
-    (actual.data_size < 3 || assert_true((actual.z - expected.z).abs < tolerance, msg)) &&
-    (actual.data_size < 4 || assert_true((actual.w - expected.w).abs < tolerance, msg))
 end
 
 assert('GLSL: vec2 sin') do

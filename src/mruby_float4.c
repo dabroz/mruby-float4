@@ -249,63 +249,21 @@ static mrb_value mruby_float4_vec2_i_data_class(mrb_state *mrb, mrb_value self)
   return mrb_obj_value(mrb->float_class);
 }
 
-static mrb_value mruby_float4_vec2_i_to_vec2(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_vec2_i_to_vec(mrb_state *mrb, mrb_value self)
 {
   return self;
 }
 
-static mrb_value mruby_float4_vec2_i_to_vec3(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec3), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_vec2_i_to_vec4(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec4), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_vec2_i_to_ivec2(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_vec2_i_to_ivec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec2), "new", 2,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
 }
 
-static mrb_value mruby_float4_vec2_i_to_ivec3(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec3), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_vec2_i_to_ivec4(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec4), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_vec2_i_to_bvec2(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_vec2_i_to_bvec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_vec2_i_to_bvec3(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec3), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_vec2_i_to_bvec4(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec4), "new", 2,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
 }
@@ -2422,34 +2380,12 @@ static mrb_value mruby_float4_vec3_i_data_class(mrb_state *mrb, mrb_value self)
   return mrb_obj_value(mrb->float_class);
 }
 
-static mrb_value mruby_float4_vec3_i_to_vec2(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_vec3_i_to_vec3(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_vec3_i_to_vec(mrb_state *mrb, mrb_value self)
 {
   return self;
 }
 
-static mrb_value mruby_float4_vec3_i_to_vec4(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec4), "new", 3,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
-}
-
-static mrb_value mruby_float4_vec3_i_to_ivec2(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_vec3_i_to_ivec3(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_vec3_i_to_ivec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec3), "new", 3,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
@@ -2457,32 +2393,9 @@ static mrb_value mruby_float4_vec3_i_to_ivec3(mrb_state *mrb, mrb_value self)
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
 }
 
-static mrb_value mruby_float4_vec3_i_to_ivec4(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec4), "new", 3,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
-}
-
-static mrb_value mruby_float4_vec3_i_to_bvec2(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_vec3_i_to_bvec3(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_vec3_i_to_bvec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec3), "new", 3,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
-}
-
-static mrb_value mruby_float4_vec3_i_to_bvec4(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec4), "new", 3,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
@@ -6782,42 +6695,12 @@ static mrb_value mruby_float4_vec4_i_data_class(mrb_state *mrb, mrb_value self)
   return mrb_obj_value(mrb->float_class);
 }
 
-static mrb_value mruby_float4_vec4_i_to_vec2(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_vec4_i_to_vec3(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec3), "new", 3,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
-}
-
-static mrb_value mruby_float4_vec4_i_to_vec4(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_vec4_i_to_vec(mrb_state *mrb, mrb_value self)
 {
   return self;
 }
 
-static mrb_value mruby_float4_vec4_i_to_ivec2(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_vec4_i_to_ivec3(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec3), "new", 3,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
-}
-
-static mrb_value mruby_float4_vec4_i_to_ivec4(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_vec4_i_to_ivec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec4), "new", 4,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
@@ -6826,22 +6709,7 @@ static mrb_value mruby_float4_vec4_i_to_ivec4(mrb_state *mrb, mrb_value self)
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(3)));
 }
 
-static mrb_value mruby_float4_vec4_i_to_bvec2(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_vec4_i_to_bvec3(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec3), "new", 3,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
-}
-
-static mrb_value mruby_float4_vec4_i_to_bvec4(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_vec4_i_to_bvec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec4), "new", 4,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
@@ -16339,63 +16207,21 @@ static mrb_value mruby_float4_ivec2_i_data_class(mrb_state *mrb, mrb_value self)
   return mrb_obj_value(mrb->fixnum_class);
 }
 
-static mrb_value mruby_float4_ivec2_i_to_vec2(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_ivec2_i_to_vec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec2), "new", 2,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
 }
 
-static mrb_value mruby_float4_ivec2_i_to_vec3(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec3), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_ivec2_i_to_vec4(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec4), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_ivec2_i_to_ivec2(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_ivec2_i_to_ivec(mrb_state *mrb, mrb_value self)
 {
   return self;
 }
 
-static mrb_value mruby_float4_ivec2_i_to_ivec3(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec3), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_ivec2_i_to_ivec4(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec4), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_ivec2_i_to_bvec2(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_ivec2_i_to_bvec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_ivec2_i_to_bvec3(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec3), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_ivec2_i_to_bvec4(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec4), "new", 2,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
 }
@@ -18512,14 +18338,7 @@ static mrb_value mruby_float4_ivec3_i_data_class(mrb_state *mrb, mrb_value self)
   return mrb_obj_value(mrb->fixnum_class);
 }
 
-static mrb_value mruby_float4_ivec3_i_to_vec2(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_ivec3_i_to_vec3(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_ivec3_i_to_vec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec3), "new", 3,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
@@ -18527,52 +18346,14 @@ static mrb_value mruby_float4_ivec3_i_to_vec3(mrb_state *mrb, mrb_value self)
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
 }
 
-static mrb_value mruby_float4_ivec3_i_to_vec4(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec4), "new", 3,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
-}
-
-static mrb_value mruby_float4_ivec3_i_to_ivec2(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_ivec3_i_to_ivec3(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_ivec3_i_to_ivec(mrb_state *mrb, mrb_value self)
 {
   return self;
 }
 
-static mrb_value mruby_float4_ivec3_i_to_ivec4(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec4), "new", 3,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
-}
-
-static mrb_value mruby_float4_ivec3_i_to_bvec2(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_ivec3_i_to_bvec3(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_ivec3_i_to_bvec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec3), "new", 3,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
-}
-
-static mrb_value mruby_float4_ivec3_i_to_bvec4(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec4), "new", 3,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
@@ -22872,22 +22653,7 @@ static mrb_value mruby_float4_ivec4_i_data_class(mrb_state *mrb, mrb_value self)
   return mrb_obj_value(mrb->fixnum_class);
 }
 
-static mrb_value mruby_float4_ivec4_i_to_vec2(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_ivec4_i_to_vec3(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec3), "new", 3,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
-}
-
-static mrb_value mruby_float4_ivec4_i_to_vec4(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_ivec4_i_to_vec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec4), "new", 4,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
@@ -22896,42 +22662,12 @@ static mrb_value mruby_float4_ivec4_i_to_vec4(mrb_state *mrb, mrb_value self)
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(3)));
 }
 
-static mrb_value mruby_float4_ivec4_i_to_ivec2(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_ivec4_i_to_ivec3(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec3), "new", 3,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
-}
-
-static mrb_value mruby_float4_ivec4_i_to_ivec4(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_ivec4_i_to_ivec(mrb_state *mrb, mrb_value self)
 {
   return self;
 }
 
-static mrb_value mruby_float4_ivec4_i_to_bvec2(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_ivec4_i_to_bvec3(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec3), "new", 3,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
-}
-
-static mrb_value mruby_float4_ivec4_i_to_bvec4(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_ivec4_i_to_bvec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec4), "new", 4,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
@@ -32429,65 +32165,23 @@ static mrb_value mruby_float4_bvec2_i_data_class(mrb_state *mrb, mrb_value self)
   return mrb_obj_value(mrb->true_class);
 }
 
-static mrb_value mruby_float4_bvec2_i_to_vec2(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_bvec2_i_to_vec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec2), "new", 2,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
 }
 
-static mrb_value mruby_float4_bvec2_i_to_vec3(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec3), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_bvec2_i_to_vec4(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec4), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_bvec2_i_to_ivec2(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_bvec2_i_to_ivec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec2), "new", 2,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
 }
 
-static mrb_value mruby_float4_bvec2_i_to_ivec3(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec3), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_bvec2_i_to_ivec4(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec4), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_bvec2_i_to_bvec2(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_bvec2_i_to_bvec(mrb_state *mrb, mrb_value self)
 {
   return self;
-}
-
-static mrb_value mruby_float4_bvec2_i_to_bvec3(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec3), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_bvec2_i_to_bvec4(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec4), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
 }
 
 static mrb_value mruby_float4_bvec2_i_xx(mrb_state *mrb, mrb_value self)
@@ -33266,14 +32960,7 @@ static mrb_value mruby_float4_bvec3_i_data_class(mrb_state *mrb, mrb_value self)
   return mrb_obj_value(mrb->true_class);
 }
 
-static mrb_value mruby_float4_bvec3_i_to_vec2(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_bvec3_i_to_vec3(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_bvec3_i_to_vec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec3), "new", 3,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
@@ -33281,22 +32968,7 @@ static mrb_value mruby_float4_bvec3_i_to_vec3(mrb_state *mrb, mrb_value self)
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
 }
 
-static mrb_value mruby_float4_bvec3_i_to_vec4(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec4), "new", 3,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
-}
-
-static mrb_value mruby_float4_bvec3_i_to_ivec2(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_bvec3_i_to_ivec3(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_bvec3_i_to_ivec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec3), "new", 3,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
@@ -33304,32 +32976,9 @@ static mrb_value mruby_float4_bvec3_i_to_ivec3(mrb_state *mrb, mrb_value self)
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
 }
 
-static mrb_value mruby_float4_bvec3_i_to_ivec4(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec4), "new", 3,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
-}
-
-static mrb_value mruby_float4_bvec3_i_to_bvec2(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_bvec3_i_to_bvec3(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_bvec3_i_to_bvec(mrb_state *mrb, mrb_value self)
 {
   return self;
-}
-
-static mrb_value mruby_float4_bvec3_i_to_bvec4(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec4), "new", 3,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
 }
 
 static mrb_value mruby_float4_bvec3_i_xx(mrb_state *mrb, mrb_value self)
@@ -36226,22 +35875,7 @@ static mrb_value mruby_float4_bvec4_i_data_class(mrb_state *mrb, mrb_value self)
   return mrb_obj_value(mrb->true_class);
 }
 
-static mrb_value mruby_float4_bvec4_i_to_vec2(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_bvec4_i_to_vec3(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec3), "new", 3,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
-}
-
-static mrb_value mruby_float4_bvec4_i_to_vec4(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_bvec4_i_to_vec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec4), "new", 4,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
@@ -36250,22 +35884,7 @@ static mrb_value mruby_float4_bvec4_i_to_vec4(mrb_state *mrb, mrb_value self)
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(3)));
 }
 
-static mrb_value mruby_float4_bvec4_i_to_ivec2(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_bvec4_i_to_ivec3(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec3), "new", 3,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
-}
-
-static mrb_value mruby_float4_bvec4_i_to_ivec4(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_bvec4_i_to_ivec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec4), "new", 4,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
@@ -36274,22 +35893,7 @@ static mrb_value mruby_float4_bvec4_i_to_ivec4(mrb_state *mrb, mrb_value self)
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(3)));
 }
 
-static mrb_value mruby_float4_bvec4_i_to_bvec2(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec2), "new", 2,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
-}
-
-static mrb_value mruby_float4_bvec4_i_to_bvec3(mrb_state *mrb, mrb_value self)
-{
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec3), "new", 3,
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
-    mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
-}
-
-static mrb_value mruby_float4_bvec4_i_to_bvec4(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_bvec4_i_to_bvec(mrb_state *mrb, mrb_value self)
 {
   return self;
 }
@@ -44275,15 +43879,9 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_vec2, "==", mruby_float4_vec2_i_eq, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "data_size", mruby_float4_vec2_i_data_size, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "data_class", mruby_float4_vec2_i_data_class, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec2, "to_vec2", mruby_float4_vec2_i_to_vec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec2, "to_vec3", mruby_float4_vec2_i_to_vec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec2, "to_vec4", mruby_float4_vec2_i_to_vec4, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec2, "to_ivec2", mruby_float4_vec2_i_to_ivec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec2, "to_ivec3", mruby_float4_vec2_i_to_ivec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec2, "to_ivec4", mruby_float4_vec2_i_to_ivec4, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec2, "to_bvec2", mruby_float4_vec2_i_to_bvec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec2, "to_bvec3", mruby_float4_vec2_i_to_bvec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec2, "to_bvec4", mruby_float4_vec2_i_to_bvec4, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec2, "to_vec", mruby_float4_vec2_i_to_vec, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec2, "to_ivec", mruby_float4_vec2_i_to_ivec, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec2, "to_bvec", mruby_float4_vec2_i_to_bvec, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "floor", mruby_float4_vec2_i_floor, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "ceil", mruby_float4_vec2_i_ceil, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "sign", mruby_float4_vec2_i_sign, MRB_ARGS_ARG(0, 0));
@@ -44367,15 +43965,9 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_vec3, "==", mruby_float4_vec3_i_eq, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "data_size", mruby_float4_vec3_i_data_size, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "data_class", mruby_float4_vec3_i_data_class, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec3, "to_vec2", mruby_float4_vec3_i_to_vec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec3, "to_vec3", mruby_float4_vec3_i_to_vec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec3, "to_vec4", mruby_float4_vec3_i_to_vec4, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec3, "to_ivec2", mruby_float4_vec3_i_to_ivec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec3, "to_ivec3", mruby_float4_vec3_i_to_ivec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec3, "to_ivec4", mruby_float4_vec3_i_to_ivec4, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec3, "to_bvec2", mruby_float4_vec3_i_to_bvec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec3, "to_bvec3", mruby_float4_vec3_i_to_bvec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec3, "to_bvec4", mruby_float4_vec3_i_to_bvec4, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec3, "to_vec", mruby_float4_vec3_i_to_vec, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec3, "to_ivec", mruby_float4_vec3_i_to_ivec, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec3, "to_bvec", mruby_float4_vec3_i_to_bvec, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "floor", mruby_float4_vec3_i_floor, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "ceil", mruby_float4_vec3_i_ceil, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "sign", mruby_float4_vec3_i_sign, MRB_ARGS_ARG(0, 0));
@@ -44549,15 +44141,9 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_vec4, "==", mruby_float4_vec4_i_eq, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "data_size", mruby_float4_vec4_i_data_size, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "data_class", mruby_float4_vec4_i_data_class, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec4, "to_vec2", mruby_float4_vec4_i_to_vec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec4, "to_vec3", mruby_float4_vec4_i_to_vec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec4, "to_vec4", mruby_float4_vec4_i_to_vec4, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec4, "to_ivec2", mruby_float4_vec4_i_to_ivec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec4, "to_ivec3", mruby_float4_vec4_i_to_ivec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec4, "to_ivec4", mruby_float4_vec4_i_to_ivec4, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec4, "to_bvec2", mruby_float4_vec4_i_to_bvec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec4, "to_bvec3", mruby_float4_vec4_i_to_bvec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_vec4, "to_bvec4", mruby_float4_vec4_i_to_bvec4, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec4, "to_vec", mruby_float4_vec4_i_to_vec, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec4, "to_ivec", mruby_float4_vec4_i_to_ivec, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec4, "to_bvec", mruby_float4_vec4_i_to_bvec, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "floor", mruby_float4_vec4_i_floor, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "ceil", mruby_float4_vec4_i_ceil, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "sign", mruby_float4_vec4_i_sign, MRB_ARGS_ARG(0, 0));
@@ -44947,15 +44533,9 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "==", mruby_float4_ivec2_i_eq, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "data_size", mruby_float4_ivec2_i_data_size, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "data_class", mruby_float4_ivec2_i_data_class, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec2, "to_vec2", mruby_float4_ivec2_i_to_vec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec2, "to_vec3", mruby_float4_ivec2_i_to_vec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec2, "to_vec4", mruby_float4_ivec2_i_to_vec4, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec2, "to_ivec2", mruby_float4_ivec2_i_to_ivec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec2, "to_ivec3", mruby_float4_ivec2_i_to_ivec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec2, "to_ivec4", mruby_float4_ivec2_i_to_ivec4, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec2, "to_bvec2", mruby_float4_ivec2_i_to_bvec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec2, "to_bvec3", mruby_float4_ivec2_i_to_bvec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec2, "to_bvec4", mruby_float4_ivec2_i_to_bvec4, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec2, "to_vec", mruby_float4_ivec2_i_to_vec, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec2, "to_ivec", mruby_float4_ivec2_i_to_ivec, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec2, "to_bvec", mruby_float4_ivec2_i_to_bvec, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "floor", mruby_float4_ivec2_i_floor, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "ceil", mruby_float4_ivec2_i_ceil, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "sign", mruby_float4_ivec2_i_sign, MRB_ARGS_ARG(0, 0));
@@ -45039,15 +44619,9 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "==", mruby_float4_ivec3_i_eq, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "data_size", mruby_float4_ivec3_i_data_size, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "data_class", mruby_float4_ivec3_i_data_class, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec3, "to_vec2", mruby_float4_ivec3_i_to_vec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec3, "to_vec3", mruby_float4_ivec3_i_to_vec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec3, "to_vec4", mruby_float4_ivec3_i_to_vec4, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec3, "to_ivec2", mruby_float4_ivec3_i_to_ivec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec3, "to_ivec3", mruby_float4_ivec3_i_to_ivec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec3, "to_ivec4", mruby_float4_ivec3_i_to_ivec4, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec3, "to_bvec2", mruby_float4_ivec3_i_to_bvec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec3, "to_bvec3", mruby_float4_ivec3_i_to_bvec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec3, "to_bvec4", mruby_float4_ivec3_i_to_bvec4, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec3, "to_vec", mruby_float4_ivec3_i_to_vec, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec3, "to_ivec", mruby_float4_ivec3_i_to_ivec, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec3, "to_bvec", mruby_float4_ivec3_i_to_bvec, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "floor", mruby_float4_ivec3_i_floor, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "ceil", mruby_float4_ivec3_i_ceil, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "sign", mruby_float4_ivec3_i_sign, MRB_ARGS_ARG(0, 0));
@@ -45221,15 +44795,9 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "==", mruby_float4_ivec4_i_eq, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "data_size", mruby_float4_ivec4_i_data_size, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "data_class", mruby_float4_ivec4_i_data_class, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec4, "to_vec2", mruby_float4_ivec4_i_to_vec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec4, "to_vec3", mruby_float4_ivec4_i_to_vec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec4, "to_vec4", mruby_float4_ivec4_i_to_vec4, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec4, "to_ivec2", mruby_float4_ivec4_i_to_ivec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec4, "to_ivec3", mruby_float4_ivec4_i_to_ivec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec4, "to_ivec4", mruby_float4_ivec4_i_to_ivec4, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec4, "to_bvec2", mruby_float4_ivec4_i_to_bvec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec4, "to_bvec3", mruby_float4_ivec4_i_to_bvec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_ivec4, "to_bvec4", mruby_float4_ivec4_i_to_bvec4, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec4, "to_vec", mruby_float4_ivec4_i_to_vec, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec4, "to_ivec", mruby_float4_ivec4_i_to_ivec, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec4, "to_bvec", mruby_float4_ivec4_i_to_bvec, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "floor", mruby_float4_ivec4_i_floor, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "ceil", mruby_float4_ivec4_i_ceil, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "sign", mruby_float4_ivec4_i_sign, MRB_ARGS_ARG(0, 0));
@@ -45619,15 +45187,9 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "==", mruby_float4_bvec2_i_eq, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "data_size", mruby_float4_bvec2_i_data_size, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "data_class", mruby_float4_bvec2_i_data_class, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec2, "to_vec2", mruby_float4_bvec2_i_to_vec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec2, "to_vec3", mruby_float4_bvec2_i_to_vec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec2, "to_vec4", mruby_float4_bvec2_i_to_vec4, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec2, "to_ivec2", mruby_float4_bvec2_i_to_ivec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec2, "to_ivec3", mruby_float4_bvec2_i_to_ivec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec2, "to_ivec4", mruby_float4_bvec2_i_to_ivec4, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec2, "to_bvec2", mruby_float4_bvec2_i_to_bvec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec2, "to_bvec3", mruby_float4_bvec2_i_to_bvec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec2, "to_bvec4", mruby_float4_bvec2_i_to_bvec4, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec2, "to_vec", mruby_float4_bvec2_i_to_vec, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec2, "to_ivec", mruby_float4_bvec2_i_to_ivec, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec2, "to_bvec", mruby_float4_bvec2_i_to_bvec, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "xx", mruby_float4_bvec2_i_xx, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "xxx", mruby_float4_bvec2_i_xxx, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "xxxx", mruby_float4_bvec2_i_xxxx, MRB_ARGS_ARG(0, 0));
@@ -45669,15 +45231,9 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "==", mruby_float4_bvec3_i_eq, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "data_size", mruby_float4_bvec3_i_data_size, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "data_class", mruby_float4_bvec3_i_data_class, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec3, "to_vec2", mruby_float4_bvec3_i_to_vec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec3, "to_vec3", mruby_float4_bvec3_i_to_vec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec3, "to_vec4", mruby_float4_bvec3_i_to_vec4, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec3, "to_ivec2", mruby_float4_bvec3_i_to_ivec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec3, "to_ivec3", mruby_float4_bvec3_i_to_ivec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec3, "to_ivec4", mruby_float4_bvec3_i_to_ivec4, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec3, "to_bvec2", mruby_float4_bvec3_i_to_bvec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec3, "to_bvec3", mruby_float4_bvec3_i_to_bvec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec3, "to_bvec4", mruby_float4_bvec3_i_to_bvec4, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec3, "to_vec", mruby_float4_bvec3_i_to_vec, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec3, "to_ivec", mruby_float4_bvec3_i_to_ivec, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec3, "to_bvec", mruby_float4_bvec3_i_to_bvec, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "xx", mruby_float4_bvec3_i_xx, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "xxx", mruby_float4_bvec3_i_xxx, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "xxxx", mruby_float4_bvec3_i_xxxx, MRB_ARGS_ARG(0, 0));
@@ -45809,15 +45365,9 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_bvec4, "==", mruby_float4_bvec4_i_eq, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec4, "data_size", mruby_float4_bvec4_i_data_size, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec4, "data_class", mruby_float4_bvec4_i_data_class, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec4, "to_vec2", mruby_float4_bvec4_i_to_vec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec4, "to_vec3", mruby_float4_bvec4_i_to_vec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec4, "to_vec4", mruby_float4_bvec4_i_to_vec4, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec4, "to_ivec2", mruby_float4_bvec4_i_to_ivec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec4, "to_ivec3", mruby_float4_bvec4_i_to_ivec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec4, "to_ivec4", mruby_float4_bvec4_i_to_ivec4, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec4, "to_bvec2", mruby_float4_bvec4_i_to_bvec2, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec4, "to_bvec3", mruby_float4_bvec4_i_to_bvec3, MRB_ARGS_ARG(0, 0));
-  mrb_define_method(mrb, mruby_float4_klass_bvec4, "to_bvec4", mruby_float4_bvec4_i_to_bvec4, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec4, "to_vec", mruby_float4_bvec4_i_to_vec, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec4, "to_ivec", mruby_float4_bvec4_i_to_ivec, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec4, "to_bvec", mruby_float4_bvec4_i_to_bvec, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec4, "xx", mruby_float4_bvec4_i_xx, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec4, "xxx", mruby_float4_bvec4_i_xxx, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec4, "xxxx", mruby_float4_bvec4_i_xxxx, MRB_ARGS_ARG(0, 0));

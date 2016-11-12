@@ -316,9 +316,10 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
     end
   end
 
-  def write_converter(c_type, c_size)
+  def write_converter(c_type)
+  	c_size = size
     klass = "#{c_type.downcase}#{c_size}"
-    method = "to_#{klass}"
+    method = "to_#{c_type.downcase}"
     write_function(method) do
       min_size = [c_size, size].min
       if c_type == type_name and c_size == size
@@ -773,9 +774,7 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
     write_reflection
 
     TYPES.each do |c_type, c_data|
-      SIZES.each do |c_size|
-        write_converter(c_type, c_size)
-      end
+      write_converter(c_type)
     end
 
     if include_math

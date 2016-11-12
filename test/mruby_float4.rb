@@ -1,3 +1,20 @@
+def assert_float(actual, expected, tolerance = 1e-7)
+  msg = "Scalar #{actual} expected to be within #{tolerance} of #{expected}"
+  assert_true((actual - expected).abs < tolerance, msg)
+end
+
+def assert_vector(actual, expected, tolerance = 1e-7)
+  msg = "Vector #{actual} expected to be within #{tolerance} of #{expected}"
+  assert_true((actual.x - expected.x).abs < tolerance, msg) &&
+    assert_true((actual.y - expected.y).abs < tolerance, msg) &&
+    (actual.data_size < 3 || assert_true((actual.z - expected.z).abs < tolerance, msg)) &&
+    (actual.data_size < 4 || assert_true((actual.w - expected.w).abs < tolerance, msg))
+end
+
+def assert_same(a, b)
+  assert_equal a.object_id, b.object_id
+end
+
 assert('float4 class') do
   Vec4
 end
@@ -101,14 +118,21 @@ end
 assert('vec4.to_vec') do
   vec = Vec4.new(1, 2, 3, 4)
   assert_equal(vec.class, Vec4)
-  assert_equal(vec.to_vec4.class, Vec4)
-  assert_equal(vec, vec.to_vec4)
+  assert_equal(vec.to_vec.class, Vec4)
+  assert_equal(vec, vec.to_vec)
+end
+
+assert('vec4.to_ivec') do
+  vec = Vec4.new(1, 2.5, 3, 4)
+  assert_equal(vec.class, Vec4)
+  assert_equal(vec.to_ivec.class, IVec4)
+  assert_vector(vec.to_ivec, IVec4.new(1,2,3,4))
 end
 
 assert('ivec4.to_vec') do
   vec = IVec4.new(1, 2, 3, 4)
   assert_equal(vec.class, IVec4)
-  assert_equal(vec.to_vec4.class, Vec4)
+  assert_equal(vec.to_vec.class, Vec4)
 end
 
 assert('vec4 ==') do
@@ -130,7 +154,7 @@ assert('vec4 should raise when compared with different size (2)') do
 end
 
 assert('vec4 -> vec2') do
-  v = Vec4.new(1, 2, 3, 4).to_vec2
+  v = Vec4.new(1, 2, 3, 4).xy
   assert_equal(v.class, Vec2)
   assert_equal(v.x, 1)
   assert_equal(v.y, 2)
@@ -139,7 +163,9 @@ assert('vec4 -> vec2') do
 end
 
 assert('vec4 -> vec4') do
-  v = Vec4.new(1, 2, 3, 4).to_vec4
+  v = Vec4.new(1, 2, 3, 4)
+  assert_same(v, v.to_vec)
+  v = v.to_vec
   assert_equal(v.class, Vec4)
   assert_equal(v.x, 1)
   assert_equal(v.y, 2)
@@ -204,19 +230,6 @@ assert('vec2 inversesqrt') do
   tolerance = 1e-7
   assert_true((vec.x - 0.5).abs < tolerance)
   assert_true((vec.y - 0.70710676908493).abs < tolerance)
-end
-
-def assert_float(actual, expected, tolerance = 1e-7)
-  msg = "Scalar #{actual} expected to be within #{tolerance} of #{expected}"
-  assert_true((actual - expected).abs < tolerance, msg)
-end
-
-def assert_vector(actual, expected, tolerance = 1e-7)
-  msg = "Vector #{actual} expected to be within #{tolerance} of #{expected}"
-  assert_true((actual.x - expected.x).abs < tolerance, msg) &&
-    assert_true((actual.y - expected.y).abs < tolerance, msg) &&
-    (actual.data_size < 3 || assert_true((actual.z - expected.z).abs < tolerance, msg)) &&
-    (actual.data_size < 4 || assert_true((actual.w - expected.w).abs < tolerance, msg))
 end
 
 assert('vec2 sin') do
