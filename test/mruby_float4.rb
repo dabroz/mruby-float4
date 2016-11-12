@@ -553,6 +553,11 @@ assert('vec3 - f') do
   assert_equal(vec, Vec3.new(-1, 0, 1))
 end
 
+assert('vec3 -@') do
+  vec1 = Vec3.new(1.0, 2.0, 3.0)
+  assert_equal(-vec1, Vec3.new(-1, -2, -3))
+end
+
 assert('vec3 @-') do
   vec1 = Vec3.new(1.0, 2.0, 3.0)
   vec = -vec1
