@@ -234,7 +234,7 @@ class Scene
           end
         end
 
-        rgb = (rad * mod).clamp(0, 255).to_ivec3
+        rgb = (rad * mod).clamp(0, 255).to_ivec
         printf("%c", rgb.x)
         printf("%c", rgb.y)
         printf("%c", rgb.z)
