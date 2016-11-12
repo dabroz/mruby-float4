@@ -117,6 +117,18 @@ assert('vec4 ==') do
   assert_equal(Vec4.new(1, 2, 3, 4), Vec4.new(1.0, 2.0, 3.0, 4.0))
 end
 
+assert('vec4 should raise when compared with different size (1)') do
+  assert_raise TypeError do
+    assert_not_equal(Vec2.new(1, 2), Vec4.new(1, 2, 0, 1))
+  end
+end
+
+assert('vec4 should raise when compared with different size (2)') do
+  assert_raise TypeError do
+    assert_not_equal(Vec4.new(1, 2, 0, 1), Vec2.new(1, 2))
+  end
+end
+
 assert('vec4 -> vec2') do
   v = Vec4.new(1, 2, 3, 4).to_vec2
   assert_equal(v.class, Vec2)
@@ -135,25 +147,8 @@ assert('vec4 -> vec4') do
   assert_equal(v[3], 4)
 end
 
-assert('vec4 == vec2 (1)') do
-  assert_equal(Vec4.new(1, 2), Vec2.new(1, 2))
-end
-
-assert('vec4 == vec2 (2)') do
-  assert_equal(Vec4.new(1, 2, 0, 0), Vec2.new(1, 2))
-end
-
-assert('vec4 == vec2 (3)') do
-  assert_not_equal(Vec4.new(1, 2, 3, 4), Vec2.new(1, 2))
-end
-
 assert('vec4 not ==') do
   assert_not_equal(Vec4.new(1, 2, 3, 4), Vec4.new(1, 2, 3, 5))
-end
-
-assert('vec4 == ivec4') do
-  assert_equal(Vec4.new(1, 2, 3, 4), IVec4.new(1, 2, 3, 4))
-  assert_equal(IVec4.new(1, 2, 3, 4), Vec4.new(1, 2, 3, 4))
 end
 
 assert('vec4 floor') do
@@ -521,7 +516,7 @@ end
 assert('vec2 swizzle') do
   vec = Vec2.new(1.0, 2.0)
   assert_equal(vec.yx, Vec2.new(2.0, 1.0))
-  assert_equal(vec.xy, Vec3.new(1.0, 2.0))
+  assert_equal(vec.xy, Vec2.new(1.0, 2.0))
   assert_equal(vec.xxyy, Vec4.new(1.0, 1.0, 2.0, 2.0))
 end
 

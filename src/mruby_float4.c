@@ -44,61 +44,6 @@ struct RClass *mruby_float4_klass_bvec2;
 struct RClass *mruby_float4_klass_bvec3;
 struct RClass *mruby_float4_klass_bvec4;
 
-static mrb_bool mruby_float4_is_ivec(mrb_state *mrb, mrb_value object)
-{
-  struct RClass *klass = mrb_obj_class(mrb, object);
-  return klass == mruby_float4_klass_ivec2 || klass == mruby_float4_klass_ivec3 || klass == mruby_float4_klass_ivec4;
-}
-
-static mrb_bool mruby_float4_is_bvec(mrb_state *mrb, mrb_value object)
-{
-  struct RClass *klass = mrb_obj_class(mrb, object);
-  return klass == mruby_float4_klass_bvec2 || klass == mruby_float4_klass_bvec3 || klass == mruby_float4_klass_bvec4;
-}
-
-static mrb_int mruby_float4_vec_size(mrb_state *mrb, mrb_value object)
-{
-  struct RClass *klass = mrb_obj_class(mrb, object);
-  if (klass == mruby_float4_klass_vec4 || klass == mruby_float4_klass_ivec4 || klass == mruby_float4_klass_bvec4)
-  {
-    return 4;
-  }
-  else if (klass == mruby_float4_klass_vec3 || klass == mruby_float4_klass_ivec3 || klass == mruby_float4_klass_bvec3)
-  {
-    return 3;
-  }
-  else if (klass == mruby_float4_klass_vec2 || klass == mruby_float4_klass_ivec2 || klass == mruby_float4_klass_bvec2)
-  {
-    return 2;
-  }
-  return -1;
-}
-
-static const char* mruby_float4_common_type(mrb_state *mrb, mrb_value object1, mrb_value object2)
-{
-  static const char *vec_methods[] = {"to_vec4", "to_vec3", "to_vec2"};
-  static const char *ivec_methods[] = {"to_ivec4", "to_ivec3", "to_ivec2"};
-  static const char *bvec_methods[] = {"to_bvec4", "to_bvec3", "to_bvec2"};
-  mrb_bool both_ivec = mruby_float4_is_ivec(mrb, object1) && mruby_float4_is_ivec(mrb, object2);
-  mrb_bool both_bvec = mruby_float4_is_bvec(mrb, object1) && mruby_float4_is_bvec(mrb, object2);
-  mrb_int size1 = mruby_float4_vec_size(mrb, object1);
-  mrb_int size2 = mruby_float4_vec_size(mrb, object2);
-  mrb_int size = (size1 > size2) ? size1 : size2;
-  mrb_int index = 4 - size;
-
-  if (size1 == -1 || size2 == -1)
-    return "to_vec4";
-
-  mrb_assert(index >= 0 && index <= 2);
-
-  if (both_ivec)
-    return ivec_methods[index];
-  else if (both_bvec)
-    return bvec_methods[index];
-  else
-    return vec_methods[index];
-}
-
 static float mruby_float4_signf(float value)
 {
   if (value > 0.0f) return 1.0f;
@@ -272,7 +217,6 @@ static mrb_value mruby_float4_vec2_i_at(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_vec2_i_eq(mrb_state *mrb, mrb_value self)
 {
-  const char *converter;
   mrb_value other;
   struct mruby_float4_float *self_data;
   struct mruby_float4_float *other_data;
@@ -283,9 +227,7 @@ static mrb_value mruby_float4_vec2_i_eq(mrb_state *mrb, mrb_value self)
   if (mrb_obj_equal(mrb, self, other)) return mrb_bool_value(1);
   if (mrb_obj_class(mrb, self) != mrb_obj_class(mrb, other))
   {
-    converter = mruby_float4_common_type(mrb, self, other);
-    self = mrb_funcall(mrb, self, converter, 0);
-    other = mrb_funcall(mrb, other, converter, 0);
+      mrb_raisef(mrb, E_TYPE_ERROR, "expected argument to be %S, %S given", mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, self)), mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, other)));
   }
 
   self_data = (struct mruby_float4_float*)DATA_PTR(self);
@@ -2447,7 +2389,6 @@ static mrb_value mruby_float4_vec3_i_at(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_vec3_i_eq(mrb_state *mrb, mrb_value self)
 {
-  const char *converter;
   mrb_value other;
   struct mruby_float4_float *self_data;
   struct mruby_float4_float *other_data;
@@ -2458,9 +2399,7 @@ static mrb_value mruby_float4_vec3_i_eq(mrb_state *mrb, mrb_value self)
   if (mrb_obj_equal(mrb, self, other)) return mrb_bool_value(1);
   if (mrb_obj_class(mrb, self) != mrb_obj_class(mrb, other))
   {
-    converter = mruby_float4_common_type(mrb, self, other);
-    self = mrb_funcall(mrb, self, converter, 0);
-    other = mrb_funcall(mrb, other, converter, 0);
+      mrb_raisef(mrb, E_TYPE_ERROR, "expected argument to be %S, %S given", mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, self)), mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, other)));
   }
 
   self_data = (struct mruby_float4_float*)DATA_PTR(self);
@@ -6809,7 +6748,6 @@ static mrb_value mruby_float4_vec4_i_at(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_vec4_i_eq(mrb_state *mrb, mrb_value self)
 {
-  const char *converter;
   mrb_value other;
   struct mruby_float4_float *self_data;
   struct mruby_float4_float *other_data;
@@ -6820,9 +6758,7 @@ static mrb_value mruby_float4_vec4_i_eq(mrb_state *mrb, mrb_value self)
   if (mrb_obj_equal(mrb, self, other)) return mrb_bool_value(1);
   if (mrb_obj_class(mrb, self) != mrb_obj_class(mrb, other))
   {
-    converter = mruby_float4_common_type(mrb, self, other);
-    self = mrb_funcall(mrb, self, converter, 0);
-    other = mrb_funcall(mrb, other, converter, 0);
+      mrb_raisef(mrb, E_TYPE_ERROR, "expected argument to be %S, %S given", mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, self)), mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, other)));
   }
 
   self_data = (struct mruby_float4_float*)DATA_PTR(self);
@@ -16371,7 +16307,6 @@ static mrb_value mruby_float4_ivec2_i_at(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_ivec2_i_eq(mrb_state *mrb, mrb_value self)
 {
-  const char *converter;
   mrb_value other;
   struct mruby_float4_int *self_data;
   struct mruby_float4_int *other_data;
@@ -16382,9 +16317,7 @@ static mrb_value mruby_float4_ivec2_i_eq(mrb_state *mrb, mrb_value self)
   if (mrb_obj_equal(mrb, self, other)) return mrb_bool_value(1);
   if (mrb_obj_class(mrb, self) != mrb_obj_class(mrb, other))
   {
-    converter = mruby_float4_common_type(mrb, self, other);
-    self = mrb_funcall(mrb, self, converter, 0);
-    other = mrb_funcall(mrb, other, converter, 0);
+      mrb_raisef(mrb, E_TYPE_ERROR, "expected argument to be %S, %S given", mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, self)), mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, other)));
   }
 
   self_data = (struct mruby_float4_int*)DATA_PTR(self);
@@ -18546,7 +18479,6 @@ static mrb_value mruby_float4_ivec3_i_at(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_ivec3_i_eq(mrb_state *mrb, mrb_value self)
 {
-  const char *converter;
   mrb_value other;
   struct mruby_float4_int *self_data;
   struct mruby_float4_int *other_data;
@@ -18557,9 +18489,7 @@ static mrb_value mruby_float4_ivec3_i_eq(mrb_state *mrb, mrb_value self)
   if (mrb_obj_equal(mrb, self, other)) return mrb_bool_value(1);
   if (mrb_obj_class(mrb, self) != mrb_obj_class(mrb, other))
   {
-    converter = mruby_float4_common_type(mrb, self, other);
-    self = mrb_funcall(mrb, self, converter, 0);
-    other = mrb_funcall(mrb, other, converter, 0);
+      mrb_raisef(mrb, E_TYPE_ERROR, "expected argument to be %S, %S given", mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, self)), mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, other)));
   }
 
   self_data = (struct mruby_float4_int*)DATA_PTR(self);
@@ -22908,7 +22838,6 @@ static mrb_value mruby_float4_ivec4_i_at(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_ivec4_i_eq(mrb_state *mrb, mrb_value self)
 {
-  const char *converter;
   mrb_value other;
   struct mruby_float4_int *self_data;
   struct mruby_float4_int *other_data;
@@ -22919,9 +22848,7 @@ static mrb_value mruby_float4_ivec4_i_eq(mrb_state *mrb, mrb_value self)
   if (mrb_obj_equal(mrb, self, other)) return mrb_bool_value(1);
   if (mrb_obj_class(mrb, self) != mrb_obj_class(mrb, other))
   {
-    converter = mruby_float4_common_type(mrb, self, other);
-    self = mrb_funcall(mrb, self, converter, 0);
-    other = mrb_funcall(mrb, other, converter, 0);
+      mrb_raisef(mrb, E_TYPE_ERROR, "expected argument to be %S, %S given", mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, self)), mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, other)));
   }
 
   self_data = (struct mruby_float4_int*)DATA_PTR(self);
@@ -32470,7 +32397,6 @@ static mrb_value mruby_float4_bvec2_i_at(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_bvec2_i_eq(mrb_state *mrb, mrb_value self)
 {
-  const char *converter;
   mrb_value other;
   struct mruby_float4_bool *self_data;
   struct mruby_float4_bool *other_data;
@@ -32481,9 +32407,7 @@ static mrb_value mruby_float4_bvec2_i_eq(mrb_state *mrb, mrb_value self)
   if (mrb_obj_equal(mrb, self, other)) return mrb_bool_value(1);
   if (mrb_obj_class(mrb, self) != mrb_obj_class(mrb, other))
   {
-    converter = mruby_float4_common_type(mrb, self, other);
-    self = mrb_funcall(mrb, self, converter, 0);
-    other = mrb_funcall(mrb, other, converter, 0);
+      mrb_raisef(mrb, E_TYPE_ERROR, "expected argument to be %S, %S given", mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, self)), mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, other)));
   }
 
   self_data = (struct mruby_float4_bool*)DATA_PTR(self);
@@ -33309,7 +33233,6 @@ static mrb_value mruby_float4_bvec3_i_at(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_bvec3_i_eq(mrb_state *mrb, mrb_value self)
 {
-  const char *converter;
   mrb_value other;
   struct mruby_float4_bool *self_data;
   struct mruby_float4_bool *other_data;
@@ -33320,9 +33243,7 @@ static mrb_value mruby_float4_bvec3_i_eq(mrb_state *mrb, mrb_value self)
   if (mrb_obj_equal(mrb, self, other)) return mrb_bool_value(1);
   if (mrb_obj_class(mrb, self) != mrb_obj_class(mrb, other))
   {
-    converter = mruby_float4_common_type(mrb, self, other);
-    self = mrb_funcall(mrb, self, converter, 0);
-    other = mrb_funcall(mrb, other, converter, 0);
+      mrb_raisef(mrb, E_TYPE_ERROR, "expected argument to be %S, %S given", mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, self)), mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, other)));
   }
 
   self_data = (struct mruby_float4_bool*)DATA_PTR(self);
@@ -36271,7 +36192,6 @@ static mrb_value mruby_float4_bvec4_i_at(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_bvec4_i_eq(mrb_state *mrb, mrb_value self)
 {
-  const char *converter;
   mrb_value other;
   struct mruby_float4_bool *self_data;
   struct mruby_float4_bool *other_data;
@@ -36282,9 +36202,7 @@ static mrb_value mruby_float4_bvec4_i_eq(mrb_state *mrb, mrb_value self)
   if (mrb_obj_equal(mrb, self, other)) return mrb_bool_value(1);
   if (mrb_obj_class(mrb, self) != mrb_obj_class(mrb, other))
   {
-    converter = mruby_float4_common_type(mrb, self, other);
-    self = mrb_funcall(mrb, self, converter, 0);
-    other = mrb_funcall(mrb, other, converter, 0);
+      mrb_raisef(mrb, E_TYPE_ERROR, "expected argument to be %S, %S given", mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, self)), mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, other)));
   }
 
   self_data = (struct mruby_float4_bool*)DATA_PTR(self);

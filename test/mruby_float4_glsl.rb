@@ -137,25 +137,8 @@ assert('GLSL: vec4 -> vec4') do
   assert_equal(v[3], 4)
 end
 
-assert('GLSL: vec4 == vec2 (1)') do
-  assert_equal(vec4(1, 2), vec2(1, 2))
-end
-
-assert('GLSL: vec4 == vec2 (2)') do
-  assert_equal(vec4(1, 2, 0, 0), vec2(1, 2))
-end
-
-assert('GLSL: vec4 == vec2 (3)') do
-  assert_not_equal(vec4(1, 2, 3, 4), vec2(1, 2))
-end
-
 assert('GLSL: vec4 not ==') do
   assert_not_equal(vec4(1, 2, 3, 4), vec4(1, 2, 3, 5))
-end
-
-assert('GLSL: vec4 == ivec4') do
-  assert_equal(vec4(1, 2, 3, 4), ivec4(1, 2, 3, 4))
-  assert_equal(ivec4(1, 2, 3, 4), vec4(1, 2, 3, 4))
 end
 
 assert('GLSL: vec4 floor') do
@@ -523,7 +506,7 @@ end
 assert('GLSL: vec2 swizzle') do
   vec = vec2(1.0, 2.0)
   assert_equal(vec.yx, vec2(2.0, 1.0))
-  assert_equal(vec.xy, vec3(1.0, 2.0))
+  assert_equal(vec.xy, vec2(1.0, 2.0))
   assert_equal(vec.xxyy, vec4(1.0, 1.0, 2.0, 2.0))
 end
 
