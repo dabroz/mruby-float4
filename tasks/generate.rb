@@ -851,7 +851,9 @@ end
 
 puts "
 void mrb_mruby_float4_gem_init(mrb_state *mrb)
-{"
+{
+  struct RClass *base_class = mrb_define_class(mrb, \"BaseVec\", mrb->object_class);
+"
 
 TYPES.each do |type_name, type_data|
   SIZES.each do |size|
@@ -864,7 +866,7 @@ TYPES.each do |type_name, type_data|
     writer.write_functions
 
     puts
-    puts "  #{klass_name} = mrb_define_class(mrb, \"#{klass}\", mrb->object_class);"
+    puts "  #{klass_name} = mrb_define_class(mrb, \"#{klass}\", base_class);"
     puts "  MRB_SET_INSTANCE_TT(#{klass_name}, MRB_TT_DATA);"
 
     methods = writer.functions

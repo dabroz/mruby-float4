@@ -43868,8 +43868,9 @@ static mrb_value mruby_float4_bvec4_i_wwww(mrb_state *mrb, mrb_value self)
 
 void mrb_mruby_float4_gem_init(mrb_state *mrb)
 {
+  struct RClass *base_class = mrb_define_class(mrb, "BaseVec", mrb->object_class);
 
-  mruby_float4_klass_vec2 = mrb_define_class(mrb, "Vec2", mrb->object_class);
+  mruby_float4_klass_vec2 = mrb_define_class(mrb, "Vec2", base_class);
   MRB_SET_INSTANCE_TT(mruby_float4_klass_vec2, MRB_TT_DATA);
   mrb_define_method(mrb, mruby_float4_klass_vec2, "*", mruby_float4_vec2_i_mul, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "+", mruby_float4_vec2_i_add, MRB_ARGS_ARG(1, 0));
@@ -43954,7 +43955,7 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_vec2, "yyyx", mruby_float4_vec2_i_yyyx, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "yyyy", mruby_float4_vec2_i_yyyy, MRB_ARGS_ARG(0, 0));
 
-  mruby_float4_klass_vec3 = mrb_define_class(mrb, "Vec3", mrb->object_class);
+  mruby_float4_klass_vec3 = mrb_define_class(mrb, "Vec3", base_class);
   MRB_SET_INSTANCE_TT(mruby_float4_klass_vec3, MRB_TT_DATA);
   mrb_define_method(mrb, mruby_float4_klass_vec3, "*", mruby_float4_vec3_i_mul, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "+", mruby_float4_vec3_i_add, MRB_ARGS_ARG(1, 0));
@@ -44129,7 +44130,7 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_vec3, "zzzy", mruby_float4_vec3_i_zzzy, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "zzzz", mruby_float4_vec3_i_zzzz, MRB_ARGS_ARG(0, 0));
 
-  mruby_float4_klass_vec4 = mrb_define_class(mrb, "Vec4", mrb->object_class);
+  mruby_float4_klass_vec4 = mrb_define_class(mrb, "Vec4", base_class);
   MRB_SET_INSTANCE_TT(mruby_float4_klass_vec4, MRB_TT_DATA);
   mrb_define_method(mrb, mruby_float4_klass_vec4, "*", mruby_float4_vec4_i_mul, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "+", mruby_float4_vec4_i_add, MRB_ARGS_ARG(1, 0));
@@ -44523,7 +44524,7 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_vec4, "zzzy", mruby_float4_vec4_i_zzzy, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "zzzz", mruby_float4_vec4_i_zzzz, MRB_ARGS_ARG(0, 0));
 
-  mruby_float4_klass_ivec2 = mrb_define_class(mrb, "IVec2", mrb->object_class);
+  mruby_float4_klass_ivec2 = mrb_define_class(mrb, "IVec2", base_class);
   MRB_SET_INSTANCE_TT(mruby_float4_klass_ivec2, MRB_TT_DATA);
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "*", mruby_float4_ivec2_i_mul, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "+", mruby_float4_ivec2_i_add, MRB_ARGS_ARG(1, 0));
@@ -44608,7 +44609,7 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "yyyx", mruby_float4_ivec2_i_yyyx, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "yyyy", mruby_float4_ivec2_i_yyyy, MRB_ARGS_ARG(0, 0));
 
-  mruby_float4_klass_ivec3 = mrb_define_class(mrb, "IVec3", mrb->object_class);
+  mruby_float4_klass_ivec3 = mrb_define_class(mrb, "IVec3", base_class);
   MRB_SET_INSTANCE_TT(mruby_float4_klass_ivec3, MRB_TT_DATA);
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "*", mruby_float4_ivec3_i_mul, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "+", mruby_float4_ivec3_i_add, MRB_ARGS_ARG(1, 0));
@@ -44783,7 +44784,7 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "zzzy", mruby_float4_ivec3_i_zzzy, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "zzzz", mruby_float4_ivec3_i_zzzz, MRB_ARGS_ARG(0, 0));
 
-  mruby_float4_klass_ivec4 = mrb_define_class(mrb, "IVec4", mrb->object_class);
+  mruby_float4_klass_ivec4 = mrb_define_class(mrb, "IVec4", base_class);
   MRB_SET_INSTANCE_TT(mruby_float4_klass_ivec4, MRB_TT_DATA);
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "*", mruby_float4_ivec4_i_mul, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "+", mruby_float4_ivec4_i_add, MRB_ARGS_ARG(1, 0));
@@ -45177,7 +45178,7 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "zzzy", mruby_float4_ivec4_i_zzzy, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "zzzz", mruby_float4_ivec4_i_zzzz, MRB_ARGS_ARG(0, 0));
 
-  mruby_float4_klass_bvec2 = mrb_define_class(mrb, "BVec2", mrb->object_class);
+  mruby_float4_klass_bvec2 = mrb_define_class(mrb, "BVec2", base_class);
   MRB_SET_INSTANCE_TT(mruby_float4_klass_bvec2, MRB_TT_DATA);
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "==", mruby_float4_bvec2_i_eq, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "[]", mruby_float4_bvec2_i_at, MRB_ARGS_ARG(1, 0));
@@ -45220,7 +45221,7 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "yyyx", mruby_float4_bvec2_i_yyyx, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "yyyy", mruby_float4_bvec2_i_yyyy, MRB_ARGS_ARG(0, 0));
 
-  mruby_float4_klass_bvec3 = mrb_define_class(mrb, "BVec3", mrb->object_class);
+  mruby_float4_klass_bvec3 = mrb_define_class(mrb, "BVec3", base_class);
   MRB_SET_INSTANCE_TT(mruby_float4_klass_bvec3, MRB_TT_DATA);
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "==", mruby_float4_bvec3_i_eq, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "[]", mruby_float4_bvec3_i_at, MRB_ARGS_ARG(1, 0));
@@ -45353,7 +45354,7 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "zzzy", mruby_float4_bvec3_i_zzzy, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "zzzz", mruby_float4_bvec3_i_zzzz, MRB_ARGS_ARG(0, 0));
 
-  mruby_float4_klass_bvec4 = mrb_define_class(mrb, "BVec4", mrb->object_class);
+  mruby_float4_klass_bvec4 = mrb_define_class(mrb, "BVec4", base_class);
   MRB_SET_INSTANCE_TT(mruby_float4_klass_bvec4, MRB_TT_DATA);
   mrb_define_method(mrb, mruby_float4_klass_bvec4, "==", mruby_float4_bvec4_i_eq, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec4, "[]", mruby_float4_bvec4_i_at, MRB_ARGS_ARG(1, 0));
