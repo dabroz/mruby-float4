@@ -53,18 +53,6 @@ static struct mrb_data_type mruby_float4_data_type =
   mrb_free
 };'
 
-puts
-
-TYPES.each do |type_name, type_data|
-  SIZES.each do |size|
-    klass = "#{type_name}#{size}"
-    klass_c = klass.downcase
-    klass_name = "mruby_float4_klass_#{klass_c}"
-
-    puts "struct RClass *#{klass_name};"
-  end
-end
-
 puts "
 static float mruby_float4_signf(float value)
 {
@@ -317,8 +305,8 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
   end
 
   def write_converter(c_type)
-  	c_size = size
-    klass = "#{c_type.downcase}#{c_size}"
+    c_size = size
+    klass = "#{c_type}#{c_size}"
     method = "to_#{c_type.downcase}"
     write_function(method) do
       min_size = [c_size, size].min
@@ -329,10 +317,18 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
           "mrb_funcall(mrb, self, \"[]\", 1, mrb_fixnum_value(#{index}))"
         end
         cargs = args.join(",\n    ")
-        puts "  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_#{klass}), \"new\", #{args.size},
+        puts "  return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, \"#{klass}\")), \"new\", #{args.size},
     #{cargs});"
       end
     end
+  end
+
+  def print_alloc_ret(klass = nil)
+    klass_object = klass ? "mrb_class_get(mrb, \"#{klass}\")" : 'mrb_obj_class(mrb, self)'
+    puts "  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, #{klass_object});"
+    puts "  ret = mrb_obj_value(ret_object);"
+    puts "  ret_data = (struct #{data_name}*)mrb_malloc(mrb, 16);"
+    puts "  mrb_data_init(ret, ret_data, &mruby_float4_data_type);"
   end
 
   def write_op(op_name, c_op, c_name = nil)
@@ -344,12 +340,9 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
 
   mruby_float4_check_argc(mrb, 0, 0);
   data = (struct #{data_name}*)DATA_PTR(self);
-  mrb_assert(data);
-
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
-  ret = mrb_obj_value(ret_object);
-  ret_data = (struct #{data_name}*)mrb_malloc(mrb, 16);
-  mrb_data_init(ret, ret_data, &mruby_float4_data_type);"
+  mrb_assert(data);"
+      puts
+      print_alloc_ret
       puts
       (0...size).each do |index|
         puts "  ret_data->data[#{index}] = #{c_op}(data->data[#{index}]);"
@@ -386,13 +379,10 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "    other_data = (struct #{data_name}*)DATA_PTR(other);"
       puts "    mrb_assert(other_data);"
       puts "  }"
-      puts "  data = (struct #{data_name}*)DATA_PTR(self);
-  mrb_assert(data);
-
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
-  ret = mrb_obj_value(ret_object);
-  ret_data = (struct #{data_name}*)mrb_malloc(mrb, 16);
-  mrb_data_init(ret, ret_data, &mruby_float4_data_type);"
+      puts "  data = (struct #{data_name}*)DATA_PTR(self);"
+      puts "  mrb_assert(data);"
+      puts
+      print_alloc_ret
       puts
       (0...size).each do |index|
         puts "  ret_data->data[#{index}] = #{c_op}(data->data[#{index}], use_vector ? other_data->data[#{index}] : other_value);"
@@ -447,13 +437,10 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "    other_data2 = (struct #{data_name}*)DATA_PTR(other2);"
       puts "    mrb_assert(other_data2);"
       puts "  }"
-      puts "  data = (struct #{data_name}*)DATA_PTR(self);
-  mrb_assert(data);
-
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
-  ret = mrb_obj_value(ret_object);
-  ret_data = (struct #{data_name}*)mrb_malloc(mrb, 16);
-  mrb_data_init(ret, ret_data, &mruby_float4_data_type);"
+      puts "  data = (struct #{data_name}*)DATA_PTR(self);"
+      puts "  mrb_assert(data);"
+      puts
+      print_alloc_ret
       puts
       (0...size).each do |index|
         puts "  ret_data->data[#{index}] = #{c_op}(data->data[#{index}], use_vector ? other_data->data[#{index}] : other_value, use_vector2 ? other_data2->data[#{index}] : other_value2);"
@@ -516,10 +503,7 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "  data = (struct #{data_name}*)DATA_PTR(self);"
       puts "  mrb_assert(data);"
       if type == :normalize
-        puts "  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
-  ret = mrb_obj_value(ret_object);
-  ret_data = (struct #{data_name}*)mrb_malloc(mrb, 16);
-  mrb_data_init(ret, ret_data, &mruby_float4_data_type);"
+        print_alloc_ret
       end
       puts
       if type == :normalize
@@ -576,13 +560,10 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "  data = (struct #{data_name}*)DATA_PTR(self);
   mrb_assert(data);
   I = data->data;
-  N = other_data->data;
-
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
-  ret = mrb_obj_value(ret_object);
-  ret_data = (struct #{data_name}*)mrb_malloc(mrb, 16);
-  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
-  R = ret_data->data;"
+  N = other_data->data;"
+      puts
+      print_alloc_ret
+      puts "  R = ret_data->data;"
       puts
       puts "  dot = 0.0f;"
       (0...size).each do |index|
@@ -623,13 +604,10 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "  data = (struct #{data_name}*)DATA_PTR(self);
   mrb_assert(data);
   I = data->data;
-  N = other_data->data;
-
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
-  ret = mrb_obj_value(ret_object);
-  ret_data = (struct #{data_name}*)mrb_malloc(mrb, 16);
-  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
-  R = ret_data->data;"
+  N = other_data->data;"
+      puts
+      print_alloc_ret
+      puts "  R = ret_data->data;"
       puts
       puts "  dot = 0.0f;"
       (0...size).each do |index|
@@ -658,8 +636,6 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
     name = args.join
     sw_size = args.count
     sw_klass = "#{type_name}#{sw_size}"
-    sw_klass_c = sw_klass.downcase
-    sw_klass_name = "mruby_float4_klass_#{sw_klass_c}"
     sw_indexes = args.map do |sw|
       members.index(sw)
     end
@@ -671,12 +647,9 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
 
   mruby_float4_check_argc(mrb, 0, 0);
   data = (struct #{data_name}*)DATA_PTR(self);
-  mrb_assert(data);
-
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, #{sw_klass_name});
-  ret = mrb_obj_value(ret_object);
-  ret_data = (struct #{data_name}*)mrb_malloc(mrb, 16);
-  mrb_data_init(ret, ret_data, &mruby_float4_data_type);"
+  mrb_assert(data);"
+      puts
+      print_alloc_ret(sw_klass)
       puts
       (0...sw_size).each do |index|
         puts "  ret_data->data[#{index}] = data->data[#{sw_indexes[index]}];"
@@ -749,13 +722,10 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "  data = (struct #{data_name}*)DATA_PTR(self);
   mrb_assert(data);
   A = data->data;
-  B = other_data->data;
-
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
-  ret = mrb_obj_value(ret_object);
-  ret_data = (struct #{data_name}*)mrb_malloc(mrb, 16);
-  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
-  R = ret_data->data;"
+  B = other_data->data;"
+      puts
+      print_alloc_ret
+      puts "  R = ret_data->data;"
       puts
       puts "  R[0] = A[1] * B[2] - A[2] * B[1];"
       puts "  R[1] = A[2] * B[0] - A[0] * B[2];"
@@ -854,6 +824,16 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
 {
   struct RClass *base_class = mrb_define_class(mrb, \"BaseVec\", mrb->object_class);
 "
+
+TYPES.each do |type_name, type_data|
+  SIZES.each do |size|
+    klass = "#{type_name}#{size}"
+    klass_c = klass.downcase
+    klass_name = "mruby_float4_klass_#{klass_c}"
+
+    puts "struct RClass *#{klass_name};"
+  end
+end
 
 TYPES.each do |type_name, type_data|
   SIZES.each do |size|

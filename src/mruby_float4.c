@@ -34,16 +34,6 @@ static struct mrb_data_type mruby_float4_data_type =
   mrb_free
 };
 
-struct RClass *mruby_float4_klass_vec2;
-struct RClass *mruby_float4_klass_vec3;
-struct RClass *mruby_float4_klass_vec4;
-struct RClass *mruby_float4_klass_ivec2;
-struct RClass *mruby_float4_klass_ivec3;
-struct RClass *mruby_float4_klass_ivec4;
-struct RClass *mruby_float4_klass_bvec2;
-struct RClass *mruby_float4_klass_bvec3;
-struct RClass *mruby_float4_klass_bvec4;
-
 static float mruby_float4_signf(float value)
 {
   if (value > 0.0f) return 1.0f;
@@ -256,14 +246,14 @@ static mrb_value mruby_float4_vec2_i_to_vec(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_vec2_i_to_ivec(mrb_state *mrb, mrb_value self)
 {
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec2), "new", 2,
+  return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "IVec2")), "new", 2,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
 }
 
 static mrb_value mruby_float4_vec2_i_to_bvec(mrb_state *mrb, mrb_value self)
 {
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec2), "new", 2,
+  return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "BVec2")), "new", 2,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
 }
@@ -1615,7 +1605,7 @@ static mrb_value mruby_float4_vec2_i_xx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -1637,7 +1627,7 @@ static mrb_value mruby_float4_vec2_i_xxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -1660,7 +1650,7 @@ static mrb_value mruby_float4_vec2_i_xxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -1684,7 +1674,7 @@ static mrb_value mruby_float4_vec2_i_xxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -1708,7 +1698,7 @@ static mrb_value mruby_float4_vec2_i_xxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -1731,7 +1721,7 @@ static mrb_value mruby_float4_vec2_i_xxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -1755,7 +1745,7 @@ static mrb_value mruby_float4_vec2_i_xxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -1779,7 +1769,7 @@ static mrb_value mruby_float4_vec2_i_xy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -1801,7 +1791,7 @@ static mrb_value mruby_float4_vec2_i_xyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -1824,7 +1814,7 @@ static mrb_value mruby_float4_vec2_i_xyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -1848,7 +1838,7 @@ static mrb_value mruby_float4_vec2_i_xyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -1872,7 +1862,7 @@ static mrb_value mruby_float4_vec2_i_xyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -1895,7 +1885,7 @@ static mrb_value mruby_float4_vec2_i_xyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -1919,7 +1909,7 @@ static mrb_value mruby_float4_vec2_i_xyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -1943,7 +1933,7 @@ static mrb_value mruby_float4_vec2_i_yx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -1965,7 +1955,7 @@ static mrb_value mruby_float4_vec2_i_yxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -1988,7 +1978,7 @@ static mrb_value mruby_float4_vec2_i_yxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -2012,7 +2002,7 @@ static mrb_value mruby_float4_vec2_i_yxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -2036,7 +2026,7 @@ static mrb_value mruby_float4_vec2_i_yxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -2059,7 +2049,7 @@ static mrb_value mruby_float4_vec2_i_yxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -2083,7 +2073,7 @@ static mrb_value mruby_float4_vec2_i_yxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -2107,7 +2097,7 @@ static mrb_value mruby_float4_vec2_i_yy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -2129,7 +2119,7 @@ static mrb_value mruby_float4_vec2_i_yyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -2152,7 +2142,7 @@ static mrb_value mruby_float4_vec2_i_yyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -2176,7 +2166,7 @@ static mrb_value mruby_float4_vec2_i_yyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -2200,7 +2190,7 @@ static mrb_value mruby_float4_vec2_i_yyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -2223,7 +2213,7 @@ static mrb_value mruby_float4_vec2_i_yyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -2247,7 +2237,7 @@ static mrb_value mruby_float4_vec2_i_yyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -2387,7 +2377,7 @@ static mrb_value mruby_float4_vec3_i_to_vec(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_vec3_i_to_ivec(mrb_state *mrb, mrb_value self)
 {
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec3), "new", 3,
+  return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "IVec3")), "new", 3,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
@@ -2395,7 +2385,7 @@ static mrb_value mruby_float4_vec3_i_to_ivec(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_vec3_i_to_bvec(mrb_state *mrb, mrb_value self)
 {
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec3), "new", 3,
+  return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "BVec3")), "new", 3,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
@@ -3812,7 +3802,7 @@ static mrb_value mruby_float4_vec3_i_xx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -3834,7 +3824,7 @@ static mrb_value mruby_float4_vec3_i_xxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -3857,7 +3847,7 @@ static mrb_value mruby_float4_vec3_i_xxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -3881,7 +3871,7 @@ static mrb_value mruby_float4_vec3_i_xxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -3905,7 +3895,7 @@ static mrb_value mruby_float4_vec3_i_xxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -3929,7 +3919,7 @@ static mrb_value mruby_float4_vec3_i_xxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -3952,7 +3942,7 @@ static mrb_value mruby_float4_vec3_i_xxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -3976,7 +3966,7 @@ static mrb_value mruby_float4_vec3_i_xxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4000,7 +3990,7 @@ static mrb_value mruby_float4_vec3_i_xxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4024,7 +4014,7 @@ static mrb_value mruby_float4_vec3_i_xxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4047,7 +4037,7 @@ static mrb_value mruby_float4_vec3_i_xxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4071,7 +4061,7 @@ static mrb_value mruby_float4_vec3_i_xxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4095,7 +4085,7 @@ static mrb_value mruby_float4_vec3_i_xxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4119,7 +4109,7 @@ static mrb_value mruby_float4_vec3_i_xy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4141,7 +4131,7 @@ static mrb_value mruby_float4_vec3_i_xyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4164,7 +4154,7 @@ static mrb_value mruby_float4_vec3_i_xyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4188,7 +4178,7 @@ static mrb_value mruby_float4_vec3_i_xyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4212,7 +4202,7 @@ static mrb_value mruby_float4_vec3_i_xyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4236,7 +4226,7 @@ static mrb_value mruby_float4_vec3_i_xyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4259,7 +4249,7 @@ static mrb_value mruby_float4_vec3_i_xyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4283,7 +4273,7 @@ static mrb_value mruby_float4_vec3_i_xyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4307,7 +4297,7 @@ static mrb_value mruby_float4_vec3_i_xyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4331,7 +4321,7 @@ static mrb_value mruby_float4_vec3_i_xyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4354,7 +4344,7 @@ static mrb_value mruby_float4_vec3_i_xyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4378,7 +4368,7 @@ static mrb_value mruby_float4_vec3_i_xyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4402,7 +4392,7 @@ static mrb_value mruby_float4_vec3_i_xyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4426,7 +4416,7 @@ static mrb_value mruby_float4_vec3_i_xz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4448,7 +4438,7 @@ static mrb_value mruby_float4_vec3_i_xzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4471,7 +4461,7 @@ static mrb_value mruby_float4_vec3_i_xzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4495,7 +4485,7 @@ static mrb_value mruby_float4_vec3_i_xzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4519,7 +4509,7 @@ static mrb_value mruby_float4_vec3_i_xzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4543,7 +4533,7 @@ static mrb_value mruby_float4_vec3_i_xzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4566,7 +4556,7 @@ static mrb_value mruby_float4_vec3_i_xzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4590,7 +4580,7 @@ static mrb_value mruby_float4_vec3_i_xzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4614,7 +4604,7 @@ static mrb_value mruby_float4_vec3_i_xzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4638,7 +4628,7 @@ static mrb_value mruby_float4_vec3_i_xzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4661,7 +4651,7 @@ static mrb_value mruby_float4_vec3_i_xzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4685,7 +4675,7 @@ static mrb_value mruby_float4_vec3_i_xzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4709,7 +4699,7 @@ static mrb_value mruby_float4_vec3_i_xzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4733,7 +4723,7 @@ static mrb_value mruby_float4_vec3_i_yx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4755,7 +4745,7 @@ static mrb_value mruby_float4_vec3_i_yxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4778,7 +4768,7 @@ static mrb_value mruby_float4_vec3_i_yxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4802,7 +4792,7 @@ static mrb_value mruby_float4_vec3_i_yxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4826,7 +4816,7 @@ static mrb_value mruby_float4_vec3_i_yxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4850,7 +4840,7 @@ static mrb_value mruby_float4_vec3_i_yxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4873,7 +4863,7 @@ static mrb_value mruby_float4_vec3_i_yxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4897,7 +4887,7 @@ static mrb_value mruby_float4_vec3_i_yxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4921,7 +4911,7 @@ static mrb_value mruby_float4_vec3_i_yxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4945,7 +4935,7 @@ static mrb_value mruby_float4_vec3_i_yxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4968,7 +4958,7 @@ static mrb_value mruby_float4_vec3_i_yxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -4992,7 +4982,7 @@ static mrb_value mruby_float4_vec3_i_yxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5016,7 +5006,7 @@ static mrb_value mruby_float4_vec3_i_yxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5040,7 +5030,7 @@ static mrb_value mruby_float4_vec3_i_yy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5062,7 +5052,7 @@ static mrb_value mruby_float4_vec3_i_yyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5085,7 +5075,7 @@ static mrb_value mruby_float4_vec3_i_yyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5109,7 +5099,7 @@ static mrb_value mruby_float4_vec3_i_yyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5133,7 +5123,7 @@ static mrb_value mruby_float4_vec3_i_yyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5157,7 +5147,7 @@ static mrb_value mruby_float4_vec3_i_yyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5180,7 +5170,7 @@ static mrb_value mruby_float4_vec3_i_yyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5204,7 +5194,7 @@ static mrb_value mruby_float4_vec3_i_yyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5228,7 +5218,7 @@ static mrb_value mruby_float4_vec3_i_yyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5252,7 +5242,7 @@ static mrb_value mruby_float4_vec3_i_yyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5275,7 +5265,7 @@ static mrb_value mruby_float4_vec3_i_yyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5299,7 +5289,7 @@ static mrb_value mruby_float4_vec3_i_yyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5323,7 +5313,7 @@ static mrb_value mruby_float4_vec3_i_yyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5347,7 +5337,7 @@ static mrb_value mruby_float4_vec3_i_yz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5369,7 +5359,7 @@ static mrb_value mruby_float4_vec3_i_yzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5392,7 +5382,7 @@ static mrb_value mruby_float4_vec3_i_yzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5416,7 +5406,7 @@ static mrb_value mruby_float4_vec3_i_yzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5440,7 +5430,7 @@ static mrb_value mruby_float4_vec3_i_yzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5464,7 +5454,7 @@ static mrb_value mruby_float4_vec3_i_yzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5487,7 +5477,7 @@ static mrb_value mruby_float4_vec3_i_yzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5511,7 +5501,7 @@ static mrb_value mruby_float4_vec3_i_yzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5535,7 +5525,7 @@ static mrb_value mruby_float4_vec3_i_yzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5559,7 +5549,7 @@ static mrb_value mruby_float4_vec3_i_yzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5582,7 +5572,7 @@ static mrb_value mruby_float4_vec3_i_yzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5606,7 +5596,7 @@ static mrb_value mruby_float4_vec3_i_yzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5630,7 +5620,7 @@ static mrb_value mruby_float4_vec3_i_yzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5654,7 +5644,7 @@ static mrb_value mruby_float4_vec3_i_zx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5676,7 +5666,7 @@ static mrb_value mruby_float4_vec3_i_zxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5699,7 +5689,7 @@ static mrb_value mruby_float4_vec3_i_zxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5723,7 +5713,7 @@ static mrb_value mruby_float4_vec3_i_zxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5747,7 +5737,7 @@ static mrb_value mruby_float4_vec3_i_zxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5771,7 +5761,7 @@ static mrb_value mruby_float4_vec3_i_zxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5794,7 +5784,7 @@ static mrb_value mruby_float4_vec3_i_zxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5818,7 +5808,7 @@ static mrb_value mruby_float4_vec3_i_zxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5842,7 +5832,7 @@ static mrb_value mruby_float4_vec3_i_zxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5866,7 +5856,7 @@ static mrb_value mruby_float4_vec3_i_zxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5889,7 +5879,7 @@ static mrb_value mruby_float4_vec3_i_zxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5913,7 +5903,7 @@ static mrb_value mruby_float4_vec3_i_zxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5937,7 +5927,7 @@ static mrb_value mruby_float4_vec3_i_zxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5961,7 +5951,7 @@ static mrb_value mruby_float4_vec3_i_zy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -5983,7 +5973,7 @@ static mrb_value mruby_float4_vec3_i_zyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6006,7 +5996,7 @@ static mrb_value mruby_float4_vec3_i_zyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6030,7 +6020,7 @@ static mrb_value mruby_float4_vec3_i_zyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6054,7 +6044,7 @@ static mrb_value mruby_float4_vec3_i_zyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6078,7 +6068,7 @@ static mrb_value mruby_float4_vec3_i_zyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6101,7 +6091,7 @@ static mrb_value mruby_float4_vec3_i_zyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6125,7 +6115,7 @@ static mrb_value mruby_float4_vec3_i_zyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6149,7 +6139,7 @@ static mrb_value mruby_float4_vec3_i_zyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6173,7 +6163,7 @@ static mrb_value mruby_float4_vec3_i_zyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6196,7 +6186,7 @@ static mrb_value mruby_float4_vec3_i_zyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6220,7 +6210,7 @@ static mrb_value mruby_float4_vec3_i_zyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6244,7 +6234,7 @@ static mrb_value mruby_float4_vec3_i_zyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6268,7 +6258,7 @@ static mrb_value mruby_float4_vec3_i_zz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6290,7 +6280,7 @@ static mrb_value mruby_float4_vec3_i_zzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6313,7 +6303,7 @@ static mrb_value mruby_float4_vec3_i_zzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6337,7 +6327,7 @@ static mrb_value mruby_float4_vec3_i_zzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6361,7 +6351,7 @@ static mrb_value mruby_float4_vec3_i_zzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6385,7 +6375,7 @@ static mrb_value mruby_float4_vec3_i_zzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6408,7 +6398,7 @@ static mrb_value mruby_float4_vec3_i_zzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6432,7 +6422,7 @@ static mrb_value mruby_float4_vec3_i_zzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6456,7 +6446,7 @@ static mrb_value mruby_float4_vec3_i_zzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6480,7 +6470,7 @@ static mrb_value mruby_float4_vec3_i_zzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6503,7 +6493,7 @@ static mrb_value mruby_float4_vec3_i_zzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6527,7 +6517,7 @@ static mrb_value mruby_float4_vec3_i_zzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6551,7 +6541,7 @@ static mrb_value mruby_float4_vec3_i_zzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -6702,7 +6692,7 @@ static mrb_value mruby_float4_vec4_i_to_vec(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_vec4_i_to_ivec(mrb_state *mrb, mrb_value self)
 {
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec4), "new", 4,
+  return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "IVec4")), "new", 4,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)),
@@ -6711,7 +6701,7 @@ static mrb_value mruby_float4_vec4_i_to_ivec(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_vec4_i_to_bvec(mrb_state *mrb, mrb_value self)
 {
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec4), "new", 4,
+  return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "BVec4")), "new", 4,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)),
@@ -8141,7 +8131,7 @@ static mrb_value mruby_float4_vec4_i_xx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8163,7 +8153,7 @@ static mrb_value mruby_float4_vec4_i_xxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8186,7 +8176,7 @@ static mrb_value mruby_float4_vec4_i_xxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8210,7 +8200,7 @@ static mrb_value mruby_float4_vec4_i_xxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8234,7 +8224,7 @@ static mrb_value mruby_float4_vec4_i_xxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8258,7 +8248,7 @@ static mrb_value mruby_float4_vec4_i_xxxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8282,7 +8272,7 @@ static mrb_value mruby_float4_vec4_i_xxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8305,7 +8295,7 @@ static mrb_value mruby_float4_vec4_i_xxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8329,7 +8319,7 @@ static mrb_value mruby_float4_vec4_i_xxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8353,7 +8343,7 @@ static mrb_value mruby_float4_vec4_i_xxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8377,7 +8367,7 @@ static mrb_value mruby_float4_vec4_i_xxyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8401,7 +8391,7 @@ static mrb_value mruby_float4_vec4_i_xxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8424,7 +8414,7 @@ static mrb_value mruby_float4_vec4_i_xxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8448,7 +8438,7 @@ static mrb_value mruby_float4_vec4_i_xxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8472,7 +8462,7 @@ static mrb_value mruby_float4_vec4_i_xxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8496,7 +8486,7 @@ static mrb_value mruby_float4_vec4_i_xxzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8520,7 +8510,7 @@ static mrb_value mruby_float4_vec4_i_xxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8543,7 +8533,7 @@ static mrb_value mruby_float4_vec4_i_xxwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8567,7 +8557,7 @@ static mrb_value mruby_float4_vec4_i_xxwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8591,7 +8581,7 @@ static mrb_value mruby_float4_vec4_i_xxwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8615,7 +8605,7 @@ static mrb_value mruby_float4_vec4_i_xxww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8639,7 +8629,7 @@ static mrb_value mruby_float4_vec4_i_xy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8661,7 +8651,7 @@ static mrb_value mruby_float4_vec4_i_xyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8684,7 +8674,7 @@ static mrb_value mruby_float4_vec4_i_xyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8708,7 +8698,7 @@ static mrb_value mruby_float4_vec4_i_xyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8732,7 +8722,7 @@ static mrb_value mruby_float4_vec4_i_xyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8756,7 +8746,7 @@ static mrb_value mruby_float4_vec4_i_xyxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8780,7 +8770,7 @@ static mrb_value mruby_float4_vec4_i_xyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8803,7 +8793,7 @@ static mrb_value mruby_float4_vec4_i_xyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8827,7 +8817,7 @@ static mrb_value mruby_float4_vec4_i_xyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8851,7 +8841,7 @@ static mrb_value mruby_float4_vec4_i_xyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8875,7 +8865,7 @@ static mrb_value mruby_float4_vec4_i_xyyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8899,7 +8889,7 @@ static mrb_value mruby_float4_vec4_i_xyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8922,7 +8912,7 @@ static mrb_value mruby_float4_vec4_i_xyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8946,7 +8936,7 @@ static mrb_value mruby_float4_vec4_i_xyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8970,7 +8960,7 @@ static mrb_value mruby_float4_vec4_i_xyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -8994,7 +8984,7 @@ static mrb_value mruby_float4_vec4_i_xyzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9018,7 +9008,7 @@ static mrb_value mruby_float4_vec4_i_xyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9041,7 +9031,7 @@ static mrb_value mruby_float4_vec4_i_xywx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9065,7 +9055,7 @@ static mrb_value mruby_float4_vec4_i_xywy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9089,7 +9079,7 @@ static mrb_value mruby_float4_vec4_i_xywz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9113,7 +9103,7 @@ static mrb_value mruby_float4_vec4_i_xyww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9137,7 +9127,7 @@ static mrb_value mruby_float4_vec4_i_xz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9159,7 +9149,7 @@ static mrb_value mruby_float4_vec4_i_xzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9182,7 +9172,7 @@ static mrb_value mruby_float4_vec4_i_xzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9206,7 +9196,7 @@ static mrb_value mruby_float4_vec4_i_xzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9230,7 +9220,7 @@ static mrb_value mruby_float4_vec4_i_xzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9254,7 +9244,7 @@ static mrb_value mruby_float4_vec4_i_xzxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9278,7 +9268,7 @@ static mrb_value mruby_float4_vec4_i_xzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9301,7 +9291,7 @@ static mrb_value mruby_float4_vec4_i_xzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9325,7 +9315,7 @@ static mrb_value mruby_float4_vec4_i_xzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9349,7 +9339,7 @@ static mrb_value mruby_float4_vec4_i_xzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9373,7 +9363,7 @@ static mrb_value mruby_float4_vec4_i_xzyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9397,7 +9387,7 @@ static mrb_value mruby_float4_vec4_i_xzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9420,7 +9410,7 @@ static mrb_value mruby_float4_vec4_i_xzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9444,7 +9434,7 @@ static mrb_value mruby_float4_vec4_i_xzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9468,7 +9458,7 @@ static mrb_value mruby_float4_vec4_i_xzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9492,7 +9482,7 @@ static mrb_value mruby_float4_vec4_i_xzzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9516,7 +9506,7 @@ static mrb_value mruby_float4_vec4_i_xzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9539,7 +9529,7 @@ static mrb_value mruby_float4_vec4_i_xzwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9563,7 +9553,7 @@ static mrb_value mruby_float4_vec4_i_xzwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9587,7 +9577,7 @@ static mrb_value mruby_float4_vec4_i_xzwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9611,7 +9601,7 @@ static mrb_value mruby_float4_vec4_i_xzww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9635,7 +9625,7 @@ static mrb_value mruby_float4_vec4_i_xw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9657,7 +9647,7 @@ static mrb_value mruby_float4_vec4_i_xwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9680,7 +9670,7 @@ static mrb_value mruby_float4_vec4_i_xwxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9704,7 +9694,7 @@ static mrb_value mruby_float4_vec4_i_xwxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9728,7 +9718,7 @@ static mrb_value mruby_float4_vec4_i_xwxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9752,7 +9742,7 @@ static mrb_value mruby_float4_vec4_i_xwxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9776,7 +9766,7 @@ static mrb_value mruby_float4_vec4_i_xwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9799,7 +9789,7 @@ static mrb_value mruby_float4_vec4_i_xwyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9823,7 +9813,7 @@ static mrb_value mruby_float4_vec4_i_xwyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9847,7 +9837,7 @@ static mrb_value mruby_float4_vec4_i_xwyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9871,7 +9861,7 @@ static mrb_value mruby_float4_vec4_i_xwyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9895,7 +9885,7 @@ static mrb_value mruby_float4_vec4_i_xwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9918,7 +9908,7 @@ static mrb_value mruby_float4_vec4_i_xwzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9942,7 +9932,7 @@ static mrb_value mruby_float4_vec4_i_xwzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9966,7 +9956,7 @@ static mrb_value mruby_float4_vec4_i_xwzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -9990,7 +9980,7 @@ static mrb_value mruby_float4_vec4_i_xwzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10014,7 +10004,7 @@ static mrb_value mruby_float4_vec4_i_xww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10037,7 +10027,7 @@ static mrb_value mruby_float4_vec4_i_xwwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10061,7 +10051,7 @@ static mrb_value mruby_float4_vec4_i_xwwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10085,7 +10075,7 @@ static mrb_value mruby_float4_vec4_i_xwwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10109,7 +10099,7 @@ static mrb_value mruby_float4_vec4_i_xwww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10133,7 +10123,7 @@ static mrb_value mruby_float4_vec4_i_yx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10155,7 +10145,7 @@ static mrb_value mruby_float4_vec4_i_yxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10178,7 +10168,7 @@ static mrb_value mruby_float4_vec4_i_yxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10202,7 +10192,7 @@ static mrb_value mruby_float4_vec4_i_yxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10226,7 +10216,7 @@ static mrb_value mruby_float4_vec4_i_yxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10250,7 +10240,7 @@ static mrb_value mruby_float4_vec4_i_yxxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10274,7 +10264,7 @@ static mrb_value mruby_float4_vec4_i_yxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10297,7 +10287,7 @@ static mrb_value mruby_float4_vec4_i_yxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10321,7 +10311,7 @@ static mrb_value mruby_float4_vec4_i_yxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10345,7 +10335,7 @@ static mrb_value mruby_float4_vec4_i_yxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10369,7 +10359,7 @@ static mrb_value mruby_float4_vec4_i_yxyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10393,7 +10383,7 @@ static mrb_value mruby_float4_vec4_i_yxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10416,7 +10406,7 @@ static mrb_value mruby_float4_vec4_i_yxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10440,7 +10430,7 @@ static mrb_value mruby_float4_vec4_i_yxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10464,7 +10454,7 @@ static mrb_value mruby_float4_vec4_i_yxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10488,7 +10478,7 @@ static mrb_value mruby_float4_vec4_i_yxzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10512,7 +10502,7 @@ static mrb_value mruby_float4_vec4_i_yxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10535,7 +10525,7 @@ static mrb_value mruby_float4_vec4_i_yxwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10559,7 +10549,7 @@ static mrb_value mruby_float4_vec4_i_yxwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10583,7 +10573,7 @@ static mrb_value mruby_float4_vec4_i_yxwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10607,7 +10597,7 @@ static mrb_value mruby_float4_vec4_i_yxww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10631,7 +10621,7 @@ static mrb_value mruby_float4_vec4_i_yy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10653,7 +10643,7 @@ static mrb_value mruby_float4_vec4_i_yyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10676,7 +10666,7 @@ static mrb_value mruby_float4_vec4_i_yyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10700,7 +10690,7 @@ static mrb_value mruby_float4_vec4_i_yyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10724,7 +10714,7 @@ static mrb_value mruby_float4_vec4_i_yyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10748,7 +10738,7 @@ static mrb_value mruby_float4_vec4_i_yyxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10772,7 +10762,7 @@ static mrb_value mruby_float4_vec4_i_yyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10795,7 +10785,7 @@ static mrb_value mruby_float4_vec4_i_yyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10819,7 +10809,7 @@ static mrb_value mruby_float4_vec4_i_yyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10843,7 +10833,7 @@ static mrb_value mruby_float4_vec4_i_yyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10867,7 +10857,7 @@ static mrb_value mruby_float4_vec4_i_yyyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10891,7 +10881,7 @@ static mrb_value mruby_float4_vec4_i_yyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10914,7 +10904,7 @@ static mrb_value mruby_float4_vec4_i_yyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10938,7 +10928,7 @@ static mrb_value mruby_float4_vec4_i_yyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10962,7 +10952,7 @@ static mrb_value mruby_float4_vec4_i_yyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -10986,7 +10976,7 @@ static mrb_value mruby_float4_vec4_i_yyzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11010,7 +11000,7 @@ static mrb_value mruby_float4_vec4_i_yyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11033,7 +11023,7 @@ static mrb_value mruby_float4_vec4_i_yywx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11057,7 +11047,7 @@ static mrb_value mruby_float4_vec4_i_yywy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11081,7 +11071,7 @@ static mrb_value mruby_float4_vec4_i_yywz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11105,7 +11095,7 @@ static mrb_value mruby_float4_vec4_i_yyww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11129,7 +11119,7 @@ static mrb_value mruby_float4_vec4_i_yz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11151,7 +11141,7 @@ static mrb_value mruby_float4_vec4_i_yzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11174,7 +11164,7 @@ static mrb_value mruby_float4_vec4_i_yzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11198,7 +11188,7 @@ static mrb_value mruby_float4_vec4_i_yzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11222,7 +11212,7 @@ static mrb_value mruby_float4_vec4_i_yzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11246,7 +11236,7 @@ static mrb_value mruby_float4_vec4_i_yzxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11270,7 +11260,7 @@ static mrb_value mruby_float4_vec4_i_yzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11293,7 +11283,7 @@ static mrb_value mruby_float4_vec4_i_yzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11317,7 +11307,7 @@ static mrb_value mruby_float4_vec4_i_yzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11341,7 +11331,7 @@ static mrb_value mruby_float4_vec4_i_yzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11365,7 +11355,7 @@ static mrb_value mruby_float4_vec4_i_yzyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11389,7 +11379,7 @@ static mrb_value mruby_float4_vec4_i_yzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11412,7 +11402,7 @@ static mrb_value mruby_float4_vec4_i_yzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11436,7 +11426,7 @@ static mrb_value mruby_float4_vec4_i_yzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11460,7 +11450,7 @@ static mrb_value mruby_float4_vec4_i_yzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11484,7 +11474,7 @@ static mrb_value mruby_float4_vec4_i_yzzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11508,7 +11498,7 @@ static mrb_value mruby_float4_vec4_i_yzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11531,7 +11521,7 @@ static mrb_value mruby_float4_vec4_i_yzwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11555,7 +11545,7 @@ static mrb_value mruby_float4_vec4_i_yzwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11579,7 +11569,7 @@ static mrb_value mruby_float4_vec4_i_yzwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11603,7 +11593,7 @@ static mrb_value mruby_float4_vec4_i_yzww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11627,7 +11617,7 @@ static mrb_value mruby_float4_vec4_i_yw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11649,7 +11639,7 @@ static mrb_value mruby_float4_vec4_i_ywx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11672,7 +11662,7 @@ static mrb_value mruby_float4_vec4_i_ywxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11696,7 +11686,7 @@ static mrb_value mruby_float4_vec4_i_ywxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11720,7 +11710,7 @@ static mrb_value mruby_float4_vec4_i_ywxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11744,7 +11734,7 @@ static mrb_value mruby_float4_vec4_i_ywxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11768,7 +11758,7 @@ static mrb_value mruby_float4_vec4_i_ywy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11791,7 +11781,7 @@ static mrb_value mruby_float4_vec4_i_ywyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11815,7 +11805,7 @@ static mrb_value mruby_float4_vec4_i_ywyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11839,7 +11829,7 @@ static mrb_value mruby_float4_vec4_i_ywyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11863,7 +11853,7 @@ static mrb_value mruby_float4_vec4_i_ywyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11887,7 +11877,7 @@ static mrb_value mruby_float4_vec4_i_ywz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11910,7 +11900,7 @@ static mrb_value mruby_float4_vec4_i_ywzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11934,7 +11924,7 @@ static mrb_value mruby_float4_vec4_i_ywzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11958,7 +11948,7 @@ static mrb_value mruby_float4_vec4_i_ywzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -11982,7 +11972,7 @@ static mrb_value mruby_float4_vec4_i_ywzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12006,7 +11996,7 @@ static mrb_value mruby_float4_vec4_i_yww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12029,7 +12019,7 @@ static mrb_value mruby_float4_vec4_i_ywwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12053,7 +12043,7 @@ static mrb_value mruby_float4_vec4_i_ywwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12077,7 +12067,7 @@ static mrb_value mruby_float4_vec4_i_ywwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12101,7 +12091,7 @@ static mrb_value mruby_float4_vec4_i_ywww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12125,7 +12115,7 @@ static mrb_value mruby_float4_vec4_i_zx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12147,7 +12137,7 @@ static mrb_value mruby_float4_vec4_i_zxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12170,7 +12160,7 @@ static mrb_value mruby_float4_vec4_i_zxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12194,7 +12184,7 @@ static mrb_value mruby_float4_vec4_i_zxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12218,7 +12208,7 @@ static mrb_value mruby_float4_vec4_i_zxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12242,7 +12232,7 @@ static mrb_value mruby_float4_vec4_i_zxxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12266,7 +12256,7 @@ static mrb_value mruby_float4_vec4_i_zxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12289,7 +12279,7 @@ static mrb_value mruby_float4_vec4_i_zxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12313,7 +12303,7 @@ static mrb_value mruby_float4_vec4_i_zxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12337,7 +12327,7 @@ static mrb_value mruby_float4_vec4_i_zxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12361,7 +12351,7 @@ static mrb_value mruby_float4_vec4_i_zxyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12385,7 +12375,7 @@ static mrb_value mruby_float4_vec4_i_zxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12408,7 +12398,7 @@ static mrb_value mruby_float4_vec4_i_zxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12432,7 +12422,7 @@ static mrb_value mruby_float4_vec4_i_zxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12456,7 +12446,7 @@ static mrb_value mruby_float4_vec4_i_zxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12480,7 +12470,7 @@ static mrb_value mruby_float4_vec4_i_zxzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12504,7 +12494,7 @@ static mrb_value mruby_float4_vec4_i_zxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12527,7 +12517,7 @@ static mrb_value mruby_float4_vec4_i_zxwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12551,7 +12541,7 @@ static mrb_value mruby_float4_vec4_i_zxwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12575,7 +12565,7 @@ static mrb_value mruby_float4_vec4_i_zxwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12599,7 +12589,7 @@ static mrb_value mruby_float4_vec4_i_zxww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12623,7 +12613,7 @@ static mrb_value mruby_float4_vec4_i_zy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12645,7 +12635,7 @@ static mrb_value mruby_float4_vec4_i_zyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12668,7 +12658,7 @@ static mrb_value mruby_float4_vec4_i_zyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12692,7 +12682,7 @@ static mrb_value mruby_float4_vec4_i_zyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12716,7 +12706,7 @@ static mrb_value mruby_float4_vec4_i_zyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12740,7 +12730,7 @@ static mrb_value mruby_float4_vec4_i_zyxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12764,7 +12754,7 @@ static mrb_value mruby_float4_vec4_i_zyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12787,7 +12777,7 @@ static mrb_value mruby_float4_vec4_i_zyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12811,7 +12801,7 @@ static mrb_value mruby_float4_vec4_i_zyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12835,7 +12825,7 @@ static mrb_value mruby_float4_vec4_i_zyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12859,7 +12849,7 @@ static mrb_value mruby_float4_vec4_i_zyyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12883,7 +12873,7 @@ static mrb_value mruby_float4_vec4_i_zyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12906,7 +12896,7 @@ static mrb_value mruby_float4_vec4_i_zyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12930,7 +12920,7 @@ static mrb_value mruby_float4_vec4_i_zyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12954,7 +12944,7 @@ static mrb_value mruby_float4_vec4_i_zyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -12978,7 +12968,7 @@ static mrb_value mruby_float4_vec4_i_zyzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13002,7 +12992,7 @@ static mrb_value mruby_float4_vec4_i_zyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13025,7 +13015,7 @@ static mrb_value mruby_float4_vec4_i_zywx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13049,7 +13039,7 @@ static mrb_value mruby_float4_vec4_i_zywy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13073,7 +13063,7 @@ static mrb_value mruby_float4_vec4_i_zywz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13097,7 +13087,7 @@ static mrb_value mruby_float4_vec4_i_zyww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13121,7 +13111,7 @@ static mrb_value mruby_float4_vec4_i_zz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13143,7 +13133,7 @@ static mrb_value mruby_float4_vec4_i_zzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13166,7 +13156,7 @@ static mrb_value mruby_float4_vec4_i_zzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13190,7 +13180,7 @@ static mrb_value mruby_float4_vec4_i_zzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13214,7 +13204,7 @@ static mrb_value mruby_float4_vec4_i_zzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13238,7 +13228,7 @@ static mrb_value mruby_float4_vec4_i_zzxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13262,7 +13252,7 @@ static mrb_value mruby_float4_vec4_i_zzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13285,7 +13275,7 @@ static mrb_value mruby_float4_vec4_i_zzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13309,7 +13299,7 @@ static mrb_value mruby_float4_vec4_i_zzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13333,7 +13323,7 @@ static mrb_value mruby_float4_vec4_i_zzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13357,7 +13347,7 @@ static mrb_value mruby_float4_vec4_i_zzyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13381,7 +13371,7 @@ static mrb_value mruby_float4_vec4_i_zzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13404,7 +13394,7 @@ static mrb_value mruby_float4_vec4_i_zzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13428,7 +13418,7 @@ static mrb_value mruby_float4_vec4_i_zzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13452,7 +13442,7 @@ static mrb_value mruby_float4_vec4_i_zzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13476,7 +13466,7 @@ static mrb_value mruby_float4_vec4_i_zzzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13500,7 +13490,7 @@ static mrb_value mruby_float4_vec4_i_zzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13523,7 +13513,7 @@ static mrb_value mruby_float4_vec4_i_zzwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13547,7 +13537,7 @@ static mrb_value mruby_float4_vec4_i_zzwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13571,7 +13561,7 @@ static mrb_value mruby_float4_vec4_i_zzwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13595,7 +13585,7 @@ static mrb_value mruby_float4_vec4_i_zzww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13619,7 +13609,7 @@ static mrb_value mruby_float4_vec4_i_zw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13641,7 +13631,7 @@ static mrb_value mruby_float4_vec4_i_zwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13664,7 +13654,7 @@ static mrb_value mruby_float4_vec4_i_zwxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13688,7 +13678,7 @@ static mrb_value mruby_float4_vec4_i_zwxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13712,7 +13702,7 @@ static mrb_value mruby_float4_vec4_i_zwxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13736,7 +13726,7 @@ static mrb_value mruby_float4_vec4_i_zwxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13760,7 +13750,7 @@ static mrb_value mruby_float4_vec4_i_zwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13783,7 +13773,7 @@ static mrb_value mruby_float4_vec4_i_zwyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13807,7 +13797,7 @@ static mrb_value mruby_float4_vec4_i_zwyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13831,7 +13821,7 @@ static mrb_value mruby_float4_vec4_i_zwyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13855,7 +13845,7 @@ static mrb_value mruby_float4_vec4_i_zwyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13879,7 +13869,7 @@ static mrb_value mruby_float4_vec4_i_zwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13902,7 +13892,7 @@ static mrb_value mruby_float4_vec4_i_zwzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13926,7 +13916,7 @@ static mrb_value mruby_float4_vec4_i_zwzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13950,7 +13940,7 @@ static mrb_value mruby_float4_vec4_i_zwzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13974,7 +13964,7 @@ static mrb_value mruby_float4_vec4_i_zwzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -13998,7 +13988,7 @@ static mrb_value mruby_float4_vec4_i_zww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14021,7 +14011,7 @@ static mrb_value mruby_float4_vec4_i_zwwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14045,7 +14035,7 @@ static mrb_value mruby_float4_vec4_i_zwwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14069,7 +14059,7 @@ static mrb_value mruby_float4_vec4_i_zwwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14093,7 +14083,7 @@ static mrb_value mruby_float4_vec4_i_zwww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14117,7 +14107,7 @@ static mrb_value mruby_float4_vec4_i_wx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14139,7 +14129,7 @@ static mrb_value mruby_float4_vec4_i_wxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14162,7 +14152,7 @@ static mrb_value mruby_float4_vec4_i_wxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14186,7 +14176,7 @@ static mrb_value mruby_float4_vec4_i_wxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14210,7 +14200,7 @@ static mrb_value mruby_float4_vec4_i_wxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14234,7 +14224,7 @@ static mrb_value mruby_float4_vec4_i_wxxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14258,7 +14248,7 @@ static mrb_value mruby_float4_vec4_i_wxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14281,7 +14271,7 @@ static mrb_value mruby_float4_vec4_i_wxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14305,7 +14295,7 @@ static mrb_value mruby_float4_vec4_i_wxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14329,7 +14319,7 @@ static mrb_value mruby_float4_vec4_i_wxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14353,7 +14343,7 @@ static mrb_value mruby_float4_vec4_i_wxyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14377,7 +14367,7 @@ static mrb_value mruby_float4_vec4_i_wxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14400,7 +14390,7 @@ static mrb_value mruby_float4_vec4_i_wxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14424,7 +14414,7 @@ static mrb_value mruby_float4_vec4_i_wxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14448,7 +14438,7 @@ static mrb_value mruby_float4_vec4_i_wxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14472,7 +14462,7 @@ static mrb_value mruby_float4_vec4_i_wxzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14496,7 +14486,7 @@ static mrb_value mruby_float4_vec4_i_wxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14519,7 +14509,7 @@ static mrb_value mruby_float4_vec4_i_wxwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14543,7 +14533,7 @@ static mrb_value mruby_float4_vec4_i_wxwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14567,7 +14557,7 @@ static mrb_value mruby_float4_vec4_i_wxwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14591,7 +14581,7 @@ static mrb_value mruby_float4_vec4_i_wxww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14615,7 +14605,7 @@ static mrb_value mruby_float4_vec4_i_wy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14637,7 +14627,7 @@ static mrb_value mruby_float4_vec4_i_wyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14660,7 +14650,7 @@ static mrb_value mruby_float4_vec4_i_wyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14684,7 +14674,7 @@ static mrb_value mruby_float4_vec4_i_wyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14708,7 +14698,7 @@ static mrb_value mruby_float4_vec4_i_wyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14732,7 +14722,7 @@ static mrb_value mruby_float4_vec4_i_wyxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14756,7 +14746,7 @@ static mrb_value mruby_float4_vec4_i_wyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14779,7 +14769,7 @@ static mrb_value mruby_float4_vec4_i_wyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14803,7 +14793,7 @@ static mrb_value mruby_float4_vec4_i_wyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14827,7 +14817,7 @@ static mrb_value mruby_float4_vec4_i_wyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14851,7 +14841,7 @@ static mrb_value mruby_float4_vec4_i_wyyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14875,7 +14865,7 @@ static mrb_value mruby_float4_vec4_i_wyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14898,7 +14888,7 @@ static mrb_value mruby_float4_vec4_i_wyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14922,7 +14912,7 @@ static mrb_value mruby_float4_vec4_i_wyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14946,7 +14936,7 @@ static mrb_value mruby_float4_vec4_i_wyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14970,7 +14960,7 @@ static mrb_value mruby_float4_vec4_i_wyzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -14994,7 +14984,7 @@ static mrb_value mruby_float4_vec4_i_wyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15017,7 +15007,7 @@ static mrb_value mruby_float4_vec4_i_wywx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15041,7 +15031,7 @@ static mrb_value mruby_float4_vec4_i_wywy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15065,7 +15055,7 @@ static mrb_value mruby_float4_vec4_i_wywz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15089,7 +15079,7 @@ static mrb_value mruby_float4_vec4_i_wyww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15113,7 +15103,7 @@ static mrb_value mruby_float4_vec4_i_wz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15135,7 +15125,7 @@ static mrb_value mruby_float4_vec4_i_wzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15158,7 +15148,7 @@ static mrb_value mruby_float4_vec4_i_wzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15182,7 +15172,7 @@ static mrb_value mruby_float4_vec4_i_wzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15206,7 +15196,7 @@ static mrb_value mruby_float4_vec4_i_wzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15230,7 +15220,7 @@ static mrb_value mruby_float4_vec4_i_wzxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15254,7 +15244,7 @@ static mrb_value mruby_float4_vec4_i_wzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15277,7 +15267,7 @@ static mrb_value mruby_float4_vec4_i_wzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15301,7 +15291,7 @@ static mrb_value mruby_float4_vec4_i_wzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15325,7 +15315,7 @@ static mrb_value mruby_float4_vec4_i_wzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15349,7 +15339,7 @@ static mrb_value mruby_float4_vec4_i_wzyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15373,7 +15363,7 @@ static mrb_value mruby_float4_vec4_i_wzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15396,7 +15386,7 @@ static mrb_value mruby_float4_vec4_i_wzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15420,7 +15410,7 @@ static mrb_value mruby_float4_vec4_i_wzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15444,7 +15434,7 @@ static mrb_value mruby_float4_vec4_i_wzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15468,7 +15458,7 @@ static mrb_value mruby_float4_vec4_i_wzzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15492,7 +15482,7 @@ static mrb_value mruby_float4_vec4_i_wzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15515,7 +15505,7 @@ static mrb_value mruby_float4_vec4_i_wzwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15539,7 +15529,7 @@ static mrb_value mruby_float4_vec4_i_wzwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15563,7 +15553,7 @@ static mrb_value mruby_float4_vec4_i_wzwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15587,7 +15577,7 @@ static mrb_value mruby_float4_vec4_i_wzww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15611,7 +15601,7 @@ static mrb_value mruby_float4_vec4_i_ww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15633,7 +15623,7 @@ static mrb_value mruby_float4_vec4_i_wwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15656,7 +15646,7 @@ static mrb_value mruby_float4_vec4_i_wwxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15680,7 +15670,7 @@ static mrb_value mruby_float4_vec4_i_wwxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15704,7 +15694,7 @@ static mrb_value mruby_float4_vec4_i_wwxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15728,7 +15718,7 @@ static mrb_value mruby_float4_vec4_i_wwxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15752,7 +15742,7 @@ static mrb_value mruby_float4_vec4_i_wwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15775,7 +15765,7 @@ static mrb_value mruby_float4_vec4_i_wwyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15799,7 +15789,7 @@ static mrb_value mruby_float4_vec4_i_wwyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15823,7 +15813,7 @@ static mrb_value mruby_float4_vec4_i_wwyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15847,7 +15837,7 @@ static mrb_value mruby_float4_vec4_i_wwyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15871,7 +15861,7 @@ static mrb_value mruby_float4_vec4_i_wwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15894,7 +15884,7 @@ static mrb_value mruby_float4_vec4_i_wwzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15918,7 +15908,7 @@ static mrb_value mruby_float4_vec4_i_wwzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15942,7 +15932,7 @@ static mrb_value mruby_float4_vec4_i_wwzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15966,7 +15956,7 @@ static mrb_value mruby_float4_vec4_i_wwzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -15990,7 +15980,7 @@ static mrb_value mruby_float4_vec4_i_www(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -16013,7 +16003,7 @@ static mrb_value mruby_float4_vec4_i_wwwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -16037,7 +16027,7 @@ static mrb_value mruby_float4_vec4_i_wwwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -16061,7 +16051,7 @@ static mrb_value mruby_float4_vec4_i_wwwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -16085,7 +16075,7 @@ static mrb_value mruby_float4_vec4_i_wwww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_float*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_vec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "Vec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_float*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -16209,7 +16199,7 @@ static mrb_value mruby_float4_ivec2_i_data_class(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_ivec2_i_to_vec(mrb_state *mrb, mrb_value self)
 {
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec2), "new", 2,
+  return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "Vec2")), "new", 2,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
 }
@@ -16221,7 +16211,7 @@ static mrb_value mruby_float4_ivec2_i_to_ivec(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_ivec2_i_to_bvec(mrb_state *mrb, mrb_value self)
 {
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec2), "new", 2,
+  return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "BVec2")), "new", 2,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
 }
@@ -17573,7 +17563,7 @@ static mrb_value mruby_float4_ivec2_i_xx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -17595,7 +17585,7 @@ static mrb_value mruby_float4_ivec2_i_xxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -17618,7 +17608,7 @@ static mrb_value mruby_float4_ivec2_i_xxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -17642,7 +17632,7 @@ static mrb_value mruby_float4_ivec2_i_xxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -17666,7 +17656,7 @@ static mrb_value mruby_float4_ivec2_i_xxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -17689,7 +17679,7 @@ static mrb_value mruby_float4_ivec2_i_xxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -17713,7 +17703,7 @@ static mrb_value mruby_float4_ivec2_i_xxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -17737,7 +17727,7 @@ static mrb_value mruby_float4_ivec2_i_xy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -17759,7 +17749,7 @@ static mrb_value mruby_float4_ivec2_i_xyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -17782,7 +17772,7 @@ static mrb_value mruby_float4_ivec2_i_xyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -17806,7 +17796,7 @@ static mrb_value mruby_float4_ivec2_i_xyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -17830,7 +17820,7 @@ static mrb_value mruby_float4_ivec2_i_xyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -17853,7 +17843,7 @@ static mrb_value mruby_float4_ivec2_i_xyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -17877,7 +17867,7 @@ static mrb_value mruby_float4_ivec2_i_xyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -17901,7 +17891,7 @@ static mrb_value mruby_float4_ivec2_i_yx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -17923,7 +17913,7 @@ static mrb_value mruby_float4_ivec2_i_yxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -17946,7 +17936,7 @@ static mrb_value mruby_float4_ivec2_i_yxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -17970,7 +17960,7 @@ static mrb_value mruby_float4_ivec2_i_yxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -17994,7 +17984,7 @@ static mrb_value mruby_float4_ivec2_i_yxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -18017,7 +18007,7 @@ static mrb_value mruby_float4_ivec2_i_yxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -18041,7 +18031,7 @@ static mrb_value mruby_float4_ivec2_i_yxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -18065,7 +18055,7 @@ static mrb_value mruby_float4_ivec2_i_yy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -18087,7 +18077,7 @@ static mrb_value mruby_float4_ivec2_i_yyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -18110,7 +18100,7 @@ static mrb_value mruby_float4_ivec2_i_yyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -18134,7 +18124,7 @@ static mrb_value mruby_float4_ivec2_i_yyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -18158,7 +18148,7 @@ static mrb_value mruby_float4_ivec2_i_yyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -18181,7 +18171,7 @@ static mrb_value mruby_float4_ivec2_i_yyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -18205,7 +18195,7 @@ static mrb_value mruby_float4_ivec2_i_yyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -18340,7 +18330,7 @@ static mrb_value mruby_float4_ivec3_i_data_class(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_ivec3_i_to_vec(mrb_state *mrb, mrb_value self)
 {
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec3), "new", 3,
+  return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "Vec3")), "new", 3,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
@@ -18353,7 +18343,7 @@ static mrb_value mruby_float4_ivec3_i_to_ivec(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_ivec3_i_to_bvec(mrb_state *mrb, mrb_value self)
 {
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec3), "new", 3,
+  return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "BVec3")), "new", 3,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
@@ -19770,7 +19760,7 @@ static mrb_value mruby_float4_ivec3_i_xx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -19792,7 +19782,7 @@ static mrb_value mruby_float4_ivec3_i_xxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -19815,7 +19805,7 @@ static mrb_value mruby_float4_ivec3_i_xxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -19839,7 +19829,7 @@ static mrb_value mruby_float4_ivec3_i_xxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -19863,7 +19853,7 @@ static mrb_value mruby_float4_ivec3_i_xxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -19887,7 +19877,7 @@ static mrb_value mruby_float4_ivec3_i_xxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -19910,7 +19900,7 @@ static mrb_value mruby_float4_ivec3_i_xxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -19934,7 +19924,7 @@ static mrb_value mruby_float4_ivec3_i_xxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -19958,7 +19948,7 @@ static mrb_value mruby_float4_ivec3_i_xxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -19982,7 +19972,7 @@ static mrb_value mruby_float4_ivec3_i_xxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20005,7 +19995,7 @@ static mrb_value mruby_float4_ivec3_i_xxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20029,7 +20019,7 @@ static mrb_value mruby_float4_ivec3_i_xxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20053,7 +20043,7 @@ static mrb_value mruby_float4_ivec3_i_xxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20077,7 +20067,7 @@ static mrb_value mruby_float4_ivec3_i_xy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20099,7 +20089,7 @@ static mrb_value mruby_float4_ivec3_i_xyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20122,7 +20112,7 @@ static mrb_value mruby_float4_ivec3_i_xyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20146,7 +20136,7 @@ static mrb_value mruby_float4_ivec3_i_xyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20170,7 +20160,7 @@ static mrb_value mruby_float4_ivec3_i_xyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20194,7 +20184,7 @@ static mrb_value mruby_float4_ivec3_i_xyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20217,7 +20207,7 @@ static mrb_value mruby_float4_ivec3_i_xyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20241,7 +20231,7 @@ static mrb_value mruby_float4_ivec3_i_xyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20265,7 +20255,7 @@ static mrb_value mruby_float4_ivec3_i_xyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20289,7 +20279,7 @@ static mrb_value mruby_float4_ivec3_i_xyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20312,7 +20302,7 @@ static mrb_value mruby_float4_ivec3_i_xyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20336,7 +20326,7 @@ static mrb_value mruby_float4_ivec3_i_xyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20360,7 +20350,7 @@ static mrb_value mruby_float4_ivec3_i_xyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20384,7 +20374,7 @@ static mrb_value mruby_float4_ivec3_i_xz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20406,7 +20396,7 @@ static mrb_value mruby_float4_ivec3_i_xzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20429,7 +20419,7 @@ static mrb_value mruby_float4_ivec3_i_xzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20453,7 +20443,7 @@ static mrb_value mruby_float4_ivec3_i_xzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20477,7 +20467,7 @@ static mrb_value mruby_float4_ivec3_i_xzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20501,7 +20491,7 @@ static mrb_value mruby_float4_ivec3_i_xzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20524,7 +20514,7 @@ static mrb_value mruby_float4_ivec3_i_xzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20548,7 +20538,7 @@ static mrb_value mruby_float4_ivec3_i_xzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20572,7 +20562,7 @@ static mrb_value mruby_float4_ivec3_i_xzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20596,7 +20586,7 @@ static mrb_value mruby_float4_ivec3_i_xzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20619,7 +20609,7 @@ static mrb_value mruby_float4_ivec3_i_xzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20643,7 +20633,7 @@ static mrb_value mruby_float4_ivec3_i_xzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20667,7 +20657,7 @@ static mrb_value mruby_float4_ivec3_i_xzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20691,7 +20681,7 @@ static mrb_value mruby_float4_ivec3_i_yx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20713,7 +20703,7 @@ static mrb_value mruby_float4_ivec3_i_yxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20736,7 +20726,7 @@ static mrb_value mruby_float4_ivec3_i_yxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20760,7 +20750,7 @@ static mrb_value mruby_float4_ivec3_i_yxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20784,7 +20774,7 @@ static mrb_value mruby_float4_ivec3_i_yxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20808,7 +20798,7 @@ static mrb_value mruby_float4_ivec3_i_yxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20831,7 +20821,7 @@ static mrb_value mruby_float4_ivec3_i_yxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20855,7 +20845,7 @@ static mrb_value mruby_float4_ivec3_i_yxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20879,7 +20869,7 @@ static mrb_value mruby_float4_ivec3_i_yxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20903,7 +20893,7 @@ static mrb_value mruby_float4_ivec3_i_yxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20926,7 +20916,7 @@ static mrb_value mruby_float4_ivec3_i_yxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20950,7 +20940,7 @@ static mrb_value mruby_float4_ivec3_i_yxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20974,7 +20964,7 @@ static mrb_value mruby_float4_ivec3_i_yxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -20998,7 +20988,7 @@ static mrb_value mruby_float4_ivec3_i_yy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21020,7 +21010,7 @@ static mrb_value mruby_float4_ivec3_i_yyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21043,7 +21033,7 @@ static mrb_value mruby_float4_ivec3_i_yyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21067,7 +21057,7 @@ static mrb_value mruby_float4_ivec3_i_yyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21091,7 +21081,7 @@ static mrb_value mruby_float4_ivec3_i_yyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21115,7 +21105,7 @@ static mrb_value mruby_float4_ivec3_i_yyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21138,7 +21128,7 @@ static mrb_value mruby_float4_ivec3_i_yyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21162,7 +21152,7 @@ static mrb_value mruby_float4_ivec3_i_yyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21186,7 +21176,7 @@ static mrb_value mruby_float4_ivec3_i_yyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21210,7 +21200,7 @@ static mrb_value mruby_float4_ivec3_i_yyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21233,7 +21223,7 @@ static mrb_value mruby_float4_ivec3_i_yyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21257,7 +21247,7 @@ static mrb_value mruby_float4_ivec3_i_yyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21281,7 +21271,7 @@ static mrb_value mruby_float4_ivec3_i_yyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21305,7 +21295,7 @@ static mrb_value mruby_float4_ivec3_i_yz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21327,7 +21317,7 @@ static mrb_value mruby_float4_ivec3_i_yzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21350,7 +21340,7 @@ static mrb_value mruby_float4_ivec3_i_yzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21374,7 +21364,7 @@ static mrb_value mruby_float4_ivec3_i_yzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21398,7 +21388,7 @@ static mrb_value mruby_float4_ivec3_i_yzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21422,7 +21412,7 @@ static mrb_value mruby_float4_ivec3_i_yzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21445,7 +21435,7 @@ static mrb_value mruby_float4_ivec3_i_yzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21469,7 +21459,7 @@ static mrb_value mruby_float4_ivec3_i_yzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21493,7 +21483,7 @@ static mrb_value mruby_float4_ivec3_i_yzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21517,7 +21507,7 @@ static mrb_value mruby_float4_ivec3_i_yzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21540,7 +21530,7 @@ static mrb_value mruby_float4_ivec3_i_yzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21564,7 +21554,7 @@ static mrb_value mruby_float4_ivec3_i_yzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21588,7 +21578,7 @@ static mrb_value mruby_float4_ivec3_i_yzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21612,7 +21602,7 @@ static mrb_value mruby_float4_ivec3_i_zx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21634,7 +21624,7 @@ static mrb_value mruby_float4_ivec3_i_zxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21657,7 +21647,7 @@ static mrb_value mruby_float4_ivec3_i_zxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21681,7 +21671,7 @@ static mrb_value mruby_float4_ivec3_i_zxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21705,7 +21695,7 @@ static mrb_value mruby_float4_ivec3_i_zxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21729,7 +21719,7 @@ static mrb_value mruby_float4_ivec3_i_zxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21752,7 +21742,7 @@ static mrb_value mruby_float4_ivec3_i_zxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21776,7 +21766,7 @@ static mrb_value mruby_float4_ivec3_i_zxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21800,7 +21790,7 @@ static mrb_value mruby_float4_ivec3_i_zxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21824,7 +21814,7 @@ static mrb_value mruby_float4_ivec3_i_zxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21847,7 +21837,7 @@ static mrb_value mruby_float4_ivec3_i_zxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21871,7 +21861,7 @@ static mrb_value mruby_float4_ivec3_i_zxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21895,7 +21885,7 @@ static mrb_value mruby_float4_ivec3_i_zxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21919,7 +21909,7 @@ static mrb_value mruby_float4_ivec3_i_zy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21941,7 +21931,7 @@ static mrb_value mruby_float4_ivec3_i_zyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21964,7 +21954,7 @@ static mrb_value mruby_float4_ivec3_i_zyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -21988,7 +21978,7 @@ static mrb_value mruby_float4_ivec3_i_zyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22012,7 +22002,7 @@ static mrb_value mruby_float4_ivec3_i_zyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22036,7 +22026,7 @@ static mrb_value mruby_float4_ivec3_i_zyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22059,7 +22049,7 @@ static mrb_value mruby_float4_ivec3_i_zyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22083,7 +22073,7 @@ static mrb_value mruby_float4_ivec3_i_zyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22107,7 +22097,7 @@ static mrb_value mruby_float4_ivec3_i_zyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22131,7 +22121,7 @@ static mrb_value mruby_float4_ivec3_i_zyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22154,7 +22144,7 @@ static mrb_value mruby_float4_ivec3_i_zyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22178,7 +22168,7 @@ static mrb_value mruby_float4_ivec3_i_zyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22202,7 +22192,7 @@ static mrb_value mruby_float4_ivec3_i_zyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22226,7 +22216,7 @@ static mrb_value mruby_float4_ivec3_i_zz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22248,7 +22238,7 @@ static mrb_value mruby_float4_ivec3_i_zzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22271,7 +22261,7 @@ static mrb_value mruby_float4_ivec3_i_zzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22295,7 +22285,7 @@ static mrb_value mruby_float4_ivec3_i_zzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22319,7 +22309,7 @@ static mrb_value mruby_float4_ivec3_i_zzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22343,7 +22333,7 @@ static mrb_value mruby_float4_ivec3_i_zzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22366,7 +22356,7 @@ static mrb_value mruby_float4_ivec3_i_zzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22390,7 +22380,7 @@ static mrb_value mruby_float4_ivec3_i_zzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22414,7 +22404,7 @@ static mrb_value mruby_float4_ivec3_i_zzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22438,7 +22428,7 @@ static mrb_value mruby_float4_ivec3_i_zzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22461,7 +22451,7 @@ static mrb_value mruby_float4_ivec3_i_zzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22485,7 +22475,7 @@ static mrb_value mruby_float4_ivec3_i_zzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22509,7 +22499,7 @@ static mrb_value mruby_float4_ivec3_i_zzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -22655,7 +22645,7 @@ static mrb_value mruby_float4_ivec4_i_data_class(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_ivec4_i_to_vec(mrb_state *mrb, mrb_value self)
 {
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec4), "new", 4,
+  return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "Vec4")), "new", 4,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)),
@@ -22669,7 +22659,7 @@ static mrb_value mruby_float4_ivec4_i_to_ivec(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_ivec4_i_to_bvec(mrb_state *mrb, mrb_value self)
 {
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_bvec4), "new", 4,
+  return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "BVec4")), "new", 4,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)),
@@ -24099,7 +24089,7 @@ static mrb_value mruby_float4_ivec4_i_xx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24121,7 +24111,7 @@ static mrb_value mruby_float4_ivec4_i_xxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24144,7 +24134,7 @@ static mrb_value mruby_float4_ivec4_i_xxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24168,7 +24158,7 @@ static mrb_value mruby_float4_ivec4_i_xxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24192,7 +24182,7 @@ static mrb_value mruby_float4_ivec4_i_xxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24216,7 +24206,7 @@ static mrb_value mruby_float4_ivec4_i_xxxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24240,7 +24230,7 @@ static mrb_value mruby_float4_ivec4_i_xxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24263,7 +24253,7 @@ static mrb_value mruby_float4_ivec4_i_xxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24287,7 +24277,7 @@ static mrb_value mruby_float4_ivec4_i_xxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24311,7 +24301,7 @@ static mrb_value mruby_float4_ivec4_i_xxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24335,7 +24325,7 @@ static mrb_value mruby_float4_ivec4_i_xxyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24359,7 +24349,7 @@ static mrb_value mruby_float4_ivec4_i_xxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24382,7 +24372,7 @@ static mrb_value mruby_float4_ivec4_i_xxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24406,7 +24396,7 @@ static mrb_value mruby_float4_ivec4_i_xxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24430,7 +24420,7 @@ static mrb_value mruby_float4_ivec4_i_xxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24454,7 +24444,7 @@ static mrb_value mruby_float4_ivec4_i_xxzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24478,7 +24468,7 @@ static mrb_value mruby_float4_ivec4_i_xxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24501,7 +24491,7 @@ static mrb_value mruby_float4_ivec4_i_xxwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24525,7 +24515,7 @@ static mrb_value mruby_float4_ivec4_i_xxwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24549,7 +24539,7 @@ static mrb_value mruby_float4_ivec4_i_xxwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24573,7 +24563,7 @@ static mrb_value mruby_float4_ivec4_i_xxww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24597,7 +24587,7 @@ static mrb_value mruby_float4_ivec4_i_xy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24619,7 +24609,7 @@ static mrb_value mruby_float4_ivec4_i_xyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24642,7 +24632,7 @@ static mrb_value mruby_float4_ivec4_i_xyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24666,7 +24656,7 @@ static mrb_value mruby_float4_ivec4_i_xyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24690,7 +24680,7 @@ static mrb_value mruby_float4_ivec4_i_xyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24714,7 +24704,7 @@ static mrb_value mruby_float4_ivec4_i_xyxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24738,7 +24728,7 @@ static mrb_value mruby_float4_ivec4_i_xyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24761,7 +24751,7 @@ static mrb_value mruby_float4_ivec4_i_xyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24785,7 +24775,7 @@ static mrb_value mruby_float4_ivec4_i_xyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24809,7 +24799,7 @@ static mrb_value mruby_float4_ivec4_i_xyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24833,7 +24823,7 @@ static mrb_value mruby_float4_ivec4_i_xyyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24857,7 +24847,7 @@ static mrb_value mruby_float4_ivec4_i_xyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24880,7 +24870,7 @@ static mrb_value mruby_float4_ivec4_i_xyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24904,7 +24894,7 @@ static mrb_value mruby_float4_ivec4_i_xyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24928,7 +24918,7 @@ static mrb_value mruby_float4_ivec4_i_xyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24952,7 +24942,7 @@ static mrb_value mruby_float4_ivec4_i_xyzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24976,7 +24966,7 @@ static mrb_value mruby_float4_ivec4_i_xyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -24999,7 +24989,7 @@ static mrb_value mruby_float4_ivec4_i_xywx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25023,7 +25013,7 @@ static mrb_value mruby_float4_ivec4_i_xywy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25047,7 +25037,7 @@ static mrb_value mruby_float4_ivec4_i_xywz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25071,7 +25061,7 @@ static mrb_value mruby_float4_ivec4_i_xyww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25095,7 +25085,7 @@ static mrb_value mruby_float4_ivec4_i_xz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25117,7 +25107,7 @@ static mrb_value mruby_float4_ivec4_i_xzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25140,7 +25130,7 @@ static mrb_value mruby_float4_ivec4_i_xzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25164,7 +25154,7 @@ static mrb_value mruby_float4_ivec4_i_xzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25188,7 +25178,7 @@ static mrb_value mruby_float4_ivec4_i_xzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25212,7 +25202,7 @@ static mrb_value mruby_float4_ivec4_i_xzxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25236,7 +25226,7 @@ static mrb_value mruby_float4_ivec4_i_xzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25259,7 +25249,7 @@ static mrb_value mruby_float4_ivec4_i_xzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25283,7 +25273,7 @@ static mrb_value mruby_float4_ivec4_i_xzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25307,7 +25297,7 @@ static mrb_value mruby_float4_ivec4_i_xzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25331,7 +25321,7 @@ static mrb_value mruby_float4_ivec4_i_xzyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25355,7 +25345,7 @@ static mrb_value mruby_float4_ivec4_i_xzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25378,7 +25368,7 @@ static mrb_value mruby_float4_ivec4_i_xzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25402,7 +25392,7 @@ static mrb_value mruby_float4_ivec4_i_xzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25426,7 +25416,7 @@ static mrb_value mruby_float4_ivec4_i_xzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25450,7 +25440,7 @@ static mrb_value mruby_float4_ivec4_i_xzzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25474,7 +25464,7 @@ static mrb_value mruby_float4_ivec4_i_xzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25497,7 +25487,7 @@ static mrb_value mruby_float4_ivec4_i_xzwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25521,7 +25511,7 @@ static mrb_value mruby_float4_ivec4_i_xzwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25545,7 +25535,7 @@ static mrb_value mruby_float4_ivec4_i_xzwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25569,7 +25559,7 @@ static mrb_value mruby_float4_ivec4_i_xzww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25593,7 +25583,7 @@ static mrb_value mruby_float4_ivec4_i_xw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25615,7 +25605,7 @@ static mrb_value mruby_float4_ivec4_i_xwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25638,7 +25628,7 @@ static mrb_value mruby_float4_ivec4_i_xwxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25662,7 +25652,7 @@ static mrb_value mruby_float4_ivec4_i_xwxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25686,7 +25676,7 @@ static mrb_value mruby_float4_ivec4_i_xwxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25710,7 +25700,7 @@ static mrb_value mruby_float4_ivec4_i_xwxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25734,7 +25724,7 @@ static mrb_value mruby_float4_ivec4_i_xwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25757,7 +25747,7 @@ static mrb_value mruby_float4_ivec4_i_xwyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25781,7 +25771,7 @@ static mrb_value mruby_float4_ivec4_i_xwyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25805,7 +25795,7 @@ static mrb_value mruby_float4_ivec4_i_xwyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25829,7 +25819,7 @@ static mrb_value mruby_float4_ivec4_i_xwyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25853,7 +25843,7 @@ static mrb_value mruby_float4_ivec4_i_xwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25876,7 +25866,7 @@ static mrb_value mruby_float4_ivec4_i_xwzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25900,7 +25890,7 @@ static mrb_value mruby_float4_ivec4_i_xwzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25924,7 +25914,7 @@ static mrb_value mruby_float4_ivec4_i_xwzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25948,7 +25938,7 @@ static mrb_value mruby_float4_ivec4_i_xwzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25972,7 +25962,7 @@ static mrb_value mruby_float4_ivec4_i_xww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -25995,7 +25985,7 @@ static mrb_value mruby_float4_ivec4_i_xwwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26019,7 +26009,7 @@ static mrb_value mruby_float4_ivec4_i_xwwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26043,7 +26033,7 @@ static mrb_value mruby_float4_ivec4_i_xwwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26067,7 +26057,7 @@ static mrb_value mruby_float4_ivec4_i_xwww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26091,7 +26081,7 @@ static mrb_value mruby_float4_ivec4_i_yx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26113,7 +26103,7 @@ static mrb_value mruby_float4_ivec4_i_yxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26136,7 +26126,7 @@ static mrb_value mruby_float4_ivec4_i_yxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26160,7 +26150,7 @@ static mrb_value mruby_float4_ivec4_i_yxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26184,7 +26174,7 @@ static mrb_value mruby_float4_ivec4_i_yxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26208,7 +26198,7 @@ static mrb_value mruby_float4_ivec4_i_yxxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26232,7 +26222,7 @@ static mrb_value mruby_float4_ivec4_i_yxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26255,7 +26245,7 @@ static mrb_value mruby_float4_ivec4_i_yxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26279,7 +26269,7 @@ static mrb_value mruby_float4_ivec4_i_yxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26303,7 +26293,7 @@ static mrb_value mruby_float4_ivec4_i_yxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26327,7 +26317,7 @@ static mrb_value mruby_float4_ivec4_i_yxyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26351,7 +26341,7 @@ static mrb_value mruby_float4_ivec4_i_yxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26374,7 +26364,7 @@ static mrb_value mruby_float4_ivec4_i_yxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26398,7 +26388,7 @@ static mrb_value mruby_float4_ivec4_i_yxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26422,7 +26412,7 @@ static mrb_value mruby_float4_ivec4_i_yxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26446,7 +26436,7 @@ static mrb_value mruby_float4_ivec4_i_yxzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26470,7 +26460,7 @@ static mrb_value mruby_float4_ivec4_i_yxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26493,7 +26483,7 @@ static mrb_value mruby_float4_ivec4_i_yxwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26517,7 +26507,7 @@ static mrb_value mruby_float4_ivec4_i_yxwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26541,7 +26531,7 @@ static mrb_value mruby_float4_ivec4_i_yxwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26565,7 +26555,7 @@ static mrb_value mruby_float4_ivec4_i_yxww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26589,7 +26579,7 @@ static mrb_value mruby_float4_ivec4_i_yy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26611,7 +26601,7 @@ static mrb_value mruby_float4_ivec4_i_yyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26634,7 +26624,7 @@ static mrb_value mruby_float4_ivec4_i_yyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26658,7 +26648,7 @@ static mrb_value mruby_float4_ivec4_i_yyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26682,7 +26672,7 @@ static mrb_value mruby_float4_ivec4_i_yyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26706,7 +26696,7 @@ static mrb_value mruby_float4_ivec4_i_yyxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26730,7 +26720,7 @@ static mrb_value mruby_float4_ivec4_i_yyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26753,7 +26743,7 @@ static mrb_value mruby_float4_ivec4_i_yyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26777,7 +26767,7 @@ static mrb_value mruby_float4_ivec4_i_yyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26801,7 +26791,7 @@ static mrb_value mruby_float4_ivec4_i_yyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26825,7 +26815,7 @@ static mrb_value mruby_float4_ivec4_i_yyyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26849,7 +26839,7 @@ static mrb_value mruby_float4_ivec4_i_yyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26872,7 +26862,7 @@ static mrb_value mruby_float4_ivec4_i_yyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26896,7 +26886,7 @@ static mrb_value mruby_float4_ivec4_i_yyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26920,7 +26910,7 @@ static mrb_value mruby_float4_ivec4_i_yyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26944,7 +26934,7 @@ static mrb_value mruby_float4_ivec4_i_yyzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26968,7 +26958,7 @@ static mrb_value mruby_float4_ivec4_i_yyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -26991,7 +26981,7 @@ static mrb_value mruby_float4_ivec4_i_yywx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27015,7 +27005,7 @@ static mrb_value mruby_float4_ivec4_i_yywy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27039,7 +27029,7 @@ static mrb_value mruby_float4_ivec4_i_yywz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27063,7 +27053,7 @@ static mrb_value mruby_float4_ivec4_i_yyww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27087,7 +27077,7 @@ static mrb_value mruby_float4_ivec4_i_yz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27109,7 +27099,7 @@ static mrb_value mruby_float4_ivec4_i_yzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27132,7 +27122,7 @@ static mrb_value mruby_float4_ivec4_i_yzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27156,7 +27146,7 @@ static mrb_value mruby_float4_ivec4_i_yzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27180,7 +27170,7 @@ static mrb_value mruby_float4_ivec4_i_yzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27204,7 +27194,7 @@ static mrb_value mruby_float4_ivec4_i_yzxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27228,7 +27218,7 @@ static mrb_value mruby_float4_ivec4_i_yzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27251,7 +27241,7 @@ static mrb_value mruby_float4_ivec4_i_yzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27275,7 +27265,7 @@ static mrb_value mruby_float4_ivec4_i_yzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27299,7 +27289,7 @@ static mrb_value mruby_float4_ivec4_i_yzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27323,7 +27313,7 @@ static mrb_value mruby_float4_ivec4_i_yzyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27347,7 +27337,7 @@ static mrb_value mruby_float4_ivec4_i_yzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27370,7 +27360,7 @@ static mrb_value mruby_float4_ivec4_i_yzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27394,7 +27384,7 @@ static mrb_value mruby_float4_ivec4_i_yzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27418,7 +27408,7 @@ static mrb_value mruby_float4_ivec4_i_yzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27442,7 +27432,7 @@ static mrb_value mruby_float4_ivec4_i_yzzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27466,7 +27456,7 @@ static mrb_value mruby_float4_ivec4_i_yzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27489,7 +27479,7 @@ static mrb_value mruby_float4_ivec4_i_yzwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27513,7 +27503,7 @@ static mrb_value mruby_float4_ivec4_i_yzwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27537,7 +27527,7 @@ static mrb_value mruby_float4_ivec4_i_yzwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27561,7 +27551,7 @@ static mrb_value mruby_float4_ivec4_i_yzww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27585,7 +27575,7 @@ static mrb_value mruby_float4_ivec4_i_yw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27607,7 +27597,7 @@ static mrb_value mruby_float4_ivec4_i_ywx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27630,7 +27620,7 @@ static mrb_value mruby_float4_ivec4_i_ywxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27654,7 +27644,7 @@ static mrb_value mruby_float4_ivec4_i_ywxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27678,7 +27668,7 @@ static mrb_value mruby_float4_ivec4_i_ywxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27702,7 +27692,7 @@ static mrb_value mruby_float4_ivec4_i_ywxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27726,7 +27716,7 @@ static mrb_value mruby_float4_ivec4_i_ywy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27749,7 +27739,7 @@ static mrb_value mruby_float4_ivec4_i_ywyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27773,7 +27763,7 @@ static mrb_value mruby_float4_ivec4_i_ywyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27797,7 +27787,7 @@ static mrb_value mruby_float4_ivec4_i_ywyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27821,7 +27811,7 @@ static mrb_value mruby_float4_ivec4_i_ywyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27845,7 +27835,7 @@ static mrb_value mruby_float4_ivec4_i_ywz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27868,7 +27858,7 @@ static mrb_value mruby_float4_ivec4_i_ywzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27892,7 +27882,7 @@ static mrb_value mruby_float4_ivec4_i_ywzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27916,7 +27906,7 @@ static mrb_value mruby_float4_ivec4_i_ywzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27940,7 +27930,7 @@ static mrb_value mruby_float4_ivec4_i_ywzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27964,7 +27954,7 @@ static mrb_value mruby_float4_ivec4_i_yww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -27987,7 +27977,7 @@ static mrb_value mruby_float4_ivec4_i_ywwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28011,7 +28001,7 @@ static mrb_value mruby_float4_ivec4_i_ywwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28035,7 +28025,7 @@ static mrb_value mruby_float4_ivec4_i_ywwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28059,7 +28049,7 @@ static mrb_value mruby_float4_ivec4_i_ywww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28083,7 +28073,7 @@ static mrb_value mruby_float4_ivec4_i_zx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28105,7 +28095,7 @@ static mrb_value mruby_float4_ivec4_i_zxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28128,7 +28118,7 @@ static mrb_value mruby_float4_ivec4_i_zxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28152,7 +28142,7 @@ static mrb_value mruby_float4_ivec4_i_zxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28176,7 +28166,7 @@ static mrb_value mruby_float4_ivec4_i_zxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28200,7 +28190,7 @@ static mrb_value mruby_float4_ivec4_i_zxxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28224,7 +28214,7 @@ static mrb_value mruby_float4_ivec4_i_zxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28247,7 +28237,7 @@ static mrb_value mruby_float4_ivec4_i_zxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28271,7 +28261,7 @@ static mrb_value mruby_float4_ivec4_i_zxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28295,7 +28285,7 @@ static mrb_value mruby_float4_ivec4_i_zxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28319,7 +28309,7 @@ static mrb_value mruby_float4_ivec4_i_zxyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28343,7 +28333,7 @@ static mrb_value mruby_float4_ivec4_i_zxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28366,7 +28356,7 @@ static mrb_value mruby_float4_ivec4_i_zxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28390,7 +28380,7 @@ static mrb_value mruby_float4_ivec4_i_zxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28414,7 +28404,7 @@ static mrb_value mruby_float4_ivec4_i_zxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28438,7 +28428,7 @@ static mrb_value mruby_float4_ivec4_i_zxzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28462,7 +28452,7 @@ static mrb_value mruby_float4_ivec4_i_zxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28485,7 +28475,7 @@ static mrb_value mruby_float4_ivec4_i_zxwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28509,7 +28499,7 @@ static mrb_value mruby_float4_ivec4_i_zxwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28533,7 +28523,7 @@ static mrb_value mruby_float4_ivec4_i_zxwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28557,7 +28547,7 @@ static mrb_value mruby_float4_ivec4_i_zxww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28581,7 +28571,7 @@ static mrb_value mruby_float4_ivec4_i_zy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28603,7 +28593,7 @@ static mrb_value mruby_float4_ivec4_i_zyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28626,7 +28616,7 @@ static mrb_value mruby_float4_ivec4_i_zyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28650,7 +28640,7 @@ static mrb_value mruby_float4_ivec4_i_zyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28674,7 +28664,7 @@ static mrb_value mruby_float4_ivec4_i_zyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28698,7 +28688,7 @@ static mrb_value mruby_float4_ivec4_i_zyxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28722,7 +28712,7 @@ static mrb_value mruby_float4_ivec4_i_zyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28745,7 +28735,7 @@ static mrb_value mruby_float4_ivec4_i_zyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28769,7 +28759,7 @@ static mrb_value mruby_float4_ivec4_i_zyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28793,7 +28783,7 @@ static mrb_value mruby_float4_ivec4_i_zyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28817,7 +28807,7 @@ static mrb_value mruby_float4_ivec4_i_zyyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28841,7 +28831,7 @@ static mrb_value mruby_float4_ivec4_i_zyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28864,7 +28854,7 @@ static mrb_value mruby_float4_ivec4_i_zyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28888,7 +28878,7 @@ static mrb_value mruby_float4_ivec4_i_zyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28912,7 +28902,7 @@ static mrb_value mruby_float4_ivec4_i_zyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28936,7 +28926,7 @@ static mrb_value mruby_float4_ivec4_i_zyzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28960,7 +28950,7 @@ static mrb_value mruby_float4_ivec4_i_zyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -28983,7 +28973,7 @@ static mrb_value mruby_float4_ivec4_i_zywx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29007,7 +28997,7 @@ static mrb_value mruby_float4_ivec4_i_zywy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29031,7 +29021,7 @@ static mrb_value mruby_float4_ivec4_i_zywz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29055,7 +29045,7 @@ static mrb_value mruby_float4_ivec4_i_zyww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29079,7 +29069,7 @@ static mrb_value mruby_float4_ivec4_i_zz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29101,7 +29091,7 @@ static mrb_value mruby_float4_ivec4_i_zzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29124,7 +29114,7 @@ static mrb_value mruby_float4_ivec4_i_zzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29148,7 +29138,7 @@ static mrb_value mruby_float4_ivec4_i_zzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29172,7 +29162,7 @@ static mrb_value mruby_float4_ivec4_i_zzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29196,7 +29186,7 @@ static mrb_value mruby_float4_ivec4_i_zzxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29220,7 +29210,7 @@ static mrb_value mruby_float4_ivec4_i_zzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29243,7 +29233,7 @@ static mrb_value mruby_float4_ivec4_i_zzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29267,7 +29257,7 @@ static mrb_value mruby_float4_ivec4_i_zzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29291,7 +29281,7 @@ static mrb_value mruby_float4_ivec4_i_zzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29315,7 +29305,7 @@ static mrb_value mruby_float4_ivec4_i_zzyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29339,7 +29329,7 @@ static mrb_value mruby_float4_ivec4_i_zzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29362,7 +29352,7 @@ static mrb_value mruby_float4_ivec4_i_zzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29386,7 +29376,7 @@ static mrb_value mruby_float4_ivec4_i_zzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29410,7 +29400,7 @@ static mrb_value mruby_float4_ivec4_i_zzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29434,7 +29424,7 @@ static mrb_value mruby_float4_ivec4_i_zzzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29458,7 +29448,7 @@ static mrb_value mruby_float4_ivec4_i_zzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29481,7 +29471,7 @@ static mrb_value mruby_float4_ivec4_i_zzwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29505,7 +29495,7 @@ static mrb_value mruby_float4_ivec4_i_zzwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29529,7 +29519,7 @@ static mrb_value mruby_float4_ivec4_i_zzwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29553,7 +29543,7 @@ static mrb_value mruby_float4_ivec4_i_zzww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29577,7 +29567,7 @@ static mrb_value mruby_float4_ivec4_i_zw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29599,7 +29589,7 @@ static mrb_value mruby_float4_ivec4_i_zwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29622,7 +29612,7 @@ static mrb_value mruby_float4_ivec4_i_zwxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29646,7 +29636,7 @@ static mrb_value mruby_float4_ivec4_i_zwxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29670,7 +29660,7 @@ static mrb_value mruby_float4_ivec4_i_zwxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29694,7 +29684,7 @@ static mrb_value mruby_float4_ivec4_i_zwxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29718,7 +29708,7 @@ static mrb_value mruby_float4_ivec4_i_zwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29741,7 +29731,7 @@ static mrb_value mruby_float4_ivec4_i_zwyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29765,7 +29755,7 @@ static mrb_value mruby_float4_ivec4_i_zwyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29789,7 +29779,7 @@ static mrb_value mruby_float4_ivec4_i_zwyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29813,7 +29803,7 @@ static mrb_value mruby_float4_ivec4_i_zwyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29837,7 +29827,7 @@ static mrb_value mruby_float4_ivec4_i_zwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29860,7 +29850,7 @@ static mrb_value mruby_float4_ivec4_i_zwzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29884,7 +29874,7 @@ static mrb_value mruby_float4_ivec4_i_zwzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29908,7 +29898,7 @@ static mrb_value mruby_float4_ivec4_i_zwzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29932,7 +29922,7 @@ static mrb_value mruby_float4_ivec4_i_zwzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29956,7 +29946,7 @@ static mrb_value mruby_float4_ivec4_i_zww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -29979,7 +29969,7 @@ static mrb_value mruby_float4_ivec4_i_zwwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30003,7 +29993,7 @@ static mrb_value mruby_float4_ivec4_i_zwwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30027,7 +30017,7 @@ static mrb_value mruby_float4_ivec4_i_zwwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30051,7 +30041,7 @@ static mrb_value mruby_float4_ivec4_i_zwww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30075,7 +30065,7 @@ static mrb_value mruby_float4_ivec4_i_wx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30097,7 +30087,7 @@ static mrb_value mruby_float4_ivec4_i_wxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30120,7 +30110,7 @@ static mrb_value mruby_float4_ivec4_i_wxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30144,7 +30134,7 @@ static mrb_value mruby_float4_ivec4_i_wxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30168,7 +30158,7 @@ static mrb_value mruby_float4_ivec4_i_wxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30192,7 +30182,7 @@ static mrb_value mruby_float4_ivec4_i_wxxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30216,7 +30206,7 @@ static mrb_value mruby_float4_ivec4_i_wxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30239,7 +30229,7 @@ static mrb_value mruby_float4_ivec4_i_wxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30263,7 +30253,7 @@ static mrb_value mruby_float4_ivec4_i_wxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30287,7 +30277,7 @@ static mrb_value mruby_float4_ivec4_i_wxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30311,7 +30301,7 @@ static mrb_value mruby_float4_ivec4_i_wxyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30335,7 +30325,7 @@ static mrb_value mruby_float4_ivec4_i_wxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30358,7 +30348,7 @@ static mrb_value mruby_float4_ivec4_i_wxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30382,7 +30372,7 @@ static mrb_value mruby_float4_ivec4_i_wxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30406,7 +30396,7 @@ static mrb_value mruby_float4_ivec4_i_wxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30430,7 +30420,7 @@ static mrb_value mruby_float4_ivec4_i_wxzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30454,7 +30444,7 @@ static mrb_value mruby_float4_ivec4_i_wxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30477,7 +30467,7 @@ static mrb_value mruby_float4_ivec4_i_wxwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30501,7 +30491,7 @@ static mrb_value mruby_float4_ivec4_i_wxwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30525,7 +30515,7 @@ static mrb_value mruby_float4_ivec4_i_wxwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30549,7 +30539,7 @@ static mrb_value mruby_float4_ivec4_i_wxww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30573,7 +30563,7 @@ static mrb_value mruby_float4_ivec4_i_wy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30595,7 +30585,7 @@ static mrb_value mruby_float4_ivec4_i_wyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30618,7 +30608,7 @@ static mrb_value mruby_float4_ivec4_i_wyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30642,7 +30632,7 @@ static mrb_value mruby_float4_ivec4_i_wyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30666,7 +30656,7 @@ static mrb_value mruby_float4_ivec4_i_wyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30690,7 +30680,7 @@ static mrb_value mruby_float4_ivec4_i_wyxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30714,7 +30704,7 @@ static mrb_value mruby_float4_ivec4_i_wyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30737,7 +30727,7 @@ static mrb_value mruby_float4_ivec4_i_wyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30761,7 +30751,7 @@ static mrb_value mruby_float4_ivec4_i_wyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30785,7 +30775,7 @@ static mrb_value mruby_float4_ivec4_i_wyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30809,7 +30799,7 @@ static mrb_value mruby_float4_ivec4_i_wyyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30833,7 +30823,7 @@ static mrb_value mruby_float4_ivec4_i_wyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30856,7 +30846,7 @@ static mrb_value mruby_float4_ivec4_i_wyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30880,7 +30870,7 @@ static mrb_value mruby_float4_ivec4_i_wyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30904,7 +30894,7 @@ static mrb_value mruby_float4_ivec4_i_wyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30928,7 +30918,7 @@ static mrb_value mruby_float4_ivec4_i_wyzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30952,7 +30942,7 @@ static mrb_value mruby_float4_ivec4_i_wyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30975,7 +30965,7 @@ static mrb_value mruby_float4_ivec4_i_wywx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -30999,7 +30989,7 @@ static mrb_value mruby_float4_ivec4_i_wywy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31023,7 +31013,7 @@ static mrb_value mruby_float4_ivec4_i_wywz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31047,7 +31037,7 @@ static mrb_value mruby_float4_ivec4_i_wyww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31071,7 +31061,7 @@ static mrb_value mruby_float4_ivec4_i_wz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31093,7 +31083,7 @@ static mrb_value mruby_float4_ivec4_i_wzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31116,7 +31106,7 @@ static mrb_value mruby_float4_ivec4_i_wzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31140,7 +31130,7 @@ static mrb_value mruby_float4_ivec4_i_wzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31164,7 +31154,7 @@ static mrb_value mruby_float4_ivec4_i_wzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31188,7 +31178,7 @@ static mrb_value mruby_float4_ivec4_i_wzxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31212,7 +31202,7 @@ static mrb_value mruby_float4_ivec4_i_wzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31235,7 +31225,7 @@ static mrb_value mruby_float4_ivec4_i_wzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31259,7 +31249,7 @@ static mrb_value mruby_float4_ivec4_i_wzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31283,7 +31273,7 @@ static mrb_value mruby_float4_ivec4_i_wzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31307,7 +31297,7 @@ static mrb_value mruby_float4_ivec4_i_wzyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31331,7 +31321,7 @@ static mrb_value mruby_float4_ivec4_i_wzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31354,7 +31344,7 @@ static mrb_value mruby_float4_ivec4_i_wzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31378,7 +31368,7 @@ static mrb_value mruby_float4_ivec4_i_wzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31402,7 +31392,7 @@ static mrb_value mruby_float4_ivec4_i_wzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31426,7 +31416,7 @@ static mrb_value mruby_float4_ivec4_i_wzzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31450,7 +31440,7 @@ static mrb_value mruby_float4_ivec4_i_wzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31473,7 +31463,7 @@ static mrb_value mruby_float4_ivec4_i_wzwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31497,7 +31487,7 @@ static mrb_value mruby_float4_ivec4_i_wzwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31521,7 +31511,7 @@ static mrb_value mruby_float4_ivec4_i_wzwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31545,7 +31535,7 @@ static mrb_value mruby_float4_ivec4_i_wzww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31569,7 +31559,7 @@ static mrb_value mruby_float4_ivec4_i_ww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31591,7 +31581,7 @@ static mrb_value mruby_float4_ivec4_i_wwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31614,7 +31604,7 @@ static mrb_value mruby_float4_ivec4_i_wwxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31638,7 +31628,7 @@ static mrb_value mruby_float4_ivec4_i_wwxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31662,7 +31652,7 @@ static mrb_value mruby_float4_ivec4_i_wwxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31686,7 +31676,7 @@ static mrb_value mruby_float4_ivec4_i_wwxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31710,7 +31700,7 @@ static mrb_value mruby_float4_ivec4_i_wwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31733,7 +31723,7 @@ static mrb_value mruby_float4_ivec4_i_wwyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31757,7 +31747,7 @@ static mrb_value mruby_float4_ivec4_i_wwyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31781,7 +31771,7 @@ static mrb_value mruby_float4_ivec4_i_wwyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31805,7 +31795,7 @@ static mrb_value mruby_float4_ivec4_i_wwyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31829,7 +31819,7 @@ static mrb_value mruby_float4_ivec4_i_wwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31852,7 +31842,7 @@ static mrb_value mruby_float4_ivec4_i_wwzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31876,7 +31866,7 @@ static mrb_value mruby_float4_ivec4_i_wwzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31900,7 +31890,7 @@ static mrb_value mruby_float4_ivec4_i_wwzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31924,7 +31914,7 @@ static mrb_value mruby_float4_ivec4_i_wwzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31948,7 +31938,7 @@ static mrb_value mruby_float4_ivec4_i_www(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31971,7 +31961,7 @@ static mrb_value mruby_float4_ivec4_i_wwwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -31995,7 +31985,7 @@ static mrb_value mruby_float4_ivec4_i_wwwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32019,7 +32009,7 @@ static mrb_value mruby_float4_ivec4_i_wwwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32043,7 +32033,7 @@ static mrb_value mruby_float4_ivec4_i_wwww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_int*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_ivec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "IVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_int*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32167,14 +32157,14 @@ static mrb_value mruby_float4_bvec2_i_data_class(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_bvec2_i_to_vec(mrb_state *mrb, mrb_value self)
 {
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec2), "new", 2,
+  return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "Vec2")), "new", 2,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
 }
 
 static mrb_value mruby_float4_bvec2_i_to_ivec(mrb_state *mrb, mrb_value self)
 {
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec2), "new", 2,
+  return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "IVec2")), "new", 2,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
 }
@@ -32195,7 +32185,7 @@ static mrb_value mruby_float4_bvec2_i_xx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32217,7 +32207,7 @@ static mrb_value mruby_float4_bvec2_i_xxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32240,7 +32230,7 @@ static mrb_value mruby_float4_bvec2_i_xxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32264,7 +32254,7 @@ static mrb_value mruby_float4_bvec2_i_xxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32288,7 +32278,7 @@ static mrb_value mruby_float4_bvec2_i_xxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32311,7 +32301,7 @@ static mrb_value mruby_float4_bvec2_i_xxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32335,7 +32325,7 @@ static mrb_value mruby_float4_bvec2_i_xxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32359,7 +32349,7 @@ static mrb_value mruby_float4_bvec2_i_xy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32381,7 +32371,7 @@ static mrb_value mruby_float4_bvec2_i_xyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32404,7 +32394,7 @@ static mrb_value mruby_float4_bvec2_i_xyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32428,7 +32418,7 @@ static mrb_value mruby_float4_bvec2_i_xyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32452,7 +32442,7 @@ static mrb_value mruby_float4_bvec2_i_xyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32475,7 +32465,7 @@ static mrb_value mruby_float4_bvec2_i_xyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32499,7 +32489,7 @@ static mrb_value mruby_float4_bvec2_i_xyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32523,7 +32513,7 @@ static mrb_value mruby_float4_bvec2_i_yx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32545,7 +32535,7 @@ static mrb_value mruby_float4_bvec2_i_yxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32568,7 +32558,7 @@ static mrb_value mruby_float4_bvec2_i_yxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32592,7 +32582,7 @@ static mrb_value mruby_float4_bvec2_i_yxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32616,7 +32606,7 @@ static mrb_value mruby_float4_bvec2_i_yxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32639,7 +32629,7 @@ static mrb_value mruby_float4_bvec2_i_yxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32663,7 +32653,7 @@ static mrb_value mruby_float4_bvec2_i_yxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32687,7 +32677,7 @@ static mrb_value mruby_float4_bvec2_i_yy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32709,7 +32699,7 @@ static mrb_value mruby_float4_bvec2_i_yyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32732,7 +32722,7 @@ static mrb_value mruby_float4_bvec2_i_yyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32756,7 +32746,7 @@ static mrb_value mruby_float4_bvec2_i_yyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32780,7 +32770,7 @@ static mrb_value mruby_float4_bvec2_i_yyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32803,7 +32793,7 @@ static mrb_value mruby_float4_bvec2_i_yyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32827,7 +32817,7 @@ static mrb_value mruby_float4_bvec2_i_yyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -32962,7 +32952,7 @@ static mrb_value mruby_float4_bvec3_i_data_class(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_bvec3_i_to_vec(mrb_state *mrb, mrb_value self)
 {
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec3), "new", 3,
+  return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "Vec3")), "new", 3,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
@@ -32970,7 +32960,7 @@ static mrb_value mruby_float4_bvec3_i_to_vec(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_bvec3_i_to_ivec(mrb_state *mrb, mrb_value self)
 {
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec3), "new", 3,
+  return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "IVec3")), "new", 3,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
@@ -32992,7 +32982,7 @@ static mrb_value mruby_float4_bvec3_i_xx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33014,7 +33004,7 @@ static mrb_value mruby_float4_bvec3_i_xxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33037,7 +33027,7 @@ static mrb_value mruby_float4_bvec3_i_xxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33061,7 +33051,7 @@ static mrb_value mruby_float4_bvec3_i_xxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33085,7 +33075,7 @@ static mrb_value mruby_float4_bvec3_i_xxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33109,7 +33099,7 @@ static mrb_value mruby_float4_bvec3_i_xxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33132,7 +33122,7 @@ static mrb_value mruby_float4_bvec3_i_xxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33156,7 +33146,7 @@ static mrb_value mruby_float4_bvec3_i_xxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33180,7 +33170,7 @@ static mrb_value mruby_float4_bvec3_i_xxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33204,7 +33194,7 @@ static mrb_value mruby_float4_bvec3_i_xxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33227,7 +33217,7 @@ static mrb_value mruby_float4_bvec3_i_xxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33251,7 +33241,7 @@ static mrb_value mruby_float4_bvec3_i_xxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33275,7 +33265,7 @@ static mrb_value mruby_float4_bvec3_i_xxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33299,7 +33289,7 @@ static mrb_value mruby_float4_bvec3_i_xy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33321,7 +33311,7 @@ static mrb_value mruby_float4_bvec3_i_xyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33344,7 +33334,7 @@ static mrb_value mruby_float4_bvec3_i_xyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33368,7 +33358,7 @@ static mrb_value mruby_float4_bvec3_i_xyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33392,7 +33382,7 @@ static mrb_value mruby_float4_bvec3_i_xyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33416,7 +33406,7 @@ static mrb_value mruby_float4_bvec3_i_xyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33439,7 +33429,7 @@ static mrb_value mruby_float4_bvec3_i_xyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33463,7 +33453,7 @@ static mrb_value mruby_float4_bvec3_i_xyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33487,7 +33477,7 @@ static mrb_value mruby_float4_bvec3_i_xyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33511,7 +33501,7 @@ static mrb_value mruby_float4_bvec3_i_xyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33534,7 +33524,7 @@ static mrb_value mruby_float4_bvec3_i_xyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33558,7 +33548,7 @@ static mrb_value mruby_float4_bvec3_i_xyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33582,7 +33572,7 @@ static mrb_value mruby_float4_bvec3_i_xyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33606,7 +33596,7 @@ static mrb_value mruby_float4_bvec3_i_xz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33628,7 +33618,7 @@ static mrb_value mruby_float4_bvec3_i_xzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33651,7 +33641,7 @@ static mrb_value mruby_float4_bvec3_i_xzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33675,7 +33665,7 @@ static mrb_value mruby_float4_bvec3_i_xzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33699,7 +33689,7 @@ static mrb_value mruby_float4_bvec3_i_xzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33723,7 +33713,7 @@ static mrb_value mruby_float4_bvec3_i_xzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33746,7 +33736,7 @@ static mrb_value mruby_float4_bvec3_i_xzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33770,7 +33760,7 @@ static mrb_value mruby_float4_bvec3_i_xzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33794,7 +33784,7 @@ static mrb_value mruby_float4_bvec3_i_xzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33818,7 +33808,7 @@ static mrb_value mruby_float4_bvec3_i_xzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33841,7 +33831,7 @@ static mrb_value mruby_float4_bvec3_i_xzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33865,7 +33855,7 @@ static mrb_value mruby_float4_bvec3_i_xzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33889,7 +33879,7 @@ static mrb_value mruby_float4_bvec3_i_xzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33913,7 +33903,7 @@ static mrb_value mruby_float4_bvec3_i_yx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33935,7 +33925,7 @@ static mrb_value mruby_float4_bvec3_i_yxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33958,7 +33948,7 @@ static mrb_value mruby_float4_bvec3_i_yxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -33982,7 +33972,7 @@ static mrb_value mruby_float4_bvec3_i_yxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34006,7 +33996,7 @@ static mrb_value mruby_float4_bvec3_i_yxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34030,7 +34020,7 @@ static mrb_value mruby_float4_bvec3_i_yxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34053,7 +34043,7 @@ static mrb_value mruby_float4_bvec3_i_yxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34077,7 +34067,7 @@ static mrb_value mruby_float4_bvec3_i_yxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34101,7 +34091,7 @@ static mrb_value mruby_float4_bvec3_i_yxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34125,7 +34115,7 @@ static mrb_value mruby_float4_bvec3_i_yxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34148,7 +34138,7 @@ static mrb_value mruby_float4_bvec3_i_yxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34172,7 +34162,7 @@ static mrb_value mruby_float4_bvec3_i_yxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34196,7 +34186,7 @@ static mrb_value mruby_float4_bvec3_i_yxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34220,7 +34210,7 @@ static mrb_value mruby_float4_bvec3_i_yy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34242,7 +34232,7 @@ static mrb_value mruby_float4_bvec3_i_yyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34265,7 +34255,7 @@ static mrb_value mruby_float4_bvec3_i_yyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34289,7 +34279,7 @@ static mrb_value mruby_float4_bvec3_i_yyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34313,7 +34303,7 @@ static mrb_value mruby_float4_bvec3_i_yyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34337,7 +34327,7 @@ static mrb_value mruby_float4_bvec3_i_yyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34360,7 +34350,7 @@ static mrb_value mruby_float4_bvec3_i_yyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34384,7 +34374,7 @@ static mrb_value mruby_float4_bvec3_i_yyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34408,7 +34398,7 @@ static mrb_value mruby_float4_bvec3_i_yyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34432,7 +34422,7 @@ static mrb_value mruby_float4_bvec3_i_yyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34455,7 +34445,7 @@ static mrb_value mruby_float4_bvec3_i_yyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34479,7 +34469,7 @@ static mrb_value mruby_float4_bvec3_i_yyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34503,7 +34493,7 @@ static mrb_value mruby_float4_bvec3_i_yyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34527,7 +34517,7 @@ static mrb_value mruby_float4_bvec3_i_yz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34549,7 +34539,7 @@ static mrb_value mruby_float4_bvec3_i_yzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34572,7 +34562,7 @@ static mrb_value mruby_float4_bvec3_i_yzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34596,7 +34586,7 @@ static mrb_value mruby_float4_bvec3_i_yzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34620,7 +34610,7 @@ static mrb_value mruby_float4_bvec3_i_yzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34644,7 +34634,7 @@ static mrb_value mruby_float4_bvec3_i_yzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34667,7 +34657,7 @@ static mrb_value mruby_float4_bvec3_i_yzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34691,7 +34681,7 @@ static mrb_value mruby_float4_bvec3_i_yzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34715,7 +34705,7 @@ static mrb_value mruby_float4_bvec3_i_yzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34739,7 +34729,7 @@ static mrb_value mruby_float4_bvec3_i_yzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34762,7 +34752,7 @@ static mrb_value mruby_float4_bvec3_i_yzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34786,7 +34776,7 @@ static mrb_value mruby_float4_bvec3_i_yzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34810,7 +34800,7 @@ static mrb_value mruby_float4_bvec3_i_yzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34834,7 +34824,7 @@ static mrb_value mruby_float4_bvec3_i_zx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34856,7 +34846,7 @@ static mrb_value mruby_float4_bvec3_i_zxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34879,7 +34869,7 @@ static mrb_value mruby_float4_bvec3_i_zxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34903,7 +34893,7 @@ static mrb_value mruby_float4_bvec3_i_zxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34927,7 +34917,7 @@ static mrb_value mruby_float4_bvec3_i_zxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34951,7 +34941,7 @@ static mrb_value mruby_float4_bvec3_i_zxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34974,7 +34964,7 @@ static mrb_value mruby_float4_bvec3_i_zxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -34998,7 +34988,7 @@ static mrb_value mruby_float4_bvec3_i_zxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35022,7 +35012,7 @@ static mrb_value mruby_float4_bvec3_i_zxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35046,7 +35036,7 @@ static mrb_value mruby_float4_bvec3_i_zxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35069,7 +35059,7 @@ static mrb_value mruby_float4_bvec3_i_zxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35093,7 +35083,7 @@ static mrb_value mruby_float4_bvec3_i_zxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35117,7 +35107,7 @@ static mrb_value mruby_float4_bvec3_i_zxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35141,7 +35131,7 @@ static mrb_value mruby_float4_bvec3_i_zy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35163,7 +35153,7 @@ static mrb_value mruby_float4_bvec3_i_zyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35186,7 +35176,7 @@ static mrb_value mruby_float4_bvec3_i_zyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35210,7 +35200,7 @@ static mrb_value mruby_float4_bvec3_i_zyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35234,7 +35224,7 @@ static mrb_value mruby_float4_bvec3_i_zyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35258,7 +35248,7 @@ static mrb_value mruby_float4_bvec3_i_zyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35281,7 +35271,7 @@ static mrb_value mruby_float4_bvec3_i_zyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35305,7 +35295,7 @@ static mrb_value mruby_float4_bvec3_i_zyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35329,7 +35319,7 @@ static mrb_value mruby_float4_bvec3_i_zyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35353,7 +35343,7 @@ static mrb_value mruby_float4_bvec3_i_zyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35376,7 +35366,7 @@ static mrb_value mruby_float4_bvec3_i_zyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35400,7 +35390,7 @@ static mrb_value mruby_float4_bvec3_i_zyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35424,7 +35414,7 @@ static mrb_value mruby_float4_bvec3_i_zyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35448,7 +35438,7 @@ static mrb_value mruby_float4_bvec3_i_zz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35470,7 +35460,7 @@ static mrb_value mruby_float4_bvec3_i_zzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35493,7 +35483,7 @@ static mrb_value mruby_float4_bvec3_i_zzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35517,7 +35507,7 @@ static mrb_value mruby_float4_bvec3_i_zzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35541,7 +35531,7 @@ static mrb_value mruby_float4_bvec3_i_zzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35565,7 +35555,7 @@ static mrb_value mruby_float4_bvec3_i_zzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35588,7 +35578,7 @@ static mrb_value mruby_float4_bvec3_i_zzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35612,7 +35602,7 @@ static mrb_value mruby_float4_bvec3_i_zzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35636,7 +35626,7 @@ static mrb_value mruby_float4_bvec3_i_zzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35660,7 +35650,7 @@ static mrb_value mruby_float4_bvec3_i_zzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35683,7 +35673,7 @@ static mrb_value mruby_float4_bvec3_i_zzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35707,7 +35697,7 @@ static mrb_value mruby_float4_bvec3_i_zzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35731,7 +35721,7 @@ static mrb_value mruby_float4_bvec3_i_zzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35877,7 +35867,7 @@ static mrb_value mruby_float4_bvec4_i_data_class(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_bvec4_i_to_vec(mrb_state *mrb, mrb_value self)
 {
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_vec4), "new", 4,
+  return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "Vec4")), "new", 4,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)),
@@ -35886,7 +35876,7 @@ static mrb_value mruby_float4_bvec4_i_to_vec(mrb_state *mrb, mrb_value self)
 
 static mrb_value mruby_float4_bvec4_i_to_ivec(mrb_state *mrb, mrb_value self)
 {
-  return mrb_funcall(mrb, mrb_obj_value(mruby_float4_klass_ivec4), "new", 4,
+  return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "IVec4")), "new", 4,
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)),
@@ -35909,7 +35899,7 @@ static mrb_value mruby_float4_bvec4_i_xx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35931,7 +35921,7 @@ static mrb_value mruby_float4_bvec4_i_xxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35954,7 +35944,7 @@ static mrb_value mruby_float4_bvec4_i_xxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -35978,7 +35968,7 @@ static mrb_value mruby_float4_bvec4_i_xxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36002,7 +35992,7 @@ static mrb_value mruby_float4_bvec4_i_xxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36026,7 +36016,7 @@ static mrb_value mruby_float4_bvec4_i_xxxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36050,7 +36040,7 @@ static mrb_value mruby_float4_bvec4_i_xxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36073,7 +36063,7 @@ static mrb_value mruby_float4_bvec4_i_xxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36097,7 +36087,7 @@ static mrb_value mruby_float4_bvec4_i_xxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36121,7 +36111,7 @@ static mrb_value mruby_float4_bvec4_i_xxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36145,7 +36135,7 @@ static mrb_value mruby_float4_bvec4_i_xxyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36169,7 +36159,7 @@ static mrb_value mruby_float4_bvec4_i_xxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36192,7 +36182,7 @@ static mrb_value mruby_float4_bvec4_i_xxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36216,7 +36206,7 @@ static mrb_value mruby_float4_bvec4_i_xxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36240,7 +36230,7 @@ static mrb_value mruby_float4_bvec4_i_xxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36264,7 +36254,7 @@ static mrb_value mruby_float4_bvec4_i_xxzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36288,7 +36278,7 @@ static mrb_value mruby_float4_bvec4_i_xxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36311,7 +36301,7 @@ static mrb_value mruby_float4_bvec4_i_xxwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36335,7 +36325,7 @@ static mrb_value mruby_float4_bvec4_i_xxwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36359,7 +36349,7 @@ static mrb_value mruby_float4_bvec4_i_xxwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36383,7 +36373,7 @@ static mrb_value mruby_float4_bvec4_i_xxww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36407,7 +36397,7 @@ static mrb_value mruby_float4_bvec4_i_xy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36429,7 +36419,7 @@ static mrb_value mruby_float4_bvec4_i_xyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36452,7 +36442,7 @@ static mrb_value mruby_float4_bvec4_i_xyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36476,7 +36466,7 @@ static mrb_value mruby_float4_bvec4_i_xyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36500,7 +36490,7 @@ static mrb_value mruby_float4_bvec4_i_xyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36524,7 +36514,7 @@ static mrb_value mruby_float4_bvec4_i_xyxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36548,7 +36538,7 @@ static mrb_value mruby_float4_bvec4_i_xyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36571,7 +36561,7 @@ static mrb_value mruby_float4_bvec4_i_xyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36595,7 +36585,7 @@ static mrb_value mruby_float4_bvec4_i_xyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36619,7 +36609,7 @@ static mrb_value mruby_float4_bvec4_i_xyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36643,7 +36633,7 @@ static mrb_value mruby_float4_bvec4_i_xyyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36667,7 +36657,7 @@ static mrb_value mruby_float4_bvec4_i_xyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36690,7 +36680,7 @@ static mrb_value mruby_float4_bvec4_i_xyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36714,7 +36704,7 @@ static mrb_value mruby_float4_bvec4_i_xyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36738,7 +36728,7 @@ static mrb_value mruby_float4_bvec4_i_xyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36762,7 +36752,7 @@ static mrb_value mruby_float4_bvec4_i_xyzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36786,7 +36776,7 @@ static mrb_value mruby_float4_bvec4_i_xyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36809,7 +36799,7 @@ static mrb_value mruby_float4_bvec4_i_xywx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36833,7 +36823,7 @@ static mrb_value mruby_float4_bvec4_i_xywy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36857,7 +36847,7 @@ static mrb_value mruby_float4_bvec4_i_xywz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36881,7 +36871,7 @@ static mrb_value mruby_float4_bvec4_i_xyww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36905,7 +36895,7 @@ static mrb_value mruby_float4_bvec4_i_xz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36927,7 +36917,7 @@ static mrb_value mruby_float4_bvec4_i_xzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36950,7 +36940,7 @@ static mrb_value mruby_float4_bvec4_i_xzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36974,7 +36964,7 @@ static mrb_value mruby_float4_bvec4_i_xzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -36998,7 +36988,7 @@ static mrb_value mruby_float4_bvec4_i_xzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37022,7 +37012,7 @@ static mrb_value mruby_float4_bvec4_i_xzxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37046,7 +37036,7 @@ static mrb_value mruby_float4_bvec4_i_xzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37069,7 +37059,7 @@ static mrb_value mruby_float4_bvec4_i_xzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37093,7 +37083,7 @@ static mrb_value mruby_float4_bvec4_i_xzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37117,7 +37107,7 @@ static mrb_value mruby_float4_bvec4_i_xzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37141,7 +37131,7 @@ static mrb_value mruby_float4_bvec4_i_xzyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37165,7 +37155,7 @@ static mrb_value mruby_float4_bvec4_i_xzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37188,7 +37178,7 @@ static mrb_value mruby_float4_bvec4_i_xzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37212,7 +37202,7 @@ static mrb_value mruby_float4_bvec4_i_xzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37236,7 +37226,7 @@ static mrb_value mruby_float4_bvec4_i_xzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37260,7 +37250,7 @@ static mrb_value mruby_float4_bvec4_i_xzzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37284,7 +37274,7 @@ static mrb_value mruby_float4_bvec4_i_xzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37307,7 +37297,7 @@ static mrb_value mruby_float4_bvec4_i_xzwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37331,7 +37321,7 @@ static mrb_value mruby_float4_bvec4_i_xzwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37355,7 +37345,7 @@ static mrb_value mruby_float4_bvec4_i_xzwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37379,7 +37369,7 @@ static mrb_value mruby_float4_bvec4_i_xzww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37403,7 +37393,7 @@ static mrb_value mruby_float4_bvec4_i_xw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37425,7 +37415,7 @@ static mrb_value mruby_float4_bvec4_i_xwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37448,7 +37438,7 @@ static mrb_value mruby_float4_bvec4_i_xwxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37472,7 +37462,7 @@ static mrb_value mruby_float4_bvec4_i_xwxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37496,7 +37486,7 @@ static mrb_value mruby_float4_bvec4_i_xwxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37520,7 +37510,7 @@ static mrb_value mruby_float4_bvec4_i_xwxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37544,7 +37534,7 @@ static mrb_value mruby_float4_bvec4_i_xwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37567,7 +37557,7 @@ static mrb_value mruby_float4_bvec4_i_xwyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37591,7 +37581,7 @@ static mrb_value mruby_float4_bvec4_i_xwyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37615,7 +37605,7 @@ static mrb_value mruby_float4_bvec4_i_xwyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37639,7 +37629,7 @@ static mrb_value mruby_float4_bvec4_i_xwyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37663,7 +37653,7 @@ static mrb_value mruby_float4_bvec4_i_xwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37686,7 +37676,7 @@ static mrb_value mruby_float4_bvec4_i_xwzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37710,7 +37700,7 @@ static mrb_value mruby_float4_bvec4_i_xwzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37734,7 +37724,7 @@ static mrb_value mruby_float4_bvec4_i_xwzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37758,7 +37748,7 @@ static mrb_value mruby_float4_bvec4_i_xwzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37782,7 +37772,7 @@ static mrb_value mruby_float4_bvec4_i_xww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37805,7 +37795,7 @@ static mrb_value mruby_float4_bvec4_i_xwwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37829,7 +37819,7 @@ static mrb_value mruby_float4_bvec4_i_xwwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37853,7 +37843,7 @@ static mrb_value mruby_float4_bvec4_i_xwwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37877,7 +37867,7 @@ static mrb_value mruby_float4_bvec4_i_xwww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37901,7 +37891,7 @@ static mrb_value mruby_float4_bvec4_i_yx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37923,7 +37913,7 @@ static mrb_value mruby_float4_bvec4_i_yxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37946,7 +37936,7 @@ static mrb_value mruby_float4_bvec4_i_yxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37970,7 +37960,7 @@ static mrb_value mruby_float4_bvec4_i_yxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -37994,7 +37984,7 @@ static mrb_value mruby_float4_bvec4_i_yxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38018,7 +38008,7 @@ static mrb_value mruby_float4_bvec4_i_yxxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38042,7 +38032,7 @@ static mrb_value mruby_float4_bvec4_i_yxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38065,7 +38055,7 @@ static mrb_value mruby_float4_bvec4_i_yxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38089,7 +38079,7 @@ static mrb_value mruby_float4_bvec4_i_yxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38113,7 +38103,7 @@ static mrb_value mruby_float4_bvec4_i_yxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38137,7 +38127,7 @@ static mrb_value mruby_float4_bvec4_i_yxyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38161,7 +38151,7 @@ static mrb_value mruby_float4_bvec4_i_yxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38184,7 +38174,7 @@ static mrb_value mruby_float4_bvec4_i_yxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38208,7 +38198,7 @@ static mrb_value mruby_float4_bvec4_i_yxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38232,7 +38222,7 @@ static mrb_value mruby_float4_bvec4_i_yxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38256,7 +38246,7 @@ static mrb_value mruby_float4_bvec4_i_yxzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38280,7 +38270,7 @@ static mrb_value mruby_float4_bvec4_i_yxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38303,7 +38293,7 @@ static mrb_value mruby_float4_bvec4_i_yxwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38327,7 +38317,7 @@ static mrb_value mruby_float4_bvec4_i_yxwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38351,7 +38341,7 @@ static mrb_value mruby_float4_bvec4_i_yxwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38375,7 +38365,7 @@ static mrb_value mruby_float4_bvec4_i_yxww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38399,7 +38389,7 @@ static mrb_value mruby_float4_bvec4_i_yy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38421,7 +38411,7 @@ static mrb_value mruby_float4_bvec4_i_yyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38444,7 +38434,7 @@ static mrb_value mruby_float4_bvec4_i_yyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38468,7 +38458,7 @@ static mrb_value mruby_float4_bvec4_i_yyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38492,7 +38482,7 @@ static mrb_value mruby_float4_bvec4_i_yyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38516,7 +38506,7 @@ static mrb_value mruby_float4_bvec4_i_yyxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38540,7 +38530,7 @@ static mrb_value mruby_float4_bvec4_i_yyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38563,7 +38553,7 @@ static mrb_value mruby_float4_bvec4_i_yyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38587,7 +38577,7 @@ static mrb_value mruby_float4_bvec4_i_yyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38611,7 +38601,7 @@ static mrb_value mruby_float4_bvec4_i_yyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38635,7 +38625,7 @@ static mrb_value mruby_float4_bvec4_i_yyyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38659,7 +38649,7 @@ static mrb_value mruby_float4_bvec4_i_yyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38682,7 +38672,7 @@ static mrb_value mruby_float4_bvec4_i_yyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38706,7 +38696,7 @@ static mrb_value mruby_float4_bvec4_i_yyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38730,7 +38720,7 @@ static mrb_value mruby_float4_bvec4_i_yyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38754,7 +38744,7 @@ static mrb_value mruby_float4_bvec4_i_yyzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38778,7 +38768,7 @@ static mrb_value mruby_float4_bvec4_i_yyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38801,7 +38791,7 @@ static mrb_value mruby_float4_bvec4_i_yywx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38825,7 +38815,7 @@ static mrb_value mruby_float4_bvec4_i_yywy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38849,7 +38839,7 @@ static mrb_value mruby_float4_bvec4_i_yywz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38873,7 +38863,7 @@ static mrb_value mruby_float4_bvec4_i_yyww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38897,7 +38887,7 @@ static mrb_value mruby_float4_bvec4_i_yz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38919,7 +38909,7 @@ static mrb_value mruby_float4_bvec4_i_yzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38942,7 +38932,7 @@ static mrb_value mruby_float4_bvec4_i_yzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38966,7 +38956,7 @@ static mrb_value mruby_float4_bvec4_i_yzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -38990,7 +38980,7 @@ static mrb_value mruby_float4_bvec4_i_yzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39014,7 +39004,7 @@ static mrb_value mruby_float4_bvec4_i_yzxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39038,7 +39028,7 @@ static mrb_value mruby_float4_bvec4_i_yzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39061,7 +39051,7 @@ static mrb_value mruby_float4_bvec4_i_yzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39085,7 +39075,7 @@ static mrb_value mruby_float4_bvec4_i_yzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39109,7 +39099,7 @@ static mrb_value mruby_float4_bvec4_i_yzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39133,7 +39123,7 @@ static mrb_value mruby_float4_bvec4_i_yzyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39157,7 +39147,7 @@ static mrb_value mruby_float4_bvec4_i_yzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39180,7 +39170,7 @@ static mrb_value mruby_float4_bvec4_i_yzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39204,7 +39194,7 @@ static mrb_value mruby_float4_bvec4_i_yzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39228,7 +39218,7 @@ static mrb_value mruby_float4_bvec4_i_yzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39252,7 +39242,7 @@ static mrb_value mruby_float4_bvec4_i_yzzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39276,7 +39266,7 @@ static mrb_value mruby_float4_bvec4_i_yzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39299,7 +39289,7 @@ static mrb_value mruby_float4_bvec4_i_yzwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39323,7 +39313,7 @@ static mrb_value mruby_float4_bvec4_i_yzwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39347,7 +39337,7 @@ static mrb_value mruby_float4_bvec4_i_yzwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39371,7 +39361,7 @@ static mrb_value mruby_float4_bvec4_i_yzww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39395,7 +39385,7 @@ static mrb_value mruby_float4_bvec4_i_yw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39417,7 +39407,7 @@ static mrb_value mruby_float4_bvec4_i_ywx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39440,7 +39430,7 @@ static mrb_value mruby_float4_bvec4_i_ywxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39464,7 +39454,7 @@ static mrb_value mruby_float4_bvec4_i_ywxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39488,7 +39478,7 @@ static mrb_value mruby_float4_bvec4_i_ywxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39512,7 +39502,7 @@ static mrb_value mruby_float4_bvec4_i_ywxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39536,7 +39526,7 @@ static mrb_value mruby_float4_bvec4_i_ywy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39559,7 +39549,7 @@ static mrb_value mruby_float4_bvec4_i_ywyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39583,7 +39573,7 @@ static mrb_value mruby_float4_bvec4_i_ywyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39607,7 +39597,7 @@ static mrb_value mruby_float4_bvec4_i_ywyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39631,7 +39621,7 @@ static mrb_value mruby_float4_bvec4_i_ywyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39655,7 +39645,7 @@ static mrb_value mruby_float4_bvec4_i_ywz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39678,7 +39668,7 @@ static mrb_value mruby_float4_bvec4_i_ywzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39702,7 +39692,7 @@ static mrb_value mruby_float4_bvec4_i_ywzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39726,7 +39716,7 @@ static mrb_value mruby_float4_bvec4_i_ywzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39750,7 +39740,7 @@ static mrb_value mruby_float4_bvec4_i_ywzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39774,7 +39764,7 @@ static mrb_value mruby_float4_bvec4_i_yww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39797,7 +39787,7 @@ static mrb_value mruby_float4_bvec4_i_ywwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39821,7 +39811,7 @@ static mrb_value mruby_float4_bvec4_i_ywwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39845,7 +39835,7 @@ static mrb_value mruby_float4_bvec4_i_ywwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39869,7 +39859,7 @@ static mrb_value mruby_float4_bvec4_i_ywww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39893,7 +39883,7 @@ static mrb_value mruby_float4_bvec4_i_zx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39915,7 +39905,7 @@ static mrb_value mruby_float4_bvec4_i_zxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39938,7 +39928,7 @@ static mrb_value mruby_float4_bvec4_i_zxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39962,7 +39952,7 @@ static mrb_value mruby_float4_bvec4_i_zxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -39986,7 +39976,7 @@ static mrb_value mruby_float4_bvec4_i_zxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40010,7 +40000,7 @@ static mrb_value mruby_float4_bvec4_i_zxxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40034,7 +40024,7 @@ static mrb_value mruby_float4_bvec4_i_zxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40057,7 +40047,7 @@ static mrb_value mruby_float4_bvec4_i_zxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40081,7 +40071,7 @@ static mrb_value mruby_float4_bvec4_i_zxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40105,7 +40095,7 @@ static mrb_value mruby_float4_bvec4_i_zxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40129,7 +40119,7 @@ static mrb_value mruby_float4_bvec4_i_zxyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40153,7 +40143,7 @@ static mrb_value mruby_float4_bvec4_i_zxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40176,7 +40166,7 @@ static mrb_value mruby_float4_bvec4_i_zxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40200,7 +40190,7 @@ static mrb_value mruby_float4_bvec4_i_zxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40224,7 +40214,7 @@ static mrb_value mruby_float4_bvec4_i_zxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40248,7 +40238,7 @@ static mrb_value mruby_float4_bvec4_i_zxzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40272,7 +40262,7 @@ static mrb_value mruby_float4_bvec4_i_zxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40295,7 +40285,7 @@ static mrb_value mruby_float4_bvec4_i_zxwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40319,7 +40309,7 @@ static mrb_value mruby_float4_bvec4_i_zxwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40343,7 +40333,7 @@ static mrb_value mruby_float4_bvec4_i_zxwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40367,7 +40357,7 @@ static mrb_value mruby_float4_bvec4_i_zxww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40391,7 +40381,7 @@ static mrb_value mruby_float4_bvec4_i_zy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40413,7 +40403,7 @@ static mrb_value mruby_float4_bvec4_i_zyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40436,7 +40426,7 @@ static mrb_value mruby_float4_bvec4_i_zyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40460,7 +40450,7 @@ static mrb_value mruby_float4_bvec4_i_zyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40484,7 +40474,7 @@ static mrb_value mruby_float4_bvec4_i_zyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40508,7 +40498,7 @@ static mrb_value mruby_float4_bvec4_i_zyxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40532,7 +40522,7 @@ static mrb_value mruby_float4_bvec4_i_zyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40555,7 +40545,7 @@ static mrb_value mruby_float4_bvec4_i_zyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40579,7 +40569,7 @@ static mrb_value mruby_float4_bvec4_i_zyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40603,7 +40593,7 @@ static mrb_value mruby_float4_bvec4_i_zyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40627,7 +40617,7 @@ static mrb_value mruby_float4_bvec4_i_zyyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40651,7 +40641,7 @@ static mrb_value mruby_float4_bvec4_i_zyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40674,7 +40664,7 @@ static mrb_value mruby_float4_bvec4_i_zyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40698,7 +40688,7 @@ static mrb_value mruby_float4_bvec4_i_zyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40722,7 +40712,7 @@ static mrb_value mruby_float4_bvec4_i_zyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40746,7 +40736,7 @@ static mrb_value mruby_float4_bvec4_i_zyzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40770,7 +40760,7 @@ static mrb_value mruby_float4_bvec4_i_zyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40793,7 +40783,7 @@ static mrb_value mruby_float4_bvec4_i_zywx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40817,7 +40807,7 @@ static mrb_value mruby_float4_bvec4_i_zywy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40841,7 +40831,7 @@ static mrb_value mruby_float4_bvec4_i_zywz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40865,7 +40855,7 @@ static mrb_value mruby_float4_bvec4_i_zyww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40889,7 +40879,7 @@ static mrb_value mruby_float4_bvec4_i_zz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40911,7 +40901,7 @@ static mrb_value mruby_float4_bvec4_i_zzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40934,7 +40924,7 @@ static mrb_value mruby_float4_bvec4_i_zzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40958,7 +40948,7 @@ static mrb_value mruby_float4_bvec4_i_zzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -40982,7 +40972,7 @@ static mrb_value mruby_float4_bvec4_i_zzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41006,7 +40996,7 @@ static mrb_value mruby_float4_bvec4_i_zzxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41030,7 +41020,7 @@ static mrb_value mruby_float4_bvec4_i_zzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41053,7 +41043,7 @@ static mrb_value mruby_float4_bvec4_i_zzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41077,7 +41067,7 @@ static mrb_value mruby_float4_bvec4_i_zzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41101,7 +41091,7 @@ static mrb_value mruby_float4_bvec4_i_zzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41125,7 +41115,7 @@ static mrb_value mruby_float4_bvec4_i_zzyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41149,7 +41139,7 @@ static mrb_value mruby_float4_bvec4_i_zzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41172,7 +41162,7 @@ static mrb_value mruby_float4_bvec4_i_zzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41196,7 +41186,7 @@ static mrb_value mruby_float4_bvec4_i_zzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41220,7 +41210,7 @@ static mrb_value mruby_float4_bvec4_i_zzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41244,7 +41234,7 @@ static mrb_value mruby_float4_bvec4_i_zzzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41268,7 +41258,7 @@ static mrb_value mruby_float4_bvec4_i_zzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41291,7 +41281,7 @@ static mrb_value mruby_float4_bvec4_i_zzwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41315,7 +41305,7 @@ static mrb_value mruby_float4_bvec4_i_zzwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41339,7 +41329,7 @@ static mrb_value mruby_float4_bvec4_i_zzwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41363,7 +41353,7 @@ static mrb_value mruby_float4_bvec4_i_zzww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41387,7 +41377,7 @@ static mrb_value mruby_float4_bvec4_i_zw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41409,7 +41399,7 @@ static mrb_value mruby_float4_bvec4_i_zwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41432,7 +41422,7 @@ static mrb_value mruby_float4_bvec4_i_zwxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41456,7 +41446,7 @@ static mrb_value mruby_float4_bvec4_i_zwxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41480,7 +41470,7 @@ static mrb_value mruby_float4_bvec4_i_zwxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41504,7 +41494,7 @@ static mrb_value mruby_float4_bvec4_i_zwxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41528,7 +41518,7 @@ static mrb_value mruby_float4_bvec4_i_zwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41551,7 +41541,7 @@ static mrb_value mruby_float4_bvec4_i_zwyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41575,7 +41565,7 @@ static mrb_value mruby_float4_bvec4_i_zwyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41599,7 +41589,7 @@ static mrb_value mruby_float4_bvec4_i_zwyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41623,7 +41613,7 @@ static mrb_value mruby_float4_bvec4_i_zwyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41647,7 +41637,7 @@ static mrb_value mruby_float4_bvec4_i_zwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41670,7 +41660,7 @@ static mrb_value mruby_float4_bvec4_i_zwzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41694,7 +41684,7 @@ static mrb_value mruby_float4_bvec4_i_zwzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41718,7 +41708,7 @@ static mrb_value mruby_float4_bvec4_i_zwzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41742,7 +41732,7 @@ static mrb_value mruby_float4_bvec4_i_zwzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41766,7 +41756,7 @@ static mrb_value mruby_float4_bvec4_i_zww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41789,7 +41779,7 @@ static mrb_value mruby_float4_bvec4_i_zwwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41813,7 +41803,7 @@ static mrb_value mruby_float4_bvec4_i_zwwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41837,7 +41827,7 @@ static mrb_value mruby_float4_bvec4_i_zwwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41861,7 +41851,7 @@ static mrb_value mruby_float4_bvec4_i_zwww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41885,7 +41875,7 @@ static mrb_value mruby_float4_bvec4_i_wx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41907,7 +41897,7 @@ static mrb_value mruby_float4_bvec4_i_wxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41930,7 +41920,7 @@ static mrb_value mruby_float4_bvec4_i_wxxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41954,7 +41944,7 @@ static mrb_value mruby_float4_bvec4_i_wxxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -41978,7 +41968,7 @@ static mrb_value mruby_float4_bvec4_i_wxxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42002,7 +41992,7 @@ static mrb_value mruby_float4_bvec4_i_wxxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42026,7 +42016,7 @@ static mrb_value mruby_float4_bvec4_i_wxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42049,7 +42039,7 @@ static mrb_value mruby_float4_bvec4_i_wxyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42073,7 +42063,7 @@ static mrb_value mruby_float4_bvec4_i_wxyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42097,7 +42087,7 @@ static mrb_value mruby_float4_bvec4_i_wxyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42121,7 +42111,7 @@ static mrb_value mruby_float4_bvec4_i_wxyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42145,7 +42135,7 @@ static mrb_value mruby_float4_bvec4_i_wxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42168,7 +42158,7 @@ static mrb_value mruby_float4_bvec4_i_wxzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42192,7 +42182,7 @@ static mrb_value mruby_float4_bvec4_i_wxzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42216,7 +42206,7 @@ static mrb_value mruby_float4_bvec4_i_wxzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42240,7 +42230,7 @@ static mrb_value mruby_float4_bvec4_i_wxzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42264,7 +42254,7 @@ static mrb_value mruby_float4_bvec4_i_wxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42287,7 +42277,7 @@ static mrb_value mruby_float4_bvec4_i_wxwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42311,7 +42301,7 @@ static mrb_value mruby_float4_bvec4_i_wxwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42335,7 +42325,7 @@ static mrb_value mruby_float4_bvec4_i_wxwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42359,7 +42349,7 @@ static mrb_value mruby_float4_bvec4_i_wxww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42383,7 +42373,7 @@ static mrb_value mruby_float4_bvec4_i_wy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42405,7 +42395,7 @@ static mrb_value mruby_float4_bvec4_i_wyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42428,7 +42418,7 @@ static mrb_value mruby_float4_bvec4_i_wyxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42452,7 +42442,7 @@ static mrb_value mruby_float4_bvec4_i_wyxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42476,7 +42466,7 @@ static mrb_value mruby_float4_bvec4_i_wyxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42500,7 +42490,7 @@ static mrb_value mruby_float4_bvec4_i_wyxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42524,7 +42514,7 @@ static mrb_value mruby_float4_bvec4_i_wyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42547,7 +42537,7 @@ static mrb_value mruby_float4_bvec4_i_wyyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42571,7 +42561,7 @@ static mrb_value mruby_float4_bvec4_i_wyyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42595,7 +42585,7 @@ static mrb_value mruby_float4_bvec4_i_wyyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42619,7 +42609,7 @@ static mrb_value mruby_float4_bvec4_i_wyyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42643,7 +42633,7 @@ static mrb_value mruby_float4_bvec4_i_wyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42666,7 +42656,7 @@ static mrb_value mruby_float4_bvec4_i_wyzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42690,7 +42680,7 @@ static mrb_value mruby_float4_bvec4_i_wyzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42714,7 +42704,7 @@ static mrb_value mruby_float4_bvec4_i_wyzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42738,7 +42728,7 @@ static mrb_value mruby_float4_bvec4_i_wyzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42762,7 +42752,7 @@ static mrb_value mruby_float4_bvec4_i_wyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42785,7 +42775,7 @@ static mrb_value mruby_float4_bvec4_i_wywx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42809,7 +42799,7 @@ static mrb_value mruby_float4_bvec4_i_wywy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42833,7 +42823,7 @@ static mrb_value mruby_float4_bvec4_i_wywz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42857,7 +42847,7 @@ static mrb_value mruby_float4_bvec4_i_wyww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42881,7 +42871,7 @@ static mrb_value mruby_float4_bvec4_i_wz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42903,7 +42893,7 @@ static mrb_value mruby_float4_bvec4_i_wzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42926,7 +42916,7 @@ static mrb_value mruby_float4_bvec4_i_wzxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42950,7 +42940,7 @@ static mrb_value mruby_float4_bvec4_i_wzxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42974,7 +42964,7 @@ static mrb_value mruby_float4_bvec4_i_wzxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -42998,7 +42988,7 @@ static mrb_value mruby_float4_bvec4_i_wzxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43022,7 +43012,7 @@ static mrb_value mruby_float4_bvec4_i_wzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43045,7 +43035,7 @@ static mrb_value mruby_float4_bvec4_i_wzyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43069,7 +43059,7 @@ static mrb_value mruby_float4_bvec4_i_wzyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43093,7 +43083,7 @@ static mrb_value mruby_float4_bvec4_i_wzyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43117,7 +43107,7 @@ static mrb_value mruby_float4_bvec4_i_wzyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43141,7 +43131,7 @@ static mrb_value mruby_float4_bvec4_i_wzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43164,7 +43154,7 @@ static mrb_value mruby_float4_bvec4_i_wzzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43188,7 +43178,7 @@ static mrb_value mruby_float4_bvec4_i_wzzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43212,7 +43202,7 @@ static mrb_value mruby_float4_bvec4_i_wzzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43236,7 +43226,7 @@ static mrb_value mruby_float4_bvec4_i_wzzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43260,7 +43250,7 @@ static mrb_value mruby_float4_bvec4_i_wzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43283,7 +43273,7 @@ static mrb_value mruby_float4_bvec4_i_wzwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43307,7 +43297,7 @@ static mrb_value mruby_float4_bvec4_i_wzwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43331,7 +43321,7 @@ static mrb_value mruby_float4_bvec4_i_wzwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43355,7 +43345,7 @@ static mrb_value mruby_float4_bvec4_i_wzww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43379,7 +43369,7 @@ static mrb_value mruby_float4_bvec4_i_ww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec2);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec2"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43401,7 +43391,7 @@ static mrb_value mruby_float4_bvec4_i_wwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43424,7 +43414,7 @@ static mrb_value mruby_float4_bvec4_i_wwxx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43448,7 +43438,7 @@ static mrb_value mruby_float4_bvec4_i_wwxy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43472,7 +43462,7 @@ static mrb_value mruby_float4_bvec4_i_wwxz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43496,7 +43486,7 @@ static mrb_value mruby_float4_bvec4_i_wwxw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43520,7 +43510,7 @@ static mrb_value mruby_float4_bvec4_i_wwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43543,7 +43533,7 @@ static mrb_value mruby_float4_bvec4_i_wwyx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43567,7 +43557,7 @@ static mrb_value mruby_float4_bvec4_i_wwyy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43591,7 +43581,7 @@ static mrb_value mruby_float4_bvec4_i_wwyz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43615,7 +43605,7 @@ static mrb_value mruby_float4_bvec4_i_wwyw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43639,7 +43629,7 @@ static mrb_value mruby_float4_bvec4_i_wwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43662,7 +43652,7 @@ static mrb_value mruby_float4_bvec4_i_wwzx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43686,7 +43676,7 @@ static mrb_value mruby_float4_bvec4_i_wwzy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43710,7 +43700,7 @@ static mrb_value mruby_float4_bvec4_i_wwzz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43734,7 +43724,7 @@ static mrb_value mruby_float4_bvec4_i_wwzw(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43758,7 +43748,7 @@ static mrb_value mruby_float4_bvec4_i_www(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec3);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec3"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43781,7 +43771,7 @@ static mrb_value mruby_float4_bvec4_i_wwwx(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43805,7 +43795,7 @@ static mrb_value mruby_float4_bvec4_i_wwwy(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43829,7 +43819,7 @@ static mrb_value mruby_float4_bvec4_i_wwwz(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43853,7 +43843,7 @@ static mrb_value mruby_float4_bvec4_i_wwww(mrb_state *mrb, mrb_value self)
   data = (struct mruby_float4_bool*)DATA_PTR(self);
   mrb_assert(data);
 
-  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mruby_float4_klass_bvec4);
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_class_get(mrb, "BVec4"));
   ret = mrb_obj_value(ret_object);
   ret_data = (struct mruby_float4_bool*)mrb_malloc(mrb, 16);
   mrb_data_init(ret, ret_data, &mruby_float4_data_type);
@@ -43869,6 +43859,15 @@ static mrb_value mruby_float4_bvec4_i_wwww(mrb_state *mrb, mrb_value self)
 void mrb_mruby_float4_gem_init(mrb_state *mrb)
 {
   struct RClass *base_class = mrb_define_class(mrb, "BaseVec", mrb->object_class);
+struct RClass *mruby_float4_klass_vec2;
+struct RClass *mruby_float4_klass_vec3;
+struct RClass *mruby_float4_klass_vec4;
+struct RClass *mruby_float4_klass_ivec2;
+struct RClass *mruby_float4_klass_ivec3;
+struct RClass *mruby_float4_klass_ivec4;
+struct RClass *mruby_float4_klass_bvec2;
+struct RClass *mruby_float4_klass_bvec3;
+struct RClass *mruby_float4_klass_bvec4;
 
   mruby_float4_klass_vec2 = mrb_define_class(mrb, "Vec2", base_class);
   MRB_SET_INSTANCE_TT(mruby_float4_klass_vec2, MRB_TT_DATA);
