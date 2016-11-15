@@ -39,6 +39,7 @@ puts '
 #include <mruby/data.h>
 #include <mruby/variable.h>
 #include <mruby/numeric.h>
+#include <mruby/float4.h>
 
 #define MRUBY_FLOAT4_MAX(x, y) (((x) > (y)) ? (x) : (y))
 #define MRUBY_FLOAT4_MIN(x, y) (((x) < (y)) ? (x) : (y))
@@ -54,6 +55,12 @@ static struct mrb_data_type mruby_float4_data_type =
   "float4_storage",
   mrb_free
 };'
+puts "
+
+MRB_API struct mrb_data_type* mrb_float4_data_type()
+{
+  return &mruby_float4_data_type;
+}"
 
 puts "
 static float mruby_float4_signf(float value)
@@ -122,11 +129,6 @@ static mrb_int mruby_float4_to_fixnum(mrb_state *mrb, mrb_value self)
     mrb_raise(mrb, E_TYPE_ERROR, \"not numeric value\");
   }
 }
-
-/*static mrb_int mruby_float4_to_bool(mrb_state *mrb, mrb_value self)
-{
-  return mrb_bool(self);
-}*/
 "
 
 class MethodWriter
@@ -154,7 +156,7 @@ class MethodWriter
     self.type_data = type_data
     self.size = size
     self.ruby_type = type_data[:ruby_type]
-    self.data_name = "mruby_float4_#{type_data[:type]}"
+    self.data_name = "mrb_float4_#{type_data[:type]}"
     self.argsym = type_data[:ruby_arg]
     self.ruby_arg_type = type_data[:ruby_arg_type]
     self.ruby_convert = type_data[:ruby_convert]
@@ -175,14 +177,6 @@ class MethodWriter
 
   def puts(text = '')
     Kernel.puts text unless @write_disabled
-  end
-
-  def write_struct_definition
-    puts "
-typedef struct #{data_name}
-{
-  #{ruby_type} data[4];
-} #{data_name};"
   end
 
   def write_function(name, arg_req = 0, arg_opt = 0, ruby_name = nil, &block)
@@ -747,6 +741,29 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
     end
   end
 
+  def write_glob_type_functions
+    puts
+    puts "MRB_API mrb_bool mrb_float4_#{type_name.downcase}(mrb_state *mrb, mrb_value self, struct #{data_name} *value, mrb_int *size)"
+    puts "{"
+    (2..4).each do |n|
+      puts "  mrb_bool is_vec#{n} = mrb_obj_class(mrb, self) == mrb_class_get(mrb, \"#{type_name}#{n}\");"
+    end
+    puts "  if (!is_vec2 && !is_vec3 && !is_vec4)"
+    puts "  {"
+    puts "    return FALSE;"
+    puts "  }"
+    puts "  if (size)"
+    puts "  {"
+    puts "    *size = is_vec2 ? 2 : (is_vec3 ? 3 : 4);"
+    puts "  }"
+    puts "  if (value)"
+    puts "  {"
+    puts "    memcpy(value, DATA_PTR(self), sizeof(struct #{data_name}));"
+    puts "  }"
+    puts "  return TRUE;"
+    puts "}"
+  end
+
   def write_functions
     write_initializer
     write_to_s
@@ -812,10 +829,6 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
   end
 end
 
-TYPES.each do |type_name, type_data|
-  MethodWriter.new(type_name, type_data, 0).write_struct_definition
-end
-
 puts "
 static void mruby_float4_check_argc(mrb_state *mrb, mrb_int min_argc, mrb_int max_argc)
 {
@@ -825,6 +838,10 @@ static void mruby_float4_check_argc(mrb_state *mrb, mrb_int min_argc, mrb_int ma
     mrb_raisef(mrb, E_ARGUMENT_ERROR, \"wrong number of arguments (%S for %S..%S)\", mrb_fixnum_value(argc), mrb_fixnum_value(min_argc), mrb_fixnum_value(max_argc));
   }
 }"
+
+TYPES.each do |type_name, type_data|
+  MethodWriter.new(type_name, type_data, 4).write_glob_type_functions
+end
 
 TYPES.each do |type_name, type_data|
   SIZES.each do |size|
@@ -837,6 +854,7 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
 {
   struct RClass *base_class = mrb_define_class(mrb, \"BaseVec\", mrb->object_class);
 "
+puts
 
 TYPES.each do |type_name, type_data|
   SIZES.each do |size|
@@ -844,7 +862,7 @@ TYPES.each do |type_name, type_data|
     klass_c = klass.downcase
     klass_name = "mruby_float4_klass_#{klass_c}"
 
-    puts "struct RClass *#{klass_name};"
+    puts "  struct RClass *#{klass_name};"
   end
 end
 
