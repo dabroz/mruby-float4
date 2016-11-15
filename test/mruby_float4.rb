@@ -625,9 +625,3 @@ assert('vec4 cross should raise') do
     Vec4.new.cross(Vec4.new)
   end
 end
-
-assert('base class') do
-  assert_equal Vec4.superclass, BaseVec
-  assert_true Vec4.new.is_a? Vec4
-  assert_true Vec4.new.is_a? BaseVec
-end

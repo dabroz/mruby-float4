@@ -737,6 +737,16 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
     end
   end
 
+  def write_dup
+    write_function('dup') do
+      puts "  return self;"
+    end
+
+    write_function('clone') do
+      puts "  return self;"
+    end
+  end
+
   def write_functions
     write_initializer
     write_to_s
@@ -744,6 +754,7 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
     write_at
     write_eq
     write_reflection
+    write_dup
 
     TYPES.each do |c_type, c_data|
       write_converter(c_type)
