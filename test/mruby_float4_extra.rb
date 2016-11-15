@@ -30,3 +30,79 @@ assert('clone') do
   v = Vec4.new(1, 2, 3, 4)
   assert_same(v, v.clone)
 end
+
+assert('change 1 member (symbol)') do
+  v = Vec4.new(1, 2, 3, 4)
+
+  assert_equal(v.changed(:x, 7), Vec4.new(7, 2, 3, 4))
+  assert_equal(v.changed(:y, 7), Vec4.new(1, 7, 3, 4))
+  assert_equal(v.changed(:z, 7), Vec4.new(1, 2, 7, 4))
+  assert_equal(v.changed(:w, 7), Vec4.new(1, 2, 3, 7))
+end
+
+assert('change 1 member (string)') do
+  v = Vec4.new(1, 2, 3, 4)
+  assert_equal(v.changed('x', 7), Vec4.new(7, 2, 3, 4))
+  assert_equal(v.changed('y', 7), Vec4.new(1, 7, 3, 4))
+  assert_equal(v.changed('z', 7), Vec4.new(1, 2, 7, 4))
+  assert_equal(v.changed('w', 7), Vec4.new(1, 2, 3, 7))
+end
+
+assert('change 1 member (int)') do
+  v = Vec4.new(1, 2, 3, 4)
+  assert_equal(v.changed(0, 7), Vec4.new(7, 2, 3, 4))
+  assert_equal(v.changed(1, 7), Vec4.new(1, 7, 3, 4))
+  assert_equal(v.changed(2, 7), Vec4.new(1, 2, 7, 4))
+  assert_equal(v.changed(3, 7), Vec4.new(1, 2, 3, 7))
+end
+
+assert('change 1 member errors (1)') do
+  assert_raise ArgumentError do
+    Vec4.new.changed(false, 7)
+  end
+end
+
+assert('change 1 member errors (2)') do
+  assert_raise ArgumentError do
+    Vec4.new.changed({}, 7)
+  end
+end
+
+assert('change 1 member errors (3)') do
+  assert_raise ArgumentError do
+    Vec4.new.changed(:s, 7)
+  end
+end
+
+assert('change 1 member errors (4)') do
+  assert_raise ArgumentError do
+    Vec4.new.changed('u', 7)
+  end
+end
+
+assert('change 1 member errors (5)') do
+  assert_raise ArgumentError do
+    Vec4.new.changed(-1, 7)
+  end
+end
+
+assert('change 1 member errors (6)') do
+  assert_raise ArgumentError do
+    Vec4.new.changed(9, 7)
+  end
+end
+
+assert('change 1 member errors (7)') do
+  assert_raise ArgumentError do
+    Vec4.new.changed(1.2, 7)
+  end
+end
+
+assert('change 1 named member') do
+  v = Vec4.new(1, 2, 3, 4)
+
+  assert_equal(v.changed_x(7), Vec4.new(7, 2, 3, 4))
+  assert_equal(v.changed_y(7), Vec4.new(1, 7, 3, 4))
+  assert_equal(v.changed_z(7), Vec4.new(1, 2, 7, 4))
+  assert_equal(v.changed_w(7), Vec4.new(1, 2, 3, 7))
+end

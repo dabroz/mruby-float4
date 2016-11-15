@@ -296,6 +296,104 @@ static mrb_value mruby_float4_vec2_i_clone(mrb_state *mrb, mrb_value self)
   return self;
 }
 
+static mrb_value mruby_float4_vec2_i_changed(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_float *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_float *ret_data;
+  mrb_value member;
+  mrb_float value;
+  mrb_int member_index = -1;
+
+  mruby_float4_check_argc(mrb, 2, 2);
+  mrb_get_args(mrb, "of", &member, &value);
+
+  if (mrb_string_p(member))
+  {
+    member = mrb_funcall(mrb, member, "to_sym", 0);
+  }
+  if (mrb_fixnum_p(member))
+  {
+    member_index = mrb_fixnum(member);
+  }
+  if (mrb_symbol_p(member))
+  {
+    if (mrb_intern_cstr(mrb, "x") == mrb_symbol(member)) member_index = 0;
+    else if (mrb_intern_cstr(mrb, "y") == mrb_symbol(member)) member_index = 1;
+    else if (mrb_intern_cstr(mrb, "z") == mrb_symbol(member)) member_index = 2;
+    else if (mrb_intern_cstr(mrb, "w") == mrb_symbol(member)) member_index = 3;
+  }
+
+  if (member_index < 0 || member_index >= 2)
+  {
+    mrb_raisef(mrb, E_ARGUMENT_ERROR, "wrong member argument, expected one of: :x, \"x\", 0, :y, \"y\", 1");
+  }
+
+  data = (struct mrb_float4_float*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_float*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = (member_index == 0) ? value : data->data[0];
+  ret_data->data[1] = (member_index == 1) ? value : data->data[1];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_vec2_i_changed_x(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_float *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_float *ret_data;
+  mrb_float value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "f", &value);
+
+  data = (struct mrb_float4_float*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_float*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = value;
+  ret_data->data[1] = data->data[1];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_vec2_i_changed_y(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_float *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_float *ret_data;
+  mrb_float value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "f", &value);
+
+  data = (struct mrb_float4_float*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_float*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = data->data[0];
+  ret_data->data[1] = value;
+
+  return ret;
+}
+
 static mrb_value mruby_float4_vec2_i_to_vec(mrb_state *mrb, mrb_value self)
 {
   return self;
@@ -2435,6 +2533,133 @@ static mrb_value mruby_float4_vec3_i_dup(mrb_state *mrb, mrb_value self)
 static mrb_value mruby_float4_vec3_i_clone(mrb_state *mrb, mrb_value self)
 {
   return self;
+}
+
+static mrb_value mruby_float4_vec3_i_changed(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_float *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_float *ret_data;
+  mrb_value member;
+  mrb_float value;
+  mrb_int member_index = -1;
+
+  mruby_float4_check_argc(mrb, 2, 2);
+  mrb_get_args(mrb, "of", &member, &value);
+
+  if (mrb_string_p(member))
+  {
+    member = mrb_funcall(mrb, member, "to_sym", 0);
+  }
+  if (mrb_fixnum_p(member))
+  {
+    member_index = mrb_fixnum(member);
+  }
+  if (mrb_symbol_p(member))
+  {
+    if (mrb_intern_cstr(mrb, "x") == mrb_symbol(member)) member_index = 0;
+    else if (mrb_intern_cstr(mrb, "y") == mrb_symbol(member)) member_index = 1;
+    else if (mrb_intern_cstr(mrb, "z") == mrb_symbol(member)) member_index = 2;
+    else if (mrb_intern_cstr(mrb, "w") == mrb_symbol(member)) member_index = 3;
+  }
+
+  if (member_index < 0 || member_index >= 3)
+  {
+    mrb_raisef(mrb, E_ARGUMENT_ERROR, "wrong member argument, expected one of: :x, \"x\", 0, :y, \"y\", 1, :z, \"z\", 2");
+  }
+
+  data = (struct mrb_float4_float*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_float*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = (member_index == 0) ? value : data->data[0];
+  ret_data->data[1] = (member_index == 1) ? value : data->data[1];
+  ret_data->data[2] = (member_index == 2) ? value : data->data[2];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_vec3_i_changed_x(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_float *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_float *ret_data;
+  mrb_float value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "f", &value);
+
+  data = (struct mrb_float4_float*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_float*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = value;
+  ret_data->data[1] = data->data[1];
+  ret_data->data[2] = data->data[2];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_vec3_i_changed_y(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_float *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_float *ret_data;
+  mrb_float value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "f", &value);
+
+  data = (struct mrb_float4_float*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_float*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = data->data[0];
+  ret_data->data[1] = value;
+  ret_data->data[2] = data->data[2];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_vec3_i_changed_z(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_float *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_float *ret_data;
+  mrb_float value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "f", &value);
+
+  data = (struct mrb_float4_float*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_float*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = data->data[0];
+  ret_data->data[1] = data->data[1];
+  ret_data->data[2] = value;
+
+  return ret;
 }
 
 static mrb_value mruby_float4_vec3_i_to_vec(mrb_state *mrb, mrb_value self)
@@ -6760,6 +6985,164 @@ static mrb_value mruby_float4_vec4_i_dup(mrb_state *mrb, mrb_value self)
 static mrb_value mruby_float4_vec4_i_clone(mrb_state *mrb, mrb_value self)
 {
   return self;
+}
+
+static mrb_value mruby_float4_vec4_i_changed(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_float *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_float *ret_data;
+  mrb_value member;
+  mrb_float value;
+  mrb_int member_index = -1;
+
+  mruby_float4_check_argc(mrb, 2, 2);
+  mrb_get_args(mrb, "of", &member, &value);
+
+  if (mrb_string_p(member))
+  {
+    member = mrb_funcall(mrb, member, "to_sym", 0);
+  }
+  if (mrb_fixnum_p(member))
+  {
+    member_index = mrb_fixnum(member);
+  }
+  if (mrb_symbol_p(member))
+  {
+    if (mrb_intern_cstr(mrb, "x") == mrb_symbol(member)) member_index = 0;
+    else if (mrb_intern_cstr(mrb, "y") == mrb_symbol(member)) member_index = 1;
+    else if (mrb_intern_cstr(mrb, "z") == mrb_symbol(member)) member_index = 2;
+    else if (mrb_intern_cstr(mrb, "w") == mrb_symbol(member)) member_index = 3;
+  }
+
+  if (member_index < 0 || member_index >= 4)
+  {
+    mrb_raisef(mrb, E_ARGUMENT_ERROR, "wrong member argument, expected one of: :x, \"x\", 0, :y, \"y\", 1, :z, \"z\", 2, :w, \"w\", 3");
+  }
+
+  data = (struct mrb_float4_float*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_float*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = (member_index == 0) ? value : data->data[0];
+  ret_data->data[1] = (member_index == 1) ? value : data->data[1];
+  ret_data->data[2] = (member_index == 2) ? value : data->data[2];
+  ret_data->data[3] = (member_index == 3) ? value : data->data[3];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_vec4_i_changed_x(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_float *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_float *ret_data;
+  mrb_float value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "f", &value);
+
+  data = (struct mrb_float4_float*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_float*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = value;
+  ret_data->data[1] = data->data[1];
+  ret_data->data[2] = data->data[2];
+  ret_data->data[3] = data->data[3];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_vec4_i_changed_y(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_float *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_float *ret_data;
+  mrb_float value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "f", &value);
+
+  data = (struct mrb_float4_float*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_float*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = data->data[0];
+  ret_data->data[1] = value;
+  ret_data->data[2] = data->data[2];
+  ret_data->data[3] = data->data[3];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_vec4_i_changed_z(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_float *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_float *ret_data;
+  mrb_float value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "f", &value);
+
+  data = (struct mrb_float4_float*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_float*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = data->data[0];
+  ret_data->data[1] = data->data[1];
+  ret_data->data[2] = value;
+  ret_data->data[3] = data->data[3];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_vec4_i_changed_w(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_float *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_float *ret_data;
+  mrb_float value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "f", &value);
+
+  data = (struct mrb_float4_float*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_float*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = data->data[0];
+  ret_data->data[1] = data->data[1];
+  ret_data->data[2] = data->data[2];
+  ret_data->data[3] = value;
+
+  return ret;
 }
 
 static mrb_value mruby_float4_vec4_i_to_vec(mrb_state *mrb, mrb_value self)
@@ -16284,6 +16667,104 @@ static mrb_value mruby_float4_ivec2_i_clone(mrb_state *mrb, mrb_value self)
   return self;
 }
 
+static mrb_value mruby_float4_ivec2_i_changed(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_int *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_int *ret_data;
+  mrb_value member;
+  mrb_int value;
+  mrb_int member_index = -1;
+
+  mruby_float4_check_argc(mrb, 2, 2);
+  mrb_get_args(mrb, "oi", &member, &value);
+
+  if (mrb_string_p(member))
+  {
+    member = mrb_funcall(mrb, member, "to_sym", 0);
+  }
+  if (mrb_fixnum_p(member))
+  {
+    member_index = mrb_fixnum(member);
+  }
+  if (mrb_symbol_p(member))
+  {
+    if (mrb_intern_cstr(mrb, "x") == mrb_symbol(member)) member_index = 0;
+    else if (mrb_intern_cstr(mrb, "y") == mrb_symbol(member)) member_index = 1;
+    else if (mrb_intern_cstr(mrb, "z") == mrb_symbol(member)) member_index = 2;
+    else if (mrb_intern_cstr(mrb, "w") == mrb_symbol(member)) member_index = 3;
+  }
+
+  if (member_index < 0 || member_index >= 2)
+  {
+    mrb_raisef(mrb, E_ARGUMENT_ERROR, "wrong member argument, expected one of: :x, \"x\", 0, :y, \"y\", 1");
+  }
+
+  data = (struct mrb_float4_int*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_int*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = (member_index == 0) ? value : data->data[0];
+  ret_data->data[1] = (member_index == 1) ? value : data->data[1];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_ivec2_i_changed_x(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_int *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_int *ret_data;
+  mrb_int value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "i", &value);
+
+  data = (struct mrb_float4_int*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_int*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = value;
+  ret_data->data[1] = data->data[1];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_ivec2_i_changed_y(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_int *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_int *ret_data;
+  mrb_int value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "i", &value);
+
+  data = (struct mrb_float4_int*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_int*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = data->data[0];
+  ret_data->data[1] = value;
+
+  return ret;
+}
+
 static mrb_value mruby_float4_ivec2_i_to_vec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "Vec2")), "new", 2,
@@ -18423,6 +18904,133 @@ static mrb_value mruby_float4_ivec3_i_dup(mrb_state *mrb, mrb_value self)
 static mrb_value mruby_float4_ivec3_i_clone(mrb_state *mrb, mrb_value self)
 {
   return self;
+}
+
+static mrb_value mruby_float4_ivec3_i_changed(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_int *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_int *ret_data;
+  mrb_value member;
+  mrb_int value;
+  mrb_int member_index = -1;
+
+  mruby_float4_check_argc(mrb, 2, 2);
+  mrb_get_args(mrb, "oi", &member, &value);
+
+  if (mrb_string_p(member))
+  {
+    member = mrb_funcall(mrb, member, "to_sym", 0);
+  }
+  if (mrb_fixnum_p(member))
+  {
+    member_index = mrb_fixnum(member);
+  }
+  if (mrb_symbol_p(member))
+  {
+    if (mrb_intern_cstr(mrb, "x") == mrb_symbol(member)) member_index = 0;
+    else if (mrb_intern_cstr(mrb, "y") == mrb_symbol(member)) member_index = 1;
+    else if (mrb_intern_cstr(mrb, "z") == mrb_symbol(member)) member_index = 2;
+    else if (mrb_intern_cstr(mrb, "w") == mrb_symbol(member)) member_index = 3;
+  }
+
+  if (member_index < 0 || member_index >= 3)
+  {
+    mrb_raisef(mrb, E_ARGUMENT_ERROR, "wrong member argument, expected one of: :x, \"x\", 0, :y, \"y\", 1, :z, \"z\", 2");
+  }
+
+  data = (struct mrb_float4_int*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_int*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = (member_index == 0) ? value : data->data[0];
+  ret_data->data[1] = (member_index == 1) ? value : data->data[1];
+  ret_data->data[2] = (member_index == 2) ? value : data->data[2];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_ivec3_i_changed_x(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_int *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_int *ret_data;
+  mrb_int value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "i", &value);
+
+  data = (struct mrb_float4_int*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_int*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = value;
+  ret_data->data[1] = data->data[1];
+  ret_data->data[2] = data->data[2];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_ivec3_i_changed_y(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_int *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_int *ret_data;
+  mrb_int value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "i", &value);
+
+  data = (struct mrb_float4_int*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_int*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = data->data[0];
+  ret_data->data[1] = value;
+  ret_data->data[2] = data->data[2];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_ivec3_i_changed_z(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_int *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_int *ret_data;
+  mrb_int value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "i", &value);
+
+  data = (struct mrb_float4_int*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_int*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = data->data[0];
+  ret_data->data[1] = data->data[1];
+  ret_data->data[2] = value;
+
+  return ret;
 }
 
 static mrb_value mruby_float4_ivec3_i_to_vec(mrb_state *mrb, mrb_value self)
@@ -22748,6 +23356,164 @@ static mrb_value mruby_float4_ivec4_i_dup(mrb_state *mrb, mrb_value self)
 static mrb_value mruby_float4_ivec4_i_clone(mrb_state *mrb, mrb_value self)
 {
   return self;
+}
+
+static mrb_value mruby_float4_ivec4_i_changed(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_int *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_int *ret_data;
+  mrb_value member;
+  mrb_int value;
+  mrb_int member_index = -1;
+
+  mruby_float4_check_argc(mrb, 2, 2);
+  mrb_get_args(mrb, "oi", &member, &value);
+
+  if (mrb_string_p(member))
+  {
+    member = mrb_funcall(mrb, member, "to_sym", 0);
+  }
+  if (mrb_fixnum_p(member))
+  {
+    member_index = mrb_fixnum(member);
+  }
+  if (mrb_symbol_p(member))
+  {
+    if (mrb_intern_cstr(mrb, "x") == mrb_symbol(member)) member_index = 0;
+    else if (mrb_intern_cstr(mrb, "y") == mrb_symbol(member)) member_index = 1;
+    else if (mrb_intern_cstr(mrb, "z") == mrb_symbol(member)) member_index = 2;
+    else if (mrb_intern_cstr(mrb, "w") == mrb_symbol(member)) member_index = 3;
+  }
+
+  if (member_index < 0 || member_index >= 4)
+  {
+    mrb_raisef(mrb, E_ARGUMENT_ERROR, "wrong member argument, expected one of: :x, \"x\", 0, :y, \"y\", 1, :z, \"z\", 2, :w, \"w\", 3");
+  }
+
+  data = (struct mrb_float4_int*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_int*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = (member_index == 0) ? value : data->data[0];
+  ret_data->data[1] = (member_index == 1) ? value : data->data[1];
+  ret_data->data[2] = (member_index == 2) ? value : data->data[2];
+  ret_data->data[3] = (member_index == 3) ? value : data->data[3];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_ivec4_i_changed_x(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_int *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_int *ret_data;
+  mrb_int value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "i", &value);
+
+  data = (struct mrb_float4_int*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_int*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = value;
+  ret_data->data[1] = data->data[1];
+  ret_data->data[2] = data->data[2];
+  ret_data->data[3] = data->data[3];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_ivec4_i_changed_y(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_int *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_int *ret_data;
+  mrb_int value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "i", &value);
+
+  data = (struct mrb_float4_int*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_int*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = data->data[0];
+  ret_data->data[1] = value;
+  ret_data->data[2] = data->data[2];
+  ret_data->data[3] = data->data[3];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_ivec4_i_changed_z(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_int *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_int *ret_data;
+  mrb_int value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "i", &value);
+
+  data = (struct mrb_float4_int*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_int*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = data->data[0];
+  ret_data->data[1] = data->data[1];
+  ret_data->data[2] = value;
+  ret_data->data[3] = data->data[3];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_ivec4_i_changed_w(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_int *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_int *ret_data;
+  mrb_int value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "i", &value);
+
+  data = (struct mrb_float4_int*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_int*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = data->data[0];
+  ret_data->data[1] = data->data[1];
+  ret_data->data[2] = data->data[2];
+  ret_data->data[3] = value;
+
+  return ret;
 }
 
 static mrb_value mruby_float4_ivec4_i_to_vec(mrb_state *mrb, mrb_value self)
@@ -32272,6 +33038,104 @@ static mrb_value mruby_float4_bvec2_i_clone(mrb_state *mrb, mrb_value self)
   return self;
 }
 
+static mrb_value mruby_float4_bvec2_i_changed(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_bool *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_bool *ret_data;
+  mrb_value member;
+  mrb_bool value;
+  mrb_int member_index = -1;
+
+  mruby_float4_check_argc(mrb, 2, 2);
+  mrb_get_args(mrb, "ob", &member, &value);
+
+  if (mrb_string_p(member))
+  {
+    member = mrb_funcall(mrb, member, "to_sym", 0);
+  }
+  if (mrb_fixnum_p(member))
+  {
+    member_index = mrb_fixnum(member);
+  }
+  if (mrb_symbol_p(member))
+  {
+    if (mrb_intern_cstr(mrb, "x") == mrb_symbol(member)) member_index = 0;
+    else if (mrb_intern_cstr(mrb, "y") == mrb_symbol(member)) member_index = 1;
+    else if (mrb_intern_cstr(mrb, "z") == mrb_symbol(member)) member_index = 2;
+    else if (mrb_intern_cstr(mrb, "w") == mrb_symbol(member)) member_index = 3;
+  }
+
+  if (member_index < 0 || member_index >= 2)
+  {
+    mrb_raisef(mrb, E_ARGUMENT_ERROR, "wrong member argument, expected one of: :x, \"x\", 0, :y, \"y\", 1");
+  }
+
+  data = (struct mrb_float4_bool*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_bool*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = (member_index == 0) ? value : data->data[0];
+  ret_data->data[1] = (member_index == 1) ? value : data->data[1];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_bvec2_i_changed_x(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_bool *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_bool *ret_data;
+  mrb_bool value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "b", &value);
+
+  data = (struct mrb_float4_bool*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_bool*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = value;
+  ret_data->data[1] = data->data[1];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_bvec2_i_changed_y(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_bool *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_bool *ret_data;
+  mrb_bool value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "b", &value);
+
+  data = (struct mrb_float4_bool*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_bool*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = data->data[0];
+  ret_data->data[1] = value;
+
+  return ret;
+}
+
 static mrb_value mruby_float4_bvec2_i_to_vec(mrb_state *mrb, mrb_value self)
 {
   return mrb_funcall(mrb, mrb_obj_value(mrb_class_get(mrb, "Vec2")), "new", 2,
@@ -33075,6 +33939,133 @@ static mrb_value mruby_float4_bvec3_i_dup(mrb_state *mrb, mrb_value self)
 static mrb_value mruby_float4_bvec3_i_clone(mrb_state *mrb, mrb_value self)
 {
   return self;
+}
+
+static mrb_value mruby_float4_bvec3_i_changed(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_bool *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_bool *ret_data;
+  mrb_value member;
+  mrb_bool value;
+  mrb_int member_index = -1;
+
+  mruby_float4_check_argc(mrb, 2, 2);
+  mrb_get_args(mrb, "ob", &member, &value);
+
+  if (mrb_string_p(member))
+  {
+    member = mrb_funcall(mrb, member, "to_sym", 0);
+  }
+  if (mrb_fixnum_p(member))
+  {
+    member_index = mrb_fixnum(member);
+  }
+  if (mrb_symbol_p(member))
+  {
+    if (mrb_intern_cstr(mrb, "x") == mrb_symbol(member)) member_index = 0;
+    else if (mrb_intern_cstr(mrb, "y") == mrb_symbol(member)) member_index = 1;
+    else if (mrb_intern_cstr(mrb, "z") == mrb_symbol(member)) member_index = 2;
+    else if (mrb_intern_cstr(mrb, "w") == mrb_symbol(member)) member_index = 3;
+  }
+
+  if (member_index < 0 || member_index >= 3)
+  {
+    mrb_raisef(mrb, E_ARGUMENT_ERROR, "wrong member argument, expected one of: :x, \"x\", 0, :y, \"y\", 1, :z, \"z\", 2");
+  }
+
+  data = (struct mrb_float4_bool*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_bool*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = (member_index == 0) ? value : data->data[0];
+  ret_data->data[1] = (member_index == 1) ? value : data->data[1];
+  ret_data->data[2] = (member_index == 2) ? value : data->data[2];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_bvec3_i_changed_x(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_bool *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_bool *ret_data;
+  mrb_bool value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "b", &value);
+
+  data = (struct mrb_float4_bool*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_bool*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = value;
+  ret_data->data[1] = data->data[1];
+  ret_data->data[2] = data->data[2];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_bvec3_i_changed_y(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_bool *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_bool *ret_data;
+  mrb_bool value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "b", &value);
+
+  data = (struct mrb_float4_bool*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_bool*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = data->data[0];
+  ret_data->data[1] = value;
+  ret_data->data[2] = data->data[2];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_bvec3_i_changed_z(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_bool *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_bool *ret_data;
+  mrb_bool value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "b", &value);
+
+  data = (struct mrb_float4_bool*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_bool*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = data->data[0];
+  ret_data->data[1] = data->data[1];
+  ret_data->data[2] = value;
+
+  return ret;
 }
 
 static mrb_value mruby_float4_bvec3_i_to_vec(mrb_state *mrb, mrb_value self)
@@ -36000,6 +36991,164 @@ static mrb_value mruby_float4_bvec4_i_dup(mrb_state *mrb, mrb_value self)
 static mrb_value mruby_float4_bvec4_i_clone(mrb_state *mrb, mrb_value self)
 {
   return self;
+}
+
+static mrb_value mruby_float4_bvec4_i_changed(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_bool *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_bool *ret_data;
+  mrb_value member;
+  mrb_bool value;
+  mrb_int member_index = -1;
+
+  mruby_float4_check_argc(mrb, 2, 2);
+  mrb_get_args(mrb, "ob", &member, &value);
+
+  if (mrb_string_p(member))
+  {
+    member = mrb_funcall(mrb, member, "to_sym", 0);
+  }
+  if (mrb_fixnum_p(member))
+  {
+    member_index = mrb_fixnum(member);
+  }
+  if (mrb_symbol_p(member))
+  {
+    if (mrb_intern_cstr(mrb, "x") == mrb_symbol(member)) member_index = 0;
+    else if (mrb_intern_cstr(mrb, "y") == mrb_symbol(member)) member_index = 1;
+    else if (mrb_intern_cstr(mrb, "z") == mrb_symbol(member)) member_index = 2;
+    else if (mrb_intern_cstr(mrb, "w") == mrb_symbol(member)) member_index = 3;
+  }
+
+  if (member_index < 0 || member_index >= 4)
+  {
+    mrb_raisef(mrb, E_ARGUMENT_ERROR, "wrong member argument, expected one of: :x, \"x\", 0, :y, \"y\", 1, :z, \"z\", 2, :w, \"w\", 3");
+  }
+
+  data = (struct mrb_float4_bool*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_bool*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = (member_index == 0) ? value : data->data[0];
+  ret_data->data[1] = (member_index == 1) ? value : data->data[1];
+  ret_data->data[2] = (member_index == 2) ? value : data->data[2];
+  ret_data->data[3] = (member_index == 3) ? value : data->data[3];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_bvec4_i_changed_x(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_bool *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_bool *ret_data;
+  mrb_bool value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "b", &value);
+
+  data = (struct mrb_float4_bool*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_bool*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = value;
+  ret_data->data[1] = data->data[1];
+  ret_data->data[2] = data->data[2];
+  ret_data->data[3] = data->data[3];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_bvec4_i_changed_y(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_bool *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_bool *ret_data;
+  mrb_bool value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "b", &value);
+
+  data = (struct mrb_float4_bool*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_bool*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = data->data[0];
+  ret_data->data[1] = value;
+  ret_data->data[2] = data->data[2];
+  ret_data->data[3] = data->data[3];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_bvec4_i_changed_z(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_bool *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_bool *ret_data;
+  mrb_bool value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "b", &value);
+
+  data = (struct mrb_float4_bool*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_bool*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = data->data[0];
+  ret_data->data[1] = data->data[1];
+  ret_data->data[2] = value;
+  ret_data->data[3] = data->data[3];
+
+  return ret;
+}
+
+static mrb_value mruby_float4_bvec4_i_changed_w(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_bool *data;
+  struct RObject* ret_object;
+  mrb_value ret;
+  struct mrb_float4_bool *ret_data;
+  mrb_bool value;
+
+  mruby_float4_check_argc(mrb, 1, 1);
+  mrb_get_args(mrb, "b", &value);
+
+  data = (struct mrb_float4_bool*)DATA_PTR(self);
+  mrb_assert(data);
+
+  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, mrb_obj_class(mrb, self));
+  ret = mrb_obj_value(ret_object);
+  ret_data = (struct mrb_float4_bool*)mrb_malloc(mrb, 16);
+  mrb_data_init(ret, ret_data, &mruby_float4_data_type);
+
+  ret_data->data[0] = data->data[0];
+  ret_data->data[1] = data->data[1];
+  ret_data->data[2] = data->data[2];
+  ret_data->data[3] = value;
+
+  return ret;
 }
 
 static mrb_value mruby_float4_bvec4_i_to_vec(mrb_state *mrb, mrb_value self)
@@ -44022,6 +45171,9 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_vec2, "atan", mruby_float4_vec2_i_atan, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "atan2", mruby_float4_vec2_i_atan2, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "ceil", mruby_float4_vec2_i_ceil, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec2, "changed", mruby_float4_vec2_i_changed, MRB_ARGS_ARG(2, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec2, "changed_x", mruby_float4_vec2_i_changed_x, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec2, "changed_y", mruby_float4_vec2_i_changed_y, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "clamp", mruby_float4_vec2_i_clamp, MRB_ARGS_ARG(2, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "clone", mruby_float4_vec2_i_clone, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "cos", mruby_float4_vec2_i_cos, MRB_ARGS_ARG(0, 0));
@@ -44109,6 +45261,10 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_vec3, "atan", mruby_float4_vec3_i_atan, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "atan2", mruby_float4_vec3_i_atan2, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "ceil", mruby_float4_vec3_i_ceil, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec3, "changed", mruby_float4_vec3_i_changed, MRB_ARGS_ARG(2, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec3, "changed_x", mruby_float4_vec3_i_changed_x, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec3, "changed_y", mruby_float4_vec3_i_changed_y, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec3, "changed_z", mruby_float4_vec3_i_changed_z, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "clamp", mruby_float4_vec3_i_clamp, MRB_ARGS_ARG(2, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "clone", mruby_float4_vec3_i_clone, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "cos", mruby_float4_vec3_i_cos, MRB_ARGS_ARG(0, 0));
@@ -44286,6 +45442,11 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_vec4, "atan", mruby_float4_vec4_i_atan, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "atan2", mruby_float4_vec4_i_atan2, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "ceil", mruby_float4_vec4_i_ceil, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec4, "changed", mruby_float4_vec4_i_changed, MRB_ARGS_ARG(2, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec4, "changed_w", mruby_float4_vec4_i_changed_w, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec4, "changed_x", mruby_float4_vec4_i_changed_x, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec4, "changed_y", mruby_float4_vec4_i_changed_y, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec4, "changed_z", mruby_float4_vec4_i_changed_z, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "clamp", mruby_float4_vec4_i_clamp, MRB_ARGS_ARG(2, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "clone", mruby_float4_vec4_i_clone, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "cos", mruby_float4_vec4_i_cos, MRB_ARGS_ARG(0, 0));
@@ -44682,6 +45843,9 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "atan", mruby_float4_ivec2_i_atan, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "atan2", mruby_float4_ivec2_i_atan2, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "ceil", mruby_float4_ivec2_i_ceil, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec2, "changed", mruby_float4_ivec2_i_changed, MRB_ARGS_ARG(2, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec2, "changed_x", mruby_float4_ivec2_i_changed_x, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec2, "changed_y", mruby_float4_ivec2_i_changed_y, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "clamp", mruby_float4_ivec2_i_clamp, MRB_ARGS_ARG(2, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "clone", mruby_float4_ivec2_i_clone, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "cos", mruby_float4_ivec2_i_cos, MRB_ARGS_ARG(0, 0));
@@ -44769,6 +45933,10 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "atan", mruby_float4_ivec3_i_atan, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "atan2", mruby_float4_ivec3_i_atan2, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "ceil", mruby_float4_ivec3_i_ceil, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec3, "changed", mruby_float4_ivec3_i_changed, MRB_ARGS_ARG(2, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec3, "changed_x", mruby_float4_ivec3_i_changed_x, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec3, "changed_y", mruby_float4_ivec3_i_changed_y, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec3, "changed_z", mruby_float4_ivec3_i_changed_z, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "clamp", mruby_float4_ivec3_i_clamp, MRB_ARGS_ARG(2, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "clone", mruby_float4_ivec3_i_clone, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "cos", mruby_float4_ivec3_i_cos, MRB_ARGS_ARG(0, 0));
@@ -44946,6 +46114,11 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "atan", mruby_float4_ivec4_i_atan, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "atan2", mruby_float4_ivec4_i_atan2, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "ceil", mruby_float4_ivec4_i_ceil, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec4, "changed", mruby_float4_ivec4_i_changed, MRB_ARGS_ARG(2, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec4, "changed_w", mruby_float4_ivec4_i_changed_w, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec4, "changed_x", mruby_float4_ivec4_i_changed_x, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec4, "changed_y", mruby_float4_ivec4_i_changed_y, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec4, "changed_z", mruby_float4_ivec4_i_changed_z, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "clamp", mruby_float4_ivec4_i_clamp, MRB_ARGS_ARG(2, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "clone", mruby_float4_ivec4_i_clone, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "cos", mruby_float4_ivec4_i_cos, MRB_ARGS_ARG(0, 0));
@@ -45331,6 +46504,9 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   MRB_SET_INSTANCE_TT(mruby_float4_klass_bvec2, MRB_TT_DATA);
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "==", mruby_float4_bvec2_i_eq, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "[]", mruby_float4_bvec2_i_at, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec2, "changed", mruby_float4_bvec2_i_changed, MRB_ARGS_ARG(2, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec2, "changed_x", mruby_float4_bvec2_i_changed_x, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec2, "changed_y", mruby_float4_bvec2_i_changed_y, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "clone", mruby_float4_bvec2_i_clone, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "data_class", mruby_float4_bvec2_i_data_class, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "data_size", mruby_float4_bvec2_i_data_size, MRB_ARGS_ARG(0, 0));
@@ -45376,6 +46552,10 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   MRB_SET_INSTANCE_TT(mruby_float4_klass_bvec3, MRB_TT_DATA);
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "==", mruby_float4_bvec3_i_eq, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "[]", mruby_float4_bvec3_i_at, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec3, "changed", mruby_float4_bvec3_i_changed, MRB_ARGS_ARG(2, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec3, "changed_x", mruby_float4_bvec3_i_changed_x, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec3, "changed_y", mruby_float4_bvec3_i_changed_y, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec3, "changed_z", mruby_float4_bvec3_i_changed_z, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "clone", mruby_float4_bvec3_i_clone, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "data_class", mruby_float4_bvec3_i_data_class, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "data_size", mruby_float4_bvec3_i_data_size, MRB_ARGS_ARG(0, 0));
@@ -45511,6 +46691,11 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   MRB_SET_INSTANCE_TT(mruby_float4_klass_bvec4, MRB_TT_DATA);
   mrb_define_method(mrb, mruby_float4_klass_bvec4, "==", mruby_float4_bvec4_i_eq, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec4, "[]", mruby_float4_bvec4_i_at, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec4, "changed", mruby_float4_bvec4_i_changed, MRB_ARGS_ARG(2, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec4, "changed_w", mruby_float4_bvec4_i_changed_w, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec4, "changed_x", mruby_float4_bvec4_i_changed_x, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec4, "changed_y", mruby_float4_bvec4_i_changed_y, MRB_ARGS_ARG(1, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec4, "changed_z", mruby_float4_bvec4_i_changed_z, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec4, "clone", mruby_float4_bvec4_i_clone, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec4, "data_class", mruby_float4_bvec4_i_data_class, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec4, "data_size", mruby_float4_bvec4_i_data_size, MRB_ARGS_ARG(0, 0));

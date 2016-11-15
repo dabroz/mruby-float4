@@ -764,6 +764,81 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
     puts "}"
   end
 
+  def write_changers
+    write_function('changed', 2) do
+      puts "  struct #{data_name} *data;"
+      puts "  struct RObject* ret_object;"
+      puts "  mrb_value ret;"
+      puts "  struct #{data_name} *ret_data;"
+
+      puts "  mrb_value member;"
+      puts "  #{ruby_arg_type} value;"
+      puts "  mrb_int member_index = -1;"
+      puts
+      puts "  mruby_float4_check_argc(mrb, 2, 2);"
+      puts "  mrb_get_args(mrb, \"o#{argsym}\", &member, &value);"
+      puts
+      puts "  if (mrb_string_p(member))"
+      puts "  {"
+      puts "    member = mrb_funcall(mrb, member, \"to_sym\", 0);"
+      puts "  }"
+      puts "  if (mrb_fixnum_p(member))"
+      puts "  {"
+      puts "    member_index = mrb_fixnum(member);"
+      puts "  }"
+      puts "  if (mrb_symbol_p(member))"
+      puts "  {"
+      puts "    if (mrb_intern_cstr(mrb, \"x\") == mrb_symbol(member)) member_index = 0;"
+      puts "    else if (mrb_intern_cstr(mrb, \"y\") == mrb_symbol(member)) member_index = 1;"
+      puts "    else if (mrb_intern_cstr(mrb, \"z\") == mrb_symbol(member)) member_index = 2;"
+      puts "    else if (mrb_intern_cstr(mrb, \"w\") == mrb_symbol(member)) member_index = 3;"
+      puts "  }"
+      puts
+      puts "  if (member_index < 0 || member_index >= #{size})"
+      puts "  {"
+      exp = members.each_with_index.map do |value, index|
+        [":#{value}", "\\\"#{value}\\\"", index]
+      end.flatten.join(', ')
+      puts "    mrb_raisef(mrb, E_ARGUMENT_ERROR, \"wrong member argument, expected one of: #{exp}\");"
+      puts "  }"
+      puts "
+  data = (struct #{data_name}*)DATA_PTR(self);
+  mrb_assert(data);"
+      puts
+      print_alloc_ret
+      puts
+      (0...size).each do |index|
+        puts "  ret_data->data[#{index}] = (member_index == #{index}) ? value : data->data[#{index}];"
+      end
+      puts
+      puts "  return ret;"
+    end
+
+    members.each_with_index do |member, member_index|
+      write_function("changed_#{member}", 1) do
+        puts "  struct #{data_name} *data;"
+        puts "  struct RObject* ret_object;"
+        puts "  mrb_value ret;"
+        puts "  struct #{data_name} *ret_data;"
+        puts "  #{ruby_arg_type} value;"
+        puts
+        puts "  mruby_float4_check_argc(mrb, 1, 1);"
+        puts "  mrb_get_args(mrb, \"#{argsym}\", &value);"
+        puts "
+  data = (struct #{data_name}*)DATA_PTR(self);
+  mrb_assert(data);"
+        puts
+        print_alloc_ret
+        puts
+        (0...size).each do |index|
+          puts "  ret_data->data[#{index}] = " + ((member_index == index) ? "value" : "data->data[#{index}]") + ";"
+        end
+        puts
+        puts "  return ret;"
+      end
+    end
+  end
+
   def write_functions
     write_initializer
     write_to_s
@@ -772,6 +847,7 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
     write_eq
     write_reflection
     write_dup
+    write_changers
 
     TYPES.each do |c_type, c_data|
       write_converter(c_type)
