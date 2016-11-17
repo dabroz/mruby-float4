@@ -235,7 +235,7 @@ end
 
 assert('GLSL: vec2 acos') do
   vec = acos(vec2(0.8, -0.34))
-  assert_vector(vec, vec2(0.64350110292435, 1.9177131652832))
+  assert_vector(vec, vec2(0.64350110292435, 1.9177131652832), 1e-6)
 end
 
 assert('GLSL: vec2 atan') do
@@ -411,7 +411,7 @@ end
 assert('GLSL: vec4 length') do
   vec1 = vec4(-14.12, 53.19, -8.51, 56.23)
   f = length(vec1)
-  assert_float(f, 79.137748718262)
+  assert_float(f, 79.137748718262, 1e-6)
   assert_float(f * f, length_squared(vec1), 1e-4)
 end
 

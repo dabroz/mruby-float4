@@ -3,5 +3,17 @@ language: c
 compiler:
   - clang
   - gcc
+env:
+  matrix:
+    - CFLAGS= LDFLAGS=
+    - CFLAGS=-m32 LDFLAGS=-m32
+addons:
+  apt:
+    packages:
+    - gcc-multilib
+    - g++-4.6-multilib
+    - lib32bz2-dev
+    - libc6-dev-i386
+    - lib32z1-dev 
 script:
-  - "rake test"
+  - rake ci_test

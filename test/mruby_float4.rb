@@ -254,7 +254,7 @@ end
 
 assert('vec2 acos') do
   vec = Vec2.new(0.8, -0.34).acos
-  assert_vector(vec, Vec2.new(0.64350110292435, 1.9177131652832))
+  assert_vector(vec, Vec2.new(0.64350110292435, 1.9177131652832), 1e-6)
 end
 
 assert('vec2 atan') do
@@ -430,7 +430,7 @@ end
 assert('vec4 length') do
   vec1 = Vec4.new(-14.12, 53.19, -8.51, 56.23)
   f = vec1.length
-  assert_float(f, 79.137748718262)
+  assert_float(f, 79.137748718262, 1e-6)
   assert_float(f * f, vec1.length_squared, 1e-4)
 end
 
