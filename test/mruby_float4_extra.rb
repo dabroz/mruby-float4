@@ -106,3 +106,13 @@ assert('change 1 named member') do
   assert_equal(v.changed_z(7), Vec4.new(1, 2, 7, 4))
   assert_equal(v.changed_w(7), Vec4.new(1, 2, 3, 7))
 end
+
+assert('should not re-initialize') do
+  v = Vec4.new(1, 2, 3, 4)
+
+  assert_raise(NameError) do
+    v.initialize(5, 6, 7, 8)
+  end
+
+  assert_equal(v, Vec4.new(1, 2, 3, 4))
+end

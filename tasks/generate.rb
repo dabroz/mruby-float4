@@ -199,15 +199,14 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
   mrb_int argc;
   struct #{data_name} *data;
   
+  if (DATA_PTR(self))
+  {
+    mrb_raise(mrb, E_NAME_ERROR, \"`initialize' called twice\");
+  }
+
   mruby_float4_check_argc(mrb, 0, #{size});
 
   argc = mrb_get_args(mrb, \"|#{argsym * size}\", #{(0...size).map{|n|'&argv[' + n.to_s + ']'}.join(', ')});
-
-  if (DATA_PTR(self))
-  {
-    mrb_free(mrb, DATA_PTR(self));
-  }  
-  mrb_data_init(self, NULL, &mruby_float4_data_type);
 
   mrb_assert(sizeof(#{data_name}) <= 16);
   data = (struct #{data_name}*)mrb_malloc(mrb, 16);
