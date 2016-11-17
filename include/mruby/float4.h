@@ -5,10 +5,22 @@
  */
 
 #include <mruby.h>
+#include <mruby/istruct.h>
+#include <limits.h>
+#include <stdint.h>
 
 MRB_BEGIN_DECL
 
+/* use istruct in 64-bit mode */
+#if UINTPTR_MAX <= UINT_MAX
+#define MRUBY_FLOAT4_USE_ISTRUCT 0
+#else
+#define MRUBY_FLOAT4_USE_ISTRUCT 1
+#endif
+
+#if !MRUBY_FLOAT4_USE_ISTRUCT
 MRB_API struct mrb_data_type* mrb_float4_data_type();
+#endif
 
 typedef struct mrb_float4_float
 {

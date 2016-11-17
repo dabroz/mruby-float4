@@ -92,6 +92,8 @@ Data is stored withing the object as simple C structure (for size and performanc
 - any overrides on `Float` won't change this gem behavior
 - `VecX` family uses single-precision float numbers (mruby uses double-precision by default)
 
+In 64-bit mode, inline structures (`istruct`) is used to store data to increate performance and avoid extra allocation.
+
 ## Known limitations
 
 - `2.0 * Vec2.new(1.0, 2.0)` won't work, because mruby doesn't currently support Fixnum/Float operators overloading. There is however a [pull request for that](https://github.com/mruby/mruby/pull/2579) in the works.
@@ -99,11 +101,12 @@ Data is stored withing the object as simple C structure (for size and performanc
 ## Performance
 
 ```
-benchmark/bm_ao_render.rb        (pure Ruby)     [256x256] -> 1m40.712s
-benchmark/bm_ao_render_float4.rb (with this gem) [256x256] -> 0m59.265s
+benchmark/bm_ao_render.rb        (pure Ruby)         [256x256] -> 1m40.712s
+benchmark/bm_ao_render_float4.rb (32-bit)            [256x256] -> 0m59.265s
+benchmark/bm_ao_render_float4.rb (64-bit, w/istruct) [256x256] -> 0m53.674s
 ```
 
-So there is a slight performance bonus of using this gem. There is some room for improvement, including using [inline structures](https://github.com/mruby/mruby/issues/3237) in mruby.
+So there is a slight performance bonus of using this gem. 64-bit version is even faster, thanks to inline structure storage.
 
 ## Licence
 

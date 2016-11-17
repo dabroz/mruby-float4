@@ -50,19 +50,39 @@ puts '
 #define MRUBY_FLOAT4_MUL(x, y) ((x) * (y))
 #define MRUBY_FLOAT4_DIV(x, y) ((x) / (y))
 
+#define MRUBY_FLOAT4_FROZEN    4
+#define MRUBY_FLOAT4_FROZEN_P(s) (((struct RBasic*)mrb_ptr(s))->flags & MRUBY_FLOAT4_FROZEN)
+#define MRUBY_FLOAT4_SET_FROZEN_FLAG(s) (((struct RBasic*)mrb_ptr(s))->flags |= MRUBY_FLOAT4_FROZEN)
+
+#if MRUBY_FLOAT4_USE_ISTRUCT
+#define FLOAT4_PTR(obj, data_name) (struct data_name*)mrb_istruct_ptr(obj)  
+#else
+#define FLOAT4_PTR(obj, data_name) (struct data_name*)DATA_PTR(obj)
+#endif
+
+#if !MRUBY_FLOAT4_USE_ISTRUCT
 static struct mrb_data_type mruby_float4_data_type =
 {
   "float4_storage",
   mrb_free
-};'
-puts "
+};
 
 MRB_API struct mrb_data_type* mrb_float4_data_type()
 {
   return &mruby_float4_data_type;
-}"
+}
+#endif
 
-puts "
+#define MRUBY_FLOAT4_INSTANCE_TT (MRUBY_FLOAT4_USE_ISTRUCT ? MRB_TT_ISTRUCT : MRB_TT_DATA)
+
+static mrb_value
+mruby_float4_instance_alloc(mrb_state *mrb, mrb_value cv)
+{
+  struct RClass *c = mrb_class_ptr(cv);
+  struct RObject *o = (struct RObject*)mrb_obj_alloc(mrb, MRUBY_FLOAT4_INSTANCE_TT, c);
+  return mrb_obj_value(o);
+}
+
 static float mruby_float4_signf(float value)
 {
   if (value > 0.0f) return 1.0f;
@@ -126,10 +146,9 @@ static mrb_int mruby_float4_to_fixnum(mrb_state *mrb, mrb_value self)
   case MRB_TT_FLOAT:
     return (mrb_int)mrb_float(self);
   default:
-    mrb_raise(mrb, E_TYPE_ERROR, \"not numeric value\");
+    mrb_raise(mrb, E_TYPE_ERROR, "not numeric value");
   }
-}
-"
+}'
 
 class MethodWriter
   attr_accessor :type_name
@@ -179,14 +198,14 @@ class MethodWriter
     Kernel.puts text unless @write_disabled
   end
 
-  def write_function(name, arg_req = 0, arg_opt = 0, ruby_name = nil, &block)
-    @functions[ruby_name || name] = [arg_req, arg_opt, ruby_name ? name : nil].compact
-    raw_write_function(name, &block)
+  def write_function(name, arg_req = 0, arg_opt = 0, ruby_name = nil, extra = nil, &block)
+    @functions[ruby_name || name] = [arg_req, arg_opt, ruby_name ? name : nil, extra].compact
+    raw_write_function(name, extra == :class, &block)
   end
 
-  def raw_write_function(name)
+  def raw_write_function(name, is_klass)
     puts "
-static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value self)
+static mrb_value mruby_float4_#{klass_c}_#{is_klass ? 'c' : 'i'}_#{name}(mrb_state *mrb, mrb_value #{is_klass ? 'self_class' : 'self'})
 {"
     yield
     puts "}"
@@ -198,19 +217,23 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "  #{ruby_arg_type} argv[#{size}] = {0};
   mrb_int argc;
   struct #{data_name} *data;
-  
-  if (DATA_PTR(self))
+
+  if (MRUBY_FLOAT4_FROZEN_P(self))
   {
     mrb_raise(mrb, E_NAME_ERROR, \"`initialize' called twice\");
   }
+  MRUBY_FLOAT4_SET_FROZEN_FLAG(self);
 
   mruby_float4_check_argc(mrb, 0, #{size});
 
   argc = mrb_get_args(mrb, \"|#{argsym * size}\", #{(0...size).map{|n|'&argv[' + n.to_s + ']'}.join(', ')});
 
   mrb_assert(sizeof(#{data_name}) <= 16);
-  data = (struct #{data_name}*)mrb_malloc(mrb, 16);
-  mrb_data_init(self, data, &mruby_float4_data_type);"
+#if !MRUBY_FLOAT4_USE_ISTRUCT
+  mrb_data_init(self, mrb_malloc(mrb, 16), &mruby_float4_data_type);
+#endif
+  data = FLOAT4_PTR(self, #{data_name});
+  "
 
       members.each_with_index do |member, index|
         puts "  data->data[#{index}] = argv[#{index}];"
@@ -230,7 +253,7 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
 
   mruby_float4_check_argc(mrb, 0, 0);
 
-  data = (struct #{data_name}*)DATA_PTR(self);
+  data = FLOAT4_PTR(self, #{data_name});
   mrb_assert(data);
 
   return mrb_format(mrb, \"#{klass_c}(#{format_arg})\", #{format_values});"
@@ -243,7 +266,7 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       write_function(member) do
         puts "  struct #{data_name} *data;
   mruby_float4_check_argc(mrb, 0, 0);
-  data = (struct #{data_name}*)DATA_PTR(self);
+  data = FLOAT4_PTR(self, #{data_name});
   mrb_assert(data);
   return #{ret_value};"
       end
@@ -259,7 +282,7 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
 
   mruby_float4_check_argc(mrb, 1, 1);
   mrb_get_args(mrb, \"i\", &index);
-  data = (struct #{data_name}*)DATA_PTR(self);
+  data = FLOAT4_PTR(self, #{data_name});
   mrb_assert(data);
 
   if (index < 0 || index >= #{size})
@@ -288,8 +311,8 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "      mrb_raisef(mrb, E_TYPE_ERROR, \"expected argument to be %S, %S given\", mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, self)), mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, other)));"
       puts "  }"
       puts
-      puts "  self_data = (struct #{data_name}*)DATA_PTR(self);"
-      puts "  other_data = (struct #{data_name}*)DATA_PTR(other);"
+      puts "  self_data = FLOAT4_PTR(self, #{data_name});"
+      puts "  other_data = FLOAT4_PTR(other, #{data_name});"
       puts
       members.each_with_index do |member, index|
         puts "  if (self_data->data[#{index}] != other_data->data[#{index}]) return mrb_bool_value(0);"
@@ -320,21 +343,21 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
 
   def print_alloc_ret(klass = nil)
     klass_object = klass ? "mrb_class_get(mrb, \"#{klass}\")" : 'mrb_obj_class(mrb, self)'
-    puts "  ret_object = (struct RObject*)mrb_obj_alloc(mrb, MRB_TT_DATA, #{klass_object});"
-    puts "  ret = mrb_obj_value(ret_object);"
-    puts "  ret_data = (struct #{data_name}*)mrb_malloc(mrb, 16);"
-    puts "  mrb_data_init(ret, ret_data, &mruby_float4_data_type);"
+    puts "  ret = mruby_float4_instance_alloc(mrb, mrb_obj_value(#{klass_object}));"
+    puts "#if !MRUBY_FLOAT4_USE_ISTRUCT"
+    puts "  mrb_data_init(ret, mrb_malloc(mrb, 16), &mruby_float4_data_type);"
+    puts '#endif'
+    puts "  ret_data = FLOAT4_PTR(ret, #{data_name});"
   end
 
   def write_op(op_name, c_op, c_name = nil)
     write_function(c_name || op_name, 0, 0, op_name) do
       puts "  struct #{data_name} *data;"
-      puts "  struct RObject* ret_object;"
       puts "  mrb_value ret;"
       puts "  struct #{data_name} *ret_data;
 
   mruby_float4_check_argc(mrb, 0, 0);
-  data = (struct #{data_name}*)DATA_PTR(self);
+  data = FLOAT4_PTR(self, #{data_name});
   mrb_assert(data);"
       puts
       print_alloc_ret
@@ -351,7 +374,6 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
     write_function(c_name || op_name, 1, 0, op_name) do
       puts "  struct #{data_name} *data = NULL;"
       puts "  struct #{data_name} *other_data = NULL;"
-      puts "  struct RObject* ret_object = NULL;"
       puts "  mrb_value ret;"
       puts "  mrb_value other;"
       puts "  #{ruby_arg_type} other_value;"
@@ -371,10 +393,10 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "    {"
       puts "      mrb_raisef(mrb, E_TYPE_ERROR, \"expected argument to be scalar or %S, %S given\", mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, self)), mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, other)));"
       puts "    }"
-      puts "    other_data = (struct #{data_name}*)DATA_PTR(other);"
+      puts "    other_data = FLOAT4_PTR(other, #{data_name});"
       puts "    mrb_assert(other_data);"
       puts "  }"
-      puts "  data = (struct #{data_name}*)DATA_PTR(self);"
+      puts "  data = FLOAT4_PTR(self, #{data_name});"
       puts "  mrb_assert(data);"
       puts
       print_alloc_ret
@@ -392,7 +414,6 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "  struct #{data_name} *data = NULL;"
       puts "  struct #{data_name} *other_data = NULL;"
       puts "  struct #{data_name} *other_data2 = NULL;"
-      puts "  struct RObject* ret_object = NULL;"
       puts "  mrb_value ret;"
       puts "  mrb_value other;"
       puts "  mrb_value other2;"
@@ -416,7 +437,7 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "    {"
       puts "      mrb_raisef(mrb, E_TYPE_ERROR, \"expected argument to be scalar or %S, %S given\", mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, self)), mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, other)));"
       puts "    }"
-      puts "    other_data = (struct #{data_name}*)DATA_PTR(other);"
+      puts "    other_data = FLOAT4_PTR(other, #{data_name});"
       puts "    mrb_assert(other_data);"
       puts "  }"
       puts "  if (!use_vector2)"
@@ -429,10 +450,10 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "    {"
       puts "      mrb_raisef(mrb, E_TYPE_ERROR, \"expected argument to be scalar or %S, %S given\", mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, self)), mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, other)));"
       puts "    }"
-      puts "    other_data2 = (struct #{data_name}*)DATA_PTR(other2);"
+      puts "    other_data2 = FLOAT4_PTR(other2, #{data_name});"
       puts "    mrb_assert(other_data2);"
       puts "  }"
-      puts "  data = (struct #{data_name}*)DATA_PTR(self);"
+      puts "  data = FLOAT4_PTR(self, #{data_name});"
       puts "  mrb_assert(data);"
       puts
       print_alloc_ret
@@ -461,7 +482,6 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "  #{ruby_arg_type} temp_value;"
       if type == :normalize
         puts "  mrb_value ret;"
-        puts "  struct RObject* ret_object = NULL;"
         puts "  struct #{data_name} *ret_data = NULL;"
         puts "  #{ruby_arg_type} vec_length;"
       else
@@ -491,11 +511,11 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
         puts "    {"
         puts "      mrb_raisef(mrb, E_TYPE_ERROR, \"expected argument to be scalar or %S, %S given\", mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, self)), mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, other)));"
         puts "    }"
-        puts "    other_data = (struct #{data_name}*)DATA_PTR(other);"
+        puts "    other_data = FLOAT4_PTR(other, #{data_name});"
         puts "    mrb_assert(other_data);"
         puts "  }"
       end
-      puts "  data = (struct #{data_name}*)DATA_PTR(self);"
+      puts "  data = FLOAT4_PTR(self, #{data_name});"
       puts "  mrb_assert(data);"
       if type == :normalize
         print_alloc_ret
@@ -539,7 +559,6 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "  #{ruby_type} *N = NULL;"
       puts "  #{ruby_type} *R = NULL;"
       puts "  #{ruby_type} dot;"
-      puts "  struct RObject* ret_object = NULL;"
       puts "  mrb_value ret;"
       puts "  mrb_value other;"
       puts "  struct #{data_name} *ret_data = NULL;"
@@ -550,9 +569,9 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "  {"
       puts "    mrb_raisef(mrb, E_TYPE_ERROR, \"expected argument to be %S, %S given\", mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, self)), mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, other)));"
       puts "  }"
-      puts "  other_data = (struct #{data_name}*)DATA_PTR(other);"
+      puts "  other_data = FLOAT4_PTR(other, #{data_name});"
       puts "  mrb_assert(other_data);"
-      puts "  data = (struct #{data_name}*)DATA_PTR(self);
+      puts "  data = FLOAT4_PTR(self, #{data_name});
   mrb_assert(data);
   I = data->data;
   N = other_data->data;"
@@ -583,7 +602,6 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "  #{ruby_type} k;"
       puts "  #{ruby_type} ksqrt;"
       puts "  mrb_float eta;"
-      puts "  struct RObject* ret_object = NULL;"
       puts "  mrb_value ret;"
       puts "  mrb_value other;"
       puts "  struct #{data_name} *ret_data = NULL;"
@@ -594,9 +612,9 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "  {"
       puts "    mrb_raisef(mrb, E_TYPE_ERROR, \"expected argument to be %S, %S given\", mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, self)), mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, other)));"
       puts "  }"
-      puts "  other_data = (struct #{data_name}*)DATA_PTR(other);"
+      puts "  other_data = FLOAT4_PTR(other, #{data_name});"
       puts "  mrb_assert(other_data);"
-      puts "  data = (struct #{data_name}*)DATA_PTR(self);
+      puts "  data = FLOAT4_PTR(self, #{data_name});
   mrb_assert(data);
   I = data->data;
   N = other_data->data;"
@@ -636,12 +654,11 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
     end
     write_function(name) do
       puts "  struct #{data_name} *data;"
-      puts "  struct RObject* ret_object;"
       puts "  mrb_value ret;"
       puts "  struct #{data_name} *ret_data;
 
   mruby_float4_check_argc(mrb, 0, 0);
-  data = (struct #{data_name}*)DATA_PTR(self);
+  data = FLOAT4_PTR(self, #{data_name});
   mrb_assert(data);"
       puts
       print_alloc_ret(sw_klass)
@@ -682,9 +699,9 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "  {"
       puts "    mrb_raisef(mrb, E_TYPE_ERROR, \"expected argument to be %S, %S given\", mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, self)), mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, other)));"
       puts "  }"
-      puts "  other_data = (struct #{data_name}*)DATA_PTR(other);"
+      puts "  other_data = FLOAT4_PTR(other, #{data_name});"
       puts "  mrb_assert(other_data);"
-      puts "  data = (struct #{data_name}*)DATA_PTR(self);
+      puts "  data = FLOAT4_PTR(self, #{data_name});
   mrb_assert(data);
   A = data->data;
   B = other_data->data;"
@@ -701,7 +718,6 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "  #{ruby_type} *A = NULL;"
       puts "  #{ruby_type} *B = NULL;"
       puts "  #{ruby_type} *R = NULL;"
-      puts "  struct RObject* ret_object = NULL;"
       puts "  mrb_value ret;"
       puts "  mrb_value other;"
       puts "  struct #{data_name} *ret_data = NULL;"
@@ -712,9 +728,9 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "  {"
       puts "    mrb_raisef(mrb, E_TYPE_ERROR, \"expected argument to be %S, %S given\", mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, self)), mrb_str_new_cstr(mrb, mrb_obj_classname(mrb, other)));"
       puts "  }"
-      puts "  other_data = (struct #{data_name}*)DATA_PTR(other);"
+      puts "  other_data = FLOAT4_PTR(other, #{data_name});"
       puts "  mrb_assert(other_data);"
-      puts "  data = (struct #{data_name}*)DATA_PTR(self);
+      puts "  data = FLOAT4_PTR(self, #{data_name});
   mrb_assert(data);
   A = data->data;
   B = other_data->data;"
@@ -757,7 +773,7 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
     puts "  }"
     puts "  if (value)"
     puts "  {"
-    puts "    memcpy(value, DATA_PTR(self), sizeof(struct #{data_name}));"
+    puts "    memcpy(value, FLOAT4_PTR(self, #{data_name}), sizeof(struct #{data_name}));"
     puts "  }"
     puts "  return TRUE;"
     puts "}"
@@ -766,7 +782,6 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
   def write_changers
     write_function('changed', 2) do
       puts "  struct #{data_name} *data;"
-      puts "  struct RObject* ret_object;"
       puts "  mrb_value ret;"
       puts "  struct #{data_name} *ret_data;"
 
@@ -801,7 +816,7 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
       puts "    mrb_raisef(mrb, E_ARGUMENT_ERROR, \"wrong member argument, expected one of: #{exp}\");"
       puts "  }"
       puts "
-  data = (struct #{data_name}*)DATA_PTR(self);
+  data = FLOAT4_PTR(self, #{data_name});
   mrb_assert(data);"
       puts
       print_alloc_ret
@@ -816,7 +831,6 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
     members.each_with_index do |member, member_index|
       write_function("changed_#{member}", 1) do
         puts "  struct #{data_name} *data;"
-        puts "  struct RObject* ret_object;"
         puts "  mrb_value ret;"
         puts "  struct #{data_name} *ret_data;"
         puts "  #{ruby_arg_type} value;"
@@ -824,7 +838,7 @@ static mrb_value mruby_float4_#{klass_c}_i_#{name}(mrb_state *mrb, mrb_value sel
         puts "  mruby_float4_check_argc(mrb, 1, 1);"
         puts "  mrb_get_args(mrb, \"#{argsym}\", &value);"
         puts "
-  data = (struct #{data_name}*)DATA_PTR(self);
+  data = FLOAT4_PTR(self, #{data_name});
   mrb_assert(data);"
         puts
         print_alloc_ret
@@ -953,8 +967,7 @@ TYPES.each do |type_name, type_data|
 
     puts
     puts "  #{klass_name} = mrb_define_class(mrb, \"#{klass}\", base_class);"
-    puts "  MRB_SET_INSTANCE_TT(#{klass_name}, MRB_TT_DATA);"
-
+    puts "  MRB_SET_INSTANCE_TT(#{klass_name}, MRUBY_FLOAT4_INSTANCE_TT);"
     methods = writer.functions
     methods['inspect'] = [0, 0, 'to_s']
     methods.sort.each do |method_name, method_data|
