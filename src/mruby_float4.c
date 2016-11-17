@@ -772,7 +772,7 @@ static mrb_value mruby_float4_vec2_i_atan2(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -857,7 +857,7 @@ static mrb_value mruby_float4_vec2_i_pow(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -920,7 +920,7 @@ static mrb_value mruby_float4_vec2_i_min(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -961,7 +961,7 @@ static mrb_value mruby_float4_vec2_i_max(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -1024,7 +1024,7 @@ static mrb_value mruby_float4_vec2_i_mod(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -1089,8 +1089,8 @@ static mrb_value mruby_float4_vec2_i_clamp(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_float other_value;
-  mrb_float other_value2;
+  mrb_float other_value = 0;
+  mrb_float other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_float *ret_data = NULL;
@@ -1148,8 +1148,8 @@ static mrb_value mruby_float4_vec2_i_mix(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_float other_value;
-  mrb_float other_value2;
+  mrb_float other_value = 0;
+  mrb_float other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_float *ret_data = NULL;
@@ -1207,8 +1207,8 @@ static mrb_value mruby_float4_vec2_i_lerp(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_float other_value;
-  mrb_float other_value2;
+  mrb_float other_value = 0;
+  mrb_float other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_float *ret_data = NULL;
@@ -1266,8 +1266,8 @@ static mrb_value mruby_float4_vec2_i_smoothstep(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_float other_value;
-  mrb_float other_value2;
+  mrb_float other_value = 0;
+  mrb_float other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_float *ret_data = NULL;
@@ -1323,7 +1323,7 @@ static mrb_value mruby_float4_vec2_i_step(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -1473,7 +1473,7 @@ static mrb_value mruby_float4_vec2_i_add(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -1514,7 +1514,7 @@ static mrb_value mruby_float4_vec2_i_sub(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -1555,7 +1555,7 @@ static mrb_value mruby_float4_vec2_i_mul(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -1596,7 +1596,7 @@ static mrb_value mruby_float4_vec2_i_div(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -3059,7 +3059,7 @@ static mrb_value mruby_float4_vec3_i_atan2(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -3147,7 +3147,7 @@ static mrb_value mruby_float4_vec3_i_pow(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -3212,7 +3212,7 @@ static mrb_value mruby_float4_vec3_i_min(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -3254,7 +3254,7 @@ static mrb_value mruby_float4_vec3_i_max(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -3319,7 +3319,7 @@ static mrb_value mruby_float4_vec3_i_mod(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -3386,8 +3386,8 @@ static mrb_value mruby_float4_vec3_i_clamp(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_float other_value;
-  mrb_float other_value2;
+  mrb_float other_value = 0;
+  mrb_float other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_float *ret_data = NULL;
@@ -3446,8 +3446,8 @@ static mrb_value mruby_float4_vec3_i_mix(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_float other_value;
-  mrb_float other_value2;
+  mrb_float other_value = 0;
+  mrb_float other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_float *ret_data = NULL;
@@ -3506,8 +3506,8 @@ static mrb_value mruby_float4_vec3_i_lerp(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_float other_value;
-  mrb_float other_value2;
+  mrb_float other_value = 0;
+  mrb_float other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_float *ret_data = NULL;
@@ -3566,8 +3566,8 @@ static mrb_value mruby_float4_vec3_i_smoothstep(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_float other_value;
-  mrb_float other_value2;
+  mrb_float other_value = 0;
+  mrb_float other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_float *ret_data = NULL;
@@ -3624,7 +3624,7 @@ static mrb_value mruby_float4_vec3_i_step(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -3785,7 +3785,7 @@ static mrb_value mruby_float4_vec3_i_add(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -3827,7 +3827,7 @@ static mrb_value mruby_float4_vec3_i_sub(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -3869,7 +3869,7 @@ static mrb_value mruby_float4_vec3_i_mul(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -3911,7 +3911,7 @@ static mrb_value mruby_float4_vec3_i_div(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -7561,7 +7561,7 @@ static mrb_value mruby_float4_vec4_i_atan2(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -7652,7 +7652,7 @@ static mrb_value mruby_float4_vec4_i_pow(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -7719,7 +7719,7 @@ static mrb_value mruby_float4_vec4_i_min(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -7762,7 +7762,7 @@ static mrb_value mruby_float4_vec4_i_max(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -7829,7 +7829,7 @@ static mrb_value mruby_float4_vec4_i_mod(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -7898,8 +7898,8 @@ static mrb_value mruby_float4_vec4_i_clamp(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_float other_value;
-  mrb_float other_value2;
+  mrb_float other_value = 0;
+  mrb_float other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_float *ret_data = NULL;
@@ -7959,8 +7959,8 @@ static mrb_value mruby_float4_vec4_i_mix(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_float other_value;
-  mrb_float other_value2;
+  mrb_float other_value = 0;
+  mrb_float other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_float *ret_data = NULL;
@@ -8020,8 +8020,8 @@ static mrb_value mruby_float4_vec4_i_lerp(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_float other_value;
-  mrb_float other_value2;
+  mrb_float other_value = 0;
+  mrb_float other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_float *ret_data = NULL;
@@ -8081,8 +8081,8 @@ static mrb_value mruby_float4_vec4_i_smoothstep(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_float other_value;
-  mrb_float other_value2;
+  mrb_float other_value = 0;
+  mrb_float other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_float *ret_data = NULL;
@@ -8140,7 +8140,7 @@ static mrb_value mruby_float4_vec4_i_step(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -8312,7 +8312,7 @@ static mrb_value mruby_float4_vec4_i_add(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -8355,7 +8355,7 @@ static mrb_value mruby_float4_vec4_i_sub(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -8398,7 +8398,7 @@ static mrb_value mruby_float4_vec4_i_mul(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -8441,7 +8441,7 @@ static mrb_value mruby_float4_vec4_i_div(mrb_state *mrb, mrb_value self)
   struct mrb_float4_float *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_float other_value;
+  mrb_float other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_float *ret_data = NULL;
 
@@ -17149,7 +17149,7 @@ static mrb_value mruby_float4_ivec2_i_atan2(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -17234,7 +17234,7 @@ static mrb_value mruby_float4_ivec2_i_pow(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -17297,7 +17297,7 @@ static mrb_value mruby_float4_ivec2_i_min(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -17338,7 +17338,7 @@ static mrb_value mruby_float4_ivec2_i_max(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -17401,7 +17401,7 @@ static mrb_value mruby_float4_ivec2_i_mod(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -17466,8 +17466,8 @@ static mrb_value mruby_float4_ivec2_i_clamp(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_int other_value;
-  mrb_int other_value2;
+  mrb_int other_value = 0;
+  mrb_int other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_int *ret_data = NULL;
@@ -17525,8 +17525,8 @@ static mrb_value mruby_float4_ivec2_i_mix(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_int other_value;
-  mrb_int other_value2;
+  mrb_int other_value = 0;
+  mrb_int other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_int *ret_data = NULL;
@@ -17584,8 +17584,8 @@ static mrb_value mruby_float4_ivec2_i_lerp(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_int other_value;
-  mrb_int other_value2;
+  mrb_int other_value = 0;
+  mrb_int other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_int *ret_data = NULL;
@@ -17643,8 +17643,8 @@ static mrb_value mruby_float4_ivec2_i_smoothstep(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_int other_value;
-  mrb_int other_value2;
+  mrb_int other_value = 0;
+  mrb_int other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_int *ret_data = NULL;
@@ -17700,7 +17700,7 @@ static mrb_value mruby_float4_ivec2_i_step(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -17850,7 +17850,7 @@ static mrb_value mruby_float4_ivec2_i_add(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -17891,7 +17891,7 @@ static mrb_value mruby_float4_ivec2_i_sub(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -17932,7 +17932,7 @@ static mrb_value mruby_float4_ivec2_i_mul(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -17973,7 +17973,7 @@ static mrb_value mruby_float4_ivec2_i_div(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -19436,7 +19436,7 @@ static mrb_value mruby_float4_ivec3_i_atan2(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -19524,7 +19524,7 @@ static mrb_value mruby_float4_ivec3_i_pow(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -19589,7 +19589,7 @@ static mrb_value mruby_float4_ivec3_i_min(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -19631,7 +19631,7 @@ static mrb_value mruby_float4_ivec3_i_max(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -19696,7 +19696,7 @@ static mrb_value mruby_float4_ivec3_i_mod(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -19763,8 +19763,8 @@ static mrb_value mruby_float4_ivec3_i_clamp(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_int other_value;
-  mrb_int other_value2;
+  mrb_int other_value = 0;
+  mrb_int other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_int *ret_data = NULL;
@@ -19823,8 +19823,8 @@ static mrb_value mruby_float4_ivec3_i_mix(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_int other_value;
-  mrb_int other_value2;
+  mrb_int other_value = 0;
+  mrb_int other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_int *ret_data = NULL;
@@ -19883,8 +19883,8 @@ static mrb_value mruby_float4_ivec3_i_lerp(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_int other_value;
-  mrb_int other_value2;
+  mrb_int other_value = 0;
+  mrb_int other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_int *ret_data = NULL;
@@ -19943,8 +19943,8 @@ static mrb_value mruby_float4_ivec3_i_smoothstep(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_int other_value;
-  mrb_int other_value2;
+  mrb_int other_value = 0;
+  mrb_int other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_int *ret_data = NULL;
@@ -20001,7 +20001,7 @@ static mrb_value mruby_float4_ivec3_i_step(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -20162,7 +20162,7 @@ static mrb_value mruby_float4_ivec3_i_add(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -20204,7 +20204,7 @@ static mrb_value mruby_float4_ivec3_i_sub(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -20246,7 +20246,7 @@ static mrb_value mruby_float4_ivec3_i_mul(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -20288,7 +20288,7 @@ static mrb_value mruby_float4_ivec3_i_div(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -23938,7 +23938,7 @@ static mrb_value mruby_float4_ivec4_i_atan2(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -24029,7 +24029,7 @@ static mrb_value mruby_float4_ivec4_i_pow(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -24096,7 +24096,7 @@ static mrb_value mruby_float4_ivec4_i_min(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -24139,7 +24139,7 @@ static mrb_value mruby_float4_ivec4_i_max(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -24206,7 +24206,7 @@ static mrb_value mruby_float4_ivec4_i_mod(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -24275,8 +24275,8 @@ static mrb_value mruby_float4_ivec4_i_clamp(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_int other_value;
-  mrb_int other_value2;
+  mrb_int other_value = 0;
+  mrb_int other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_int *ret_data = NULL;
@@ -24336,8 +24336,8 @@ static mrb_value mruby_float4_ivec4_i_mix(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_int other_value;
-  mrb_int other_value2;
+  mrb_int other_value = 0;
+  mrb_int other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_int *ret_data = NULL;
@@ -24397,8 +24397,8 @@ static mrb_value mruby_float4_ivec4_i_lerp(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_int other_value;
-  mrb_int other_value2;
+  mrb_int other_value = 0;
+  mrb_int other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_int *ret_data = NULL;
@@ -24458,8 +24458,8 @@ static mrb_value mruby_float4_ivec4_i_smoothstep(mrb_state *mrb, mrb_value self)
   mrb_value ret;
   mrb_value other;
   mrb_value other2;
-  mrb_int other_value;
-  mrb_int other_value2;
+  mrb_int other_value = 0;
+  mrb_int other_value2 = 0;
   mrb_bool use_vector;
   mrb_bool use_vector2;
   struct mrb_float4_int *ret_data = NULL;
@@ -24517,7 +24517,7 @@ static mrb_value mruby_float4_ivec4_i_step(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -24689,7 +24689,7 @@ static mrb_value mruby_float4_ivec4_i_add(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -24732,7 +24732,7 @@ static mrb_value mruby_float4_ivec4_i_sub(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -24775,7 +24775,7 @@ static mrb_value mruby_float4_ivec4_i_mul(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
@@ -24818,7 +24818,7 @@ static mrb_value mruby_float4_ivec4_i_div(mrb_state *mrb, mrb_value self)
   struct mrb_float4_int *other_data = NULL;
   mrb_value ret;
   mrb_value other;
-  mrb_int other_value;
+  mrb_int other_value = 0;
   mrb_bool use_vector;
   struct mrb_float4_int *ret_data = NULL;
 
