@@ -201,7 +201,6 @@ MRB_API mrb_bool mrb_float4_bvec(mrb_state *mrb, mrb_value self, struct mrb_floa
 static mrb_value mruby_float4_vec2_i_initialize(mrb_state *mrb, mrb_value self)
 {
   mrb_float argv[2] = {0};
-  mrb_int argc;
   struct mrb_float4_float *data;
 
   if (MRUBY_FLOAT4_FROZEN_P(self))
@@ -212,7 +211,7 @@ static mrb_value mruby_float4_vec2_i_initialize(mrb_state *mrb, mrb_value self)
 
   mruby_float4_check_argc(mrb, 0, 2);
 
-  argc = mrb_get_args(mrb, "|ff", &argv[0], &argv[1]);
+  mrb_get_args(mrb, "|ff", &argv[0], &argv[1]);
 
   mrb_assert(sizeof(mrb_float4_float) <= 16);
 #if !MRUBY_FLOAT4_USE_ISTRUCT
@@ -2432,7 +2431,6 @@ static mrb_value mruby_float4_vec2_i_yyyy(mrb_state *mrb, mrb_value self)
 static mrb_value mruby_float4_vec3_i_initialize(mrb_state *mrb, mrb_value self)
 {
   mrb_float argv[3] = {0};
-  mrb_int argc;
   struct mrb_float4_float *data;
 
   if (MRUBY_FLOAT4_FROZEN_P(self))
@@ -2443,7 +2441,7 @@ static mrb_value mruby_float4_vec3_i_initialize(mrb_state *mrb, mrb_value self)
 
   mruby_float4_check_argc(mrb, 0, 3);
 
-  argc = mrb_get_args(mrb, "|fff", &argv[0], &argv[1], &argv[2]);
+  mrb_get_args(mrb, "|fff", &argv[0], &argv[1], &argv[2]);
 
   mrb_assert(sizeof(mrb_float4_float) <= 16);
 #if !MRUBY_FLOAT4_USE_ISTRUCT
@@ -6876,7 +6874,6 @@ static mrb_value mruby_float4_vec3_i_zzzz(mrb_state *mrb, mrb_value self)
 static mrb_value mruby_float4_vec4_i_initialize(mrb_state *mrb, mrb_value self)
 {
   mrb_float argv[4] = {0};
-  mrb_int argc;
   struct mrb_float4_float *data;
 
   if (MRUBY_FLOAT4_FROZEN_P(self))
@@ -6887,7 +6884,7 @@ static mrb_value mruby_float4_vec4_i_initialize(mrb_state *mrb, mrb_value self)
 
   mruby_float4_check_argc(mrb, 0, 4);
 
-  argc = mrb_get_args(mrb, "|ffff", &argv[0], &argv[1], &argv[2], &argv[3]);
+  mrb_get_args(mrb, "|ffff", &argv[0], &argv[1], &argv[2], &argv[3]);
 
   mrb_assert(sizeof(mrb_float4_float) <= 16);
 #if !MRUBY_FLOAT4_USE_ISTRUCT
@@ -16581,7 +16578,6 @@ static mrb_value mruby_float4_vec4_i_wwww(mrb_state *mrb, mrb_value self)
 static mrb_value mruby_float4_ivec2_i_initialize(mrb_state *mrb, mrb_value self)
 {
   mrb_int argv[2] = {0};
-  mrb_int argc;
   struct mrb_float4_int *data;
 
   if (MRUBY_FLOAT4_FROZEN_P(self))
@@ -16592,7 +16588,7 @@ static mrb_value mruby_float4_ivec2_i_initialize(mrb_state *mrb, mrb_value self)
 
   mruby_float4_check_argc(mrb, 0, 2);
 
-  argc = mrb_get_args(mrb, "|ii", &argv[0], &argv[1]);
+  mrb_get_args(mrb, "|ii", &argv[0], &argv[1]);
 
   mrb_assert(sizeof(mrb_float4_int) <= 16);
 #if !MRUBY_FLOAT4_USE_ISTRUCT
@@ -18812,7 +18808,6 @@ static mrb_value mruby_float4_ivec2_i_yyyy(mrb_state *mrb, mrb_value self)
 static mrb_value mruby_float4_ivec3_i_initialize(mrb_state *mrb, mrb_value self)
 {
   mrb_int argv[3] = {0};
-  mrb_int argc;
   struct mrb_float4_int *data;
 
   if (MRUBY_FLOAT4_FROZEN_P(self))
@@ -18823,7 +18818,7 @@ static mrb_value mruby_float4_ivec3_i_initialize(mrb_state *mrb, mrb_value self)
 
   mruby_float4_check_argc(mrb, 0, 3);
 
-  argc = mrb_get_args(mrb, "|iii", &argv[0], &argv[1], &argv[2]);
+  mrb_get_args(mrb, "|iii", &argv[0], &argv[1], &argv[2]);
 
   mrb_assert(sizeof(mrb_float4_int) <= 16);
 #if !MRUBY_FLOAT4_USE_ISTRUCT
@@ -23256,7 +23251,6 @@ static mrb_value mruby_float4_ivec3_i_zzzz(mrb_state *mrb, mrb_value self)
 static mrb_value mruby_float4_ivec4_i_initialize(mrb_state *mrb, mrb_value self)
 {
   mrb_int argv[4] = {0};
-  mrb_int argc;
   struct mrb_float4_int *data;
 
   if (MRUBY_FLOAT4_FROZEN_P(self))
@@ -23267,7 +23261,7 @@ static mrb_value mruby_float4_ivec4_i_initialize(mrb_state *mrb, mrb_value self)
 
   mruby_float4_check_argc(mrb, 0, 4);
 
-  argc = mrb_get_args(mrb, "|iiii", &argv[0], &argv[1], &argv[2], &argv[3]);
+  mrb_get_args(mrb, "|iiii", &argv[0], &argv[1], &argv[2], &argv[3]);
 
   mrb_assert(sizeof(mrb_float4_int) <= 16);
 #if !MRUBY_FLOAT4_USE_ISTRUCT
@@ -32961,7 +32955,6 @@ static mrb_value mruby_float4_ivec4_i_wwww(mrb_state *mrb, mrb_value self)
 static mrb_value mruby_float4_bvec2_i_initialize(mrb_state *mrb, mrb_value self)
 {
   mrb_bool argv[2] = {0};
-  mrb_int argc;
   struct mrb_float4_bool *data;
 
   if (MRUBY_FLOAT4_FROZEN_P(self))
@@ -32972,7 +32965,7 @@ static mrb_value mruby_float4_bvec2_i_initialize(mrb_state *mrb, mrb_value self)
 
   mruby_float4_check_argc(mrb, 0, 2);
 
-  argc = mrb_get_args(mrb, "|bb", &argv[0], &argv[1]);
+  mrb_get_args(mrb, "|bb", &argv[0], &argv[1]);
 
   mrb_assert(sizeof(mrb_float4_bool) <= 16);
 #if !MRUBY_FLOAT4_USE_ISTRUCT
@@ -33856,7 +33849,6 @@ static mrb_value mruby_float4_bvec2_i_yyyy(mrb_state *mrb, mrb_value self)
 static mrb_value mruby_float4_bvec3_i_initialize(mrb_state *mrb, mrb_value self)
 {
   mrb_bool argv[3] = {0};
-  mrb_int argc;
   struct mrb_float4_bool *data;
 
   if (MRUBY_FLOAT4_FROZEN_P(self))
@@ -33867,7 +33859,7 @@ static mrb_value mruby_float4_bvec3_i_initialize(mrb_state *mrb, mrb_value self)
 
   mruby_float4_check_argc(mrb, 0, 3);
 
-  argc = mrb_get_args(mrb, "|bbb", &argv[0], &argv[1], &argv[2]);
+  mrb_get_args(mrb, "|bbb", &argv[0], &argv[1], &argv[2]);
 
   mrb_assert(sizeof(mrb_float4_bool) <= 16);
 #if !MRUBY_FLOAT4_USE_ISTRUCT
@@ -36900,7 +36892,6 @@ static mrb_value mruby_float4_bvec3_i_zzzz(mrb_state *mrb, mrb_value self)
 static mrb_value mruby_float4_bvec4_i_initialize(mrb_state *mrb, mrb_value self)
 {
   mrb_bool argv[4] = {0};
-  mrb_int argc;
   struct mrb_float4_bool *data;
 
   if (MRUBY_FLOAT4_FROZEN_P(self))
@@ -36911,7 +36902,7 @@ static mrb_value mruby_float4_bvec4_i_initialize(mrb_state *mrb, mrb_value self)
 
   mruby_float4_check_argc(mrb, 0, 4);
 
-  argc = mrb_get_args(mrb, "|bbbb", &argv[0], &argv[1], &argv[2], &argv[3]);
+  mrb_get_args(mrb, "|bbbb", &argv[0], &argv[1], &argv[2], &argv[3]);
 
   mrb_assert(sizeof(mrb_float4_bool) <= 16);
 #if !MRUBY_FLOAT4_USE_ISTRUCT

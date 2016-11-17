@@ -215,7 +215,6 @@ static mrb_value mruby_float4_#{klass_c}_#{is_klass ? 'c' : 'i'}_#{name}(mrb_sta
   def write_initializer
     write_function('initialize', 0, size) do
       puts "  #{ruby_arg_type} argv[#{size}] = {0};
-  mrb_int argc;
   struct #{data_name} *data;
 
   if (MRUBY_FLOAT4_FROZEN_P(self))
@@ -226,7 +225,7 @@ static mrb_value mruby_float4_#{klass_c}_#{is_klass ? 'c' : 'i'}_#{name}(mrb_sta
 
   mruby_float4_check_argc(mrb, 0, #{size});
 
-  argc = mrb_get_args(mrb, \"|#{argsym * size}\", #{(0...size).map{|n|'&argv[' + n.to_s + ']'}.join(', ')});
+  mrb_get_args(mrb, \"|#{argsym * size}\", #{(0...size).map{|n|'&argv[' + n.to_s + ']'}.join(', ')});
 
   mrb_assert(sizeof(#{data_name}) <= 16);
 #if !MRUBY_FLOAT4_USE_ISTRUCT
