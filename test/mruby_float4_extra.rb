@@ -116,3 +116,21 @@ assert('should not re-initialize') do
 
   assert_equal(v, Vec4.new(1, 2, 3, 4))
 end
+
+assert('eql?') do
+  assert_true Vec4.new(1,2,3,4).eql?(Vec4.new(1,2,3,4))
+end
+
+assert('hash equal') do
+  assert_equal Vec4.new(1,2,3,4).hash, Vec4.new(1,2,3,4).hash
+end
+
+assert('hash not equal') do
+  assert_not_equal Vec4.new(4,3,2,1).hash, Vec4.new(1,2,3,4).hash
+end
+
+assert('using vectors as hash keys') do
+  hash = {}
+  hash[Vec4.new(1,2,3,4)] = 42
+  assert_equal hash[Vec4.new(1,2,3,4)], 42
+end

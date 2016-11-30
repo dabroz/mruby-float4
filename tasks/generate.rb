@@ -295,6 +295,23 @@ static mrb_value mruby_float4_#{klass_c}_#{is_klass ? 'c' : 'i'}_#{name}(mrb_sta
     end
   end
 
+  def write_hash
+    write_function('hash') do
+      puts "  struct #{data_name} *data;"
+      puts "  mrb_int ret = 0;"
+      puts
+      puts "  mruby_float4_check_argc(mrb, 0, 0);"
+      puts "  data = FLOAT4_PTR(self, #{data_name});"
+      puts "  mrb_assert(data);"
+      puts
+      members.each_with_index do |member, index|
+        puts "  ret += (mrb_int)(data->data[#{index}]) << #{index};"
+      end
+      puts
+      puts "  return mrb_fixnum_value(ret);"
+    end
+  end
+
   def write_eq
     write_function('eq', 1, 0, '==') do
       puts "  mrb_value other;"
@@ -857,6 +874,7 @@ static mrb_value mruby_float4_#{klass_c}_#{is_klass ? 'c' : 'i'}_#{name}(mrb_sta
     write_members
     write_at
     write_eq
+    write_hash
     write_reflection
     write_dup
     write_changers
@@ -969,6 +987,7 @@ TYPES.each do |type_name, type_data|
     puts "  MRB_SET_INSTANCE_TT(#{klass_name}, MRUBY_FLOAT4_INSTANCE_TT);"
     methods = writer.functions
     methods['inspect'] = [0, 0, 'to_s']
+    methods['eql?'] = [1, 1, 'eq']
     methods.sort.each do |method_name, method_data|
       method_req = method_data[0]
       method_opt = method_data[1]

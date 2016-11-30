@@ -299,6 +299,21 @@ static mrb_value mruby_float4_vec2_i_eq(mrb_state *mrb, mrb_value self)
   return mrb_bool_value(1);
 }
 
+static mrb_value mruby_float4_vec2_i_hash(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_float *data;
+  mrb_int ret = 0;
+
+  mruby_float4_check_argc(mrb, 0, 0);
+  data = FLOAT4_PTR(self, mrb_float4_float);
+  mrb_assert(data);
+
+  ret += (mrb_int)(data->data[0]) << 0;
+  ret += (mrb_int)(data->data[1]) << 1;
+
+  return mrb_fixnum_value(ret);
+}
+
 static mrb_value mruby_float4_vec2_i_data_size(mrb_state *mrb, mrb_value self)
 {
   return mrb_fixnum_value(2);
@@ -2538,6 +2553,22 @@ static mrb_value mruby_float4_vec3_i_eq(mrb_state *mrb, mrb_value self)
   if (self_data->data[2] != other_data->data[2]) return mrb_bool_value(0);
 
   return mrb_bool_value(1);
+}
+
+static mrb_value mruby_float4_vec3_i_hash(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_float *data;
+  mrb_int ret = 0;
+
+  mruby_float4_check_argc(mrb, 0, 0);
+  data = FLOAT4_PTR(self, mrb_float4_float);
+  mrb_assert(data);
+
+  ret += (mrb_int)(data->data[0]) << 0;
+  ret += (mrb_int)(data->data[1]) << 1;
+  ret += (mrb_int)(data->data[2]) << 2;
+
+  return mrb_fixnum_value(ret);
 }
 
 static mrb_value mruby_float4_vec3_i_data_size(mrb_state *mrb, mrb_value self)
@@ -6992,6 +7023,23 @@ static mrb_value mruby_float4_vec4_i_eq(mrb_state *mrb, mrb_value self)
   if (self_data->data[3] != other_data->data[3]) return mrb_bool_value(0);
 
   return mrb_bool_value(1);
+}
+
+static mrb_value mruby_float4_vec4_i_hash(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_float *data;
+  mrb_int ret = 0;
+
+  mruby_float4_check_argc(mrb, 0, 0);
+  data = FLOAT4_PTR(self, mrb_float4_float);
+  mrb_assert(data);
+
+  ret += (mrb_int)(data->data[0]) << 0;
+  ret += (mrb_int)(data->data[1]) << 1;
+  ret += (mrb_int)(data->data[2]) << 2;
+  ret += (mrb_int)(data->data[3]) << 3;
+
+  return mrb_fixnum_value(ret);
 }
 
 static mrb_value mruby_float4_vec4_i_data_size(mrb_state *mrb, mrb_value self)
@@ -16676,6 +16724,21 @@ static mrb_value mruby_float4_ivec2_i_eq(mrb_state *mrb, mrb_value self)
   return mrb_bool_value(1);
 }
 
+static mrb_value mruby_float4_ivec2_i_hash(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_int *data;
+  mrb_int ret = 0;
+
+  mruby_float4_check_argc(mrb, 0, 0);
+  data = FLOAT4_PTR(self, mrb_float4_int);
+  mrb_assert(data);
+
+  ret += (mrb_int)(data->data[0]) << 0;
+  ret += (mrb_int)(data->data[1]) << 1;
+
+  return mrb_fixnum_value(ret);
+}
+
 static mrb_value mruby_float4_ivec2_i_data_size(mrb_state *mrb, mrb_value self)
 {
   return mrb_fixnum_value(2);
@@ -18915,6 +18978,22 @@ static mrb_value mruby_float4_ivec3_i_eq(mrb_state *mrb, mrb_value self)
   if (self_data->data[2] != other_data->data[2]) return mrb_bool_value(0);
 
   return mrb_bool_value(1);
+}
+
+static mrb_value mruby_float4_ivec3_i_hash(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_int *data;
+  mrb_int ret = 0;
+
+  mruby_float4_check_argc(mrb, 0, 0);
+  data = FLOAT4_PTR(self, mrb_float4_int);
+  mrb_assert(data);
+
+  ret += (mrb_int)(data->data[0]) << 0;
+  ret += (mrb_int)(data->data[1]) << 1;
+  ret += (mrb_int)(data->data[2]) << 2;
+
+  return mrb_fixnum_value(ret);
 }
 
 static mrb_value mruby_float4_ivec3_i_data_size(mrb_state *mrb, mrb_value self)
@@ -23369,6 +23448,23 @@ static mrb_value mruby_float4_ivec4_i_eq(mrb_state *mrb, mrb_value self)
   if (self_data->data[3] != other_data->data[3]) return mrb_bool_value(0);
 
   return mrb_bool_value(1);
+}
+
+static mrb_value mruby_float4_ivec4_i_hash(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_int *data;
+  mrb_int ret = 0;
+
+  mruby_float4_check_argc(mrb, 0, 0);
+  data = FLOAT4_PTR(self, mrb_float4_int);
+  mrb_assert(data);
+
+  ret += (mrb_int)(data->data[0]) << 0;
+  ret += (mrb_int)(data->data[1]) << 1;
+  ret += (mrb_int)(data->data[2]) << 2;
+  ret += (mrb_int)(data->data[3]) << 3;
+
+  return mrb_fixnum_value(ret);
 }
 
 static mrb_value mruby_float4_ivec4_i_data_size(mrb_state *mrb, mrb_value self)
@@ -33053,6 +33149,21 @@ static mrb_value mruby_float4_bvec2_i_eq(mrb_state *mrb, mrb_value self)
   return mrb_bool_value(1);
 }
 
+static mrb_value mruby_float4_bvec2_i_hash(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_bool *data;
+  mrb_int ret = 0;
+
+  mruby_float4_check_argc(mrb, 0, 0);
+  data = FLOAT4_PTR(self, mrb_float4_bool);
+  mrb_assert(data);
+
+  ret += (mrb_int)(data->data[0]) << 0;
+  ret += (mrb_int)(data->data[1]) << 1;
+
+  return mrb_fixnum_value(ret);
+}
+
 static mrb_value mruby_float4_bvec2_i_data_size(mrb_state *mrb, mrb_value self)
 {
   return mrb_fixnum_value(2);
@@ -33956,6 +34067,22 @@ static mrb_value mruby_float4_bvec3_i_eq(mrb_state *mrb, mrb_value self)
   if (self_data->data[2] != other_data->data[2]) return mrb_bool_value(0);
 
   return mrb_bool_value(1);
+}
+
+static mrb_value mruby_float4_bvec3_i_hash(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_bool *data;
+  mrb_int ret = 0;
+
+  mruby_float4_check_argc(mrb, 0, 0);
+  data = FLOAT4_PTR(self, mrb_float4_bool);
+  mrb_assert(data);
+
+  ret += (mrb_int)(data->data[0]) << 0;
+  ret += (mrb_int)(data->data[1]) << 1;
+  ret += (mrb_int)(data->data[2]) << 2;
+
+  return mrb_fixnum_value(ret);
 }
 
 static mrb_value mruby_float4_bvec3_i_data_size(mrb_state *mrb, mrb_value self)
@@ -37010,6 +37137,23 @@ static mrb_value mruby_float4_bvec4_i_eq(mrb_state *mrb, mrb_value self)
   if (self_data->data[3] != other_data->data[3]) return mrb_bool_value(0);
 
   return mrb_bool_value(1);
+}
+
+static mrb_value mruby_float4_bvec4_i_hash(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_bool *data;
+  mrb_int ret = 0;
+
+  mruby_float4_check_argc(mrb, 0, 0);
+  data = FLOAT4_PTR(self, mrb_float4_bool);
+  mrb_assert(data);
+
+  ret += (mrb_int)(data->data[0]) << 0;
+  ret += (mrb_int)(data->data[1]) << 1;
+  ret += (mrb_int)(data->data[2]) << 2;
+  ret += (mrb_int)(data->data[3]) << 3;
+
+  return mrb_fixnum_value(ret);
 }
 
 static mrb_value mruby_float4_bvec4_i_data_size(mrb_state *mrb, mrb_value self)
@@ -45222,10 +45366,12 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_vec2, "degrees", mruby_float4_vec2_i_degrees, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "dot", mruby_float4_vec2_i_dot, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "dup", mruby_float4_vec2_i_dup, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec2, "eql?", mruby_float4_vec2_i_eq, MRB_ARGS_ARG(1, 1));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "exp", mruby_float4_vec2_i_exp, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "exp2", mruby_float4_vec2_i_exp2, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "floor", mruby_float4_vec2_i_floor, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "fract", mruby_float4_vec2_i_fract, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec2, "hash", mruby_float4_vec2_i_hash, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "initialize", mruby_float4_vec2_i_initialize, MRB_ARGS_ARG(0, 2));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "inspect", mruby_float4_vec2_i_to_s, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "inversesqrt", mruby_float4_vec2_i_inversesqrt, MRB_ARGS_ARG(0, 0));
@@ -45313,10 +45459,12 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_vec3, "degrees", mruby_float4_vec3_i_degrees, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "dot", mruby_float4_vec3_i_dot, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "dup", mruby_float4_vec3_i_dup, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec3, "eql?", mruby_float4_vec3_i_eq, MRB_ARGS_ARG(1, 1));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "exp", mruby_float4_vec3_i_exp, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "exp2", mruby_float4_vec3_i_exp2, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "floor", mruby_float4_vec3_i_floor, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "fract", mruby_float4_vec3_i_fract, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec3, "hash", mruby_float4_vec3_i_hash, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "initialize", mruby_float4_vec3_i_initialize, MRB_ARGS_ARG(0, 3));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "inspect", mruby_float4_vec3_i_to_s, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "inversesqrt", mruby_float4_vec3_i_inversesqrt, MRB_ARGS_ARG(0, 0));
@@ -45494,10 +45642,12 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_vec4, "degrees", mruby_float4_vec4_i_degrees, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "dot", mruby_float4_vec4_i_dot, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "dup", mruby_float4_vec4_i_dup, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec4, "eql?", mruby_float4_vec4_i_eq, MRB_ARGS_ARG(1, 1));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "exp", mruby_float4_vec4_i_exp, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "exp2", mruby_float4_vec4_i_exp2, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "floor", mruby_float4_vec4_i_floor, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "fract", mruby_float4_vec4_i_fract, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec4, "hash", mruby_float4_vec4_i_hash, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "initialize", mruby_float4_vec4_i_initialize, MRB_ARGS_ARG(0, 4));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "inspect", mruby_float4_vec4_i_to_s, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "inversesqrt", mruby_float4_vec4_i_inversesqrt, MRB_ARGS_ARG(0, 0));
@@ -45894,10 +46044,12 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "degrees", mruby_float4_ivec2_i_degrees, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "dot", mruby_float4_ivec2_i_dot, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "dup", mruby_float4_ivec2_i_dup, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec2, "eql?", mruby_float4_ivec2_i_eq, MRB_ARGS_ARG(1, 1));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "exp", mruby_float4_ivec2_i_exp, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "exp2", mruby_float4_ivec2_i_exp2, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "floor", mruby_float4_ivec2_i_floor, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "fract", mruby_float4_ivec2_i_fract, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec2, "hash", mruby_float4_ivec2_i_hash, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "initialize", mruby_float4_ivec2_i_initialize, MRB_ARGS_ARG(0, 2));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "inspect", mruby_float4_ivec2_i_to_s, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "inversesqrt", mruby_float4_ivec2_i_inversesqrt, MRB_ARGS_ARG(0, 0));
@@ -45985,10 +46137,12 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "degrees", mruby_float4_ivec3_i_degrees, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "dot", mruby_float4_ivec3_i_dot, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "dup", mruby_float4_ivec3_i_dup, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec3, "eql?", mruby_float4_ivec3_i_eq, MRB_ARGS_ARG(1, 1));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "exp", mruby_float4_ivec3_i_exp, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "exp2", mruby_float4_ivec3_i_exp2, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "floor", mruby_float4_ivec3_i_floor, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "fract", mruby_float4_ivec3_i_fract, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec3, "hash", mruby_float4_ivec3_i_hash, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "initialize", mruby_float4_ivec3_i_initialize, MRB_ARGS_ARG(0, 3));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "inspect", mruby_float4_ivec3_i_to_s, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "inversesqrt", mruby_float4_ivec3_i_inversesqrt, MRB_ARGS_ARG(0, 0));
@@ -46166,10 +46320,12 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "degrees", mruby_float4_ivec4_i_degrees, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "dot", mruby_float4_ivec4_i_dot, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "dup", mruby_float4_ivec4_i_dup, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec4, "eql?", mruby_float4_ivec4_i_eq, MRB_ARGS_ARG(1, 1));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "exp", mruby_float4_ivec4_i_exp, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "exp2", mruby_float4_ivec4_i_exp2, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "floor", mruby_float4_ivec4_i_floor, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "fract", mruby_float4_ivec4_i_fract, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec4, "hash", mruby_float4_ivec4_i_hash, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "initialize", mruby_float4_ivec4_i_initialize, MRB_ARGS_ARG(0, 4));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "inspect", mruby_float4_ivec4_i_to_s, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "inversesqrt", mruby_float4_ivec4_i_inversesqrt, MRB_ARGS_ARG(0, 0));
@@ -46550,6 +46706,8 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "data_class", mruby_float4_bvec2_i_data_class, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "data_size", mruby_float4_bvec2_i_data_size, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "dup", mruby_float4_bvec2_i_dup, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec2, "eql?", mruby_float4_bvec2_i_eq, MRB_ARGS_ARG(1, 1));
+  mrb_define_method(mrb, mruby_float4_klass_bvec2, "hash", mruby_float4_bvec2_i_hash, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "initialize", mruby_float4_bvec2_i_initialize, MRB_ARGS_ARG(0, 2));
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "inspect", mruby_float4_bvec2_i_to_s, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec2, "to_bvec", mruby_float4_bvec2_i_to_bvec, MRB_ARGS_ARG(0, 0));
@@ -46599,6 +46757,8 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "data_class", mruby_float4_bvec3_i_data_class, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "data_size", mruby_float4_bvec3_i_data_size, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "dup", mruby_float4_bvec3_i_dup, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec3, "eql?", mruby_float4_bvec3_i_eq, MRB_ARGS_ARG(1, 1));
+  mrb_define_method(mrb, mruby_float4_klass_bvec3, "hash", mruby_float4_bvec3_i_hash, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "initialize", mruby_float4_bvec3_i_initialize, MRB_ARGS_ARG(0, 3));
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "inspect", mruby_float4_bvec3_i_to_s, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec3, "to_bvec", mruby_float4_bvec3_i_to_bvec, MRB_ARGS_ARG(0, 0));
@@ -46739,6 +46899,8 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_bvec4, "data_class", mruby_float4_bvec4_i_data_class, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec4, "data_size", mruby_float4_bvec4_i_data_size, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec4, "dup", mruby_float4_bvec4_i_dup, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, mruby_float4_klass_bvec4, "eql?", mruby_float4_bvec4_i_eq, MRB_ARGS_ARG(1, 1));
+  mrb_define_method(mrb, mruby_float4_klass_bvec4, "hash", mruby_float4_bvec4_i_hash, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec4, "initialize", mruby_float4_bvec4_i_initialize, MRB_ARGS_ARG(0, 4));
   mrb_define_method(mrb, mruby_float4_klass_bvec4, "inspect", mruby_float4_bvec4_i_to_s, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_bvec4, "to_bvec", mruby_float4_bvec4_i_to_bvec, MRB_ARGS_ARG(0, 0));
