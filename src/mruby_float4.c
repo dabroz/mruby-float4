@@ -284,6 +284,7 @@ static mrb_value mruby_float4_vec2_i_eq(mrb_state *mrb, mrb_value self)
   mruby_float4_check_argc(mrb, 1, 1);
   mrb_get_args(mrb, "o", &other);
 
+  if (mrb_nil_p(other)) return mrb_bool_value(0);
   if (mrb_obj_equal(mrb, self, other)) return mrb_bool_value(1);
   if (mrb_obj_class(mrb, self) != mrb_obj_class(mrb, other))
   {
@@ -2539,6 +2540,7 @@ static mrb_value mruby_float4_vec3_i_eq(mrb_state *mrb, mrb_value self)
   mruby_float4_check_argc(mrb, 1, 1);
   mrb_get_args(mrb, "o", &other);
 
+  if (mrb_nil_p(other)) return mrb_bool_value(0);
   if (mrb_obj_equal(mrb, self, other)) return mrb_bool_value(1);
   if (mrb_obj_class(mrb, self) != mrb_obj_class(mrb, other))
   {
@@ -7008,6 +7010,7 @@ static mrb_value mruby_float4_vec4_i_eq(mrb_state *mrb, mrb_value self)
   mruby_float4_check_argc(mrb, 1, 1);
   mrb_get_args(mrb, "o", &other);
 
+  if (mrb_nil_p(other)) return mrb_bool_value(0);
   if (mrb_obj_equal(mrb, self, other)) return mrb_bool_value(1);
   if (mrb_obj_class(mrb, self) != mrb_obj_class(mrb, other))
   {
@@ -16709,6 +16712,7 @@ static mrb_value mruby_float4_ivec2_i_eq(mrb_state *mrb, mrb_value self)
   mruby_float4_check_argc(mrb, 1, 1);
   mrb_get_args(mrb, "o", &other);
 
+  if (mrb_nil_p(other)) return mrb_bool_value(0);
   if (mrb_obj_equal(mrb, self, other)) return mrb_bool_value(1);
   if (mrb_obj_class(mrb, self) != mrb_obj_class(mrb, other))
   {
@@ -18964,6 +18968,7 @@ static mrb_value mruby_float4_ivec3_i_eq(mrb_state *mrb, mrb_value self)
   mruby_float4_check_argc(mrb, 1, 1);
   mrb_get_args(mrb, "o", &other);
 
+  if (mrb_nil_p(other)) return mrb_bool_value(0);
   if (mrb_obj_equal(mrb, self, other)) return mrb_bool_value(1);
   if (mrb_obj_class(mrb, self) != mrb_obj_class(mrb, other))
   {
@@ -23433,6 +23438,7 @@ static mrb_value mruby_float4_ivec4_i_eq(mrb_state *mrb, mrb_value self)
   mruby_float4_check_argc(mrb, 1, 1);
   mrb_get_args(mrb, "o", &other);
 
+  if (mrb_nil_p(other)) return mrb_bool_value(0);
   if (mrb_obj_equal(mrb, self, other)) return mrb_bool_value(1);
   if (mrb_obj_class(mrb, self) != mrb_obj_class(mrb, other))
   {
@@ -33134,6 +33140,7 @@ static mrb_value mruby_float4_bvec2_i_eq(mrb_state *mrb, mrb_value self)
   mruby_float4_check_argc(mrb, 1, 1);
   mrb_get_args(mrb, "o", &other);
 
+  if (mrb_nil_p(other)) return mrb_bool_value(0);
   if (mrb_obj_equal(mrb, self, other)) return mrb_bool_value(1);
   if (mrb_obj_class(mrb, self) != mrb_obj_class(mrb, other))
   {
@@ -34053,6 +34060,7 @@ static mrb_value mruby_float4_bvec3_i_eq(mrb_state *mrb, mrb_value self)
   mruby_float4_check_argc(mrb, 1, 1);
   mrb_get_args(mrb, "o", &other);
 
+  if (mrb_nil_p(other)) return mrb_bool_value(0);
   if (mrb_obj_equal(mrb, self, other)) return mrb_bool_value(1);
   if (mrb_obj_class(mrb, self) != mrb_obj_class(mrb, other))
   {
@@ -37122,6 +37130,7 @@ static mrb_value mruby_float4_bvec4_i_eq(mrb_state *mrb, mrb_value self)
   mruby_float4_check_argc(mrb, 1, 1);
   mrb_get_args(mrb, "o", &other);
 
+  if (mrb_nil_p(other)) return mrb_bool_value(0);
   if (mrb_obj_equal(mrb, self, other)) return mrb_bool_value(1);
   if (mrb_obj_class(mrb, self) != mrb_obj_class(mrb, other))
   {

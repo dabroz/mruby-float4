@@ -134,3 +134,11 @@ assert('using vectors as hash keys') do
   hash[Vec4.new(1,2,3,4)] = 42
   assert_equal hash[Vec4.new(1,2,3,4)], 42
 end
+
+assert('compare with nil') do
+  assert_not_equal Vec4.new(1,2,3,4), nil
+  assert_true (Vec2.new(1,2) != nil)
+  assert_true !(Vec2.new(1,2) == nil)
+
+  assert_true !Vec2.new(1,2).nil?
+end

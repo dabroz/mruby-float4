@@ -321,6 +321,7 @@ static mrb_value mruby_float4_#{klass_c}_#{is_klass ? 'c' : 'i'}_#{name}(mrb_sta
       puts "  mruby_float4_check_argc(mrb, 1, 1);"
       puts "  mrb_get_args(mrb, \"o\", &other);"
       puts
+      puts "  if (mrb_nil_p(other)) return mrb_bool_value(0);"
       puts "  if (mrb_obj_equal(mrb, self, other)) return mrb_bool_value(1);"
       puts "  if (mrb_obj_class(mrb, self) != mrb_obj_class(mrb, other))"
       puts "  {"
