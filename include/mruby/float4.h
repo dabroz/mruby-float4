@@ -6,16 +6,14 @@
 
 #include <mruby.h>
 #include <mruby/istruct.h>
-#include <limits.h>
-#include <stdint.h>
 
 MRB_BEGIN_DECL
 
 /* use istruct in 64-bit mode */
-#if UINTPTR_MAX <= UINT_MAX
-#define MRUBY_FLOAT4_USE_ISTRUCT 0
-#else
+#ifdef MRB_64BIT
 #define MRUBY_FLOAT4_USE_ISTRUCT 1
+#else
+#define MRUBY_FLOAT4_USE_ISTRUCT 0
 #endif
 
 #if !MRUBY_FLOAT4_USE_ISTRUCT
