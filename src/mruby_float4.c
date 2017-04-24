@@ -452,6 +452,28 @@ static mrb_value mruby_float4_vec2_i_to_bvec(mrb_state *mrb, mrb_value self)
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
 }
 
+static mrb_value mruby_float4_vec2_i_round(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_float *data;
+  mrb_value ret;
+  struct mrb_float4_float *ret_data;
+
+  mruby_float4_check_argc(mrb, 0, 0);
+  data = FLOAT4_PTR(self, mrb_float4_float);
+  mrb_assert(data);
+
+  ret = mruby_float4_instance_alloc(mrb, mrb_obj_value(mrb_obj_class(mrb, self)));
+#if !MRUBY_FLOAT4_USE_ISTRUCT
+  mrb_data_init(ret, mrb_malloc(mrb, 16), &mruby_float4_data_type);
+#endif
+  ret_data = FLOAT4_PTR(ret, mrb_float4_float);
+
+  ret_data->data[0] = roundf(data->data[0]);
+  ret_data->data[1] = roundf(data->data[1]);
+
+  return ret;
+}
+
 static mrb_value mruby_float4_vec2_i_floor(mrb_state *mrb, mrb_value self)
 {
   struct mrb_float4_float *data;
@@ -2739,6 +2761,29 @@ static mrb_value mruby_float4_vec3_i_to_bvec(mrb_state *mrb, mrb_value self)
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
+}
+
+static mrb_value mruby_float4_vec3_i_round(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_float *data;
+  mrb_value ret;
+  struct mrb_float4_float *ret_data;
+
+  mruby_float4_check_argc(mrb, 0, 0);
+  data = FLOAT4_PTR(self, mrb_float4_float);
+  mrb_assert(data);
+
+  ret = mruby_float4_instance_alloc(mrb, mrb_obj_value(mrb_obj_class(mrb, self)));
+#if !MRUBY_FLOAT4_USE_ISTRUCT
+  mrb_data_init(ret, mrb_malloc(mrb, 16), &mruby_float4_data_type);
+#endif
+  ret_data = FLOAT4_PTR(ret, mrb_float4_float);
+
+  ret_data->data[0] = roundf(data->data[0]);
+  ret_data->data[1] = roundf(data->data[1]);
+  ret_data->data[2] = roundf(data->data[2]);
+
+  return ret;
 }
 
 static mrb_value mruby_float4_vec3_i_floor(mrb_state *mrb, mrb_value self)
@@ -7244,6 +7289,30 @@ static mrb_value mruby_float4_vec4_i_to_bvec(mrb_state *mrb, mrb_value self)
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(3)));
+}
+
+static mrb_value mruby_float4_vec4_i_round(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_float *data;
+  mrb_value ret;
+  struct mrb_float4_float *ret_data;
+
+  mruby_float4_check_argc(mrb, 0, 0);
+  data = FLOAT4_PTR(self, mrb_float4_float);
+  mrb_assert(data);
+
+  ret = mruby_float4_instance_alloc(mrb, mrb_obj_value(mrb_obj_class(mrb, self)));
+#if !MRUBY_FLOAT4_USE_ISTRUCT
+  mrb_data_init(ret, mrb_malloc(mrb, 16), &mruby_float4_data_type);
+#endif
+  ret_data = FLOAT4_PTR(ret, mrb_float4_float);
+
+  ret_data->data[0] = roundf(data->data[0]);
+  ret_data->data[1] = roundf(data->data[1]);
+  ret_data->data[2] = roundf(data->data[2]);
+  ret_data->data[3] = roundf(data->data[3]);
+
+  return ret;
 }
 
 static mrb_value mruby_float4_vec4_i_floor(mrb_state *mrb, mrb_value self)
@@ -16880,6 +16949,28 @@ static mrb_value mruby_float4_ivec2_i_to_bvec(mrb_state *mrb, mrb_value self)
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)));
 }
 
+static mrb_value mruby_float4_ivec2_i_round(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_int *data;
+  mrb_value ret;
+  struct mrb_float4_int *ret_data;
+
+  mruby_float4_check_argc(mrb, 0, 0);
+  data = FLOAT4_PTR(self, mrb_float4_int);
+  mrb_assert(data);
+
+  ret = mruby_float4_instance_alloc(mrb, mrb_obj_value(mrb_obj_class(mrb, self)));
+#if !MRUBY_FLOAT4_USE_ISTRUCT
+  mrb_data_init(ret, mrb_malloc(mrb, 16), &mruby_float4_data_type);
+#endif
+  ret_data = FLOAT4_PTR(ret, mrb_float4_int);
+
+  ret_data->data[0] = roundf(data->data[0]);
+  ret_data->data[1] = roundf(data->data[1]);
+
+  return ret;
+}
+
 static mrb_value mruby_float4_ivec2_i_floor(mrb_state *mrb, mrb_value self)
 {
   struct mrb_float4_int *data;
@@ -19167,6 +19258,29 @@ static mrb_value mruby_float4_ivec3_i_to_bvec(mrb_state *mrb, mrb_value self)
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(0)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)));
+}
+
+static mrb_value mruby_float4_ivec3_i_round(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_int *data;
+  mrb_value ret;
+  struct mrb_float4_int *ret_data;
+
+  mruby_float4_check_argc(mrb, 0, 0);
+  data = FLOAT4_PTR(self, mrb_float4_int);
+  mrb_assert(data);
+
+  ret = mruby_float4_instance_alloc(mrb, mrb_obj_value(mrb_obj_class(mrb, self)));
+#if !MRUBY_FLOAT4_USE_ISTRUCT
+  mrb_data_init(ret, mrb_malloc(mrb, 16), &mruby_float4_data_type);
+#endif
+  ret_data = FLOAT4_PTR(ret, mrb_float4_int);
+
+  ret_data->data[0] = roundf(data->data[0]);
+  ret_data->data[1] = roundf(data->data[1]);
+  ret_data->data[2] = roundf(data->data[2]);
+
+  return ret;
 }
 
 static mrb_value mruby_float4_ivec3_i_floor(mrb_state *mrb, mrb_value self)
@@ -23672,6 +23786,30 @@ static mrb_value mruby_float4_ivec4_i_to_bvec(mrb_state *mrb, mrb_value self)
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(1)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(2)),
     mrb_funcall(mrb, self, "[]", 1, mrb_fixnum_value(3)));
+}
+
+static mrb_value mruby_float4_ivec4_i_round(mrb_state *mrb, mrb_value self)
+{
+  struct mrb_float4_int *data;
+  mrb_value ret;
+  struct mrb_float4_int *ret_data;
+
+  mruby_float4_check_argc(mrb, 0, 0);
+  data = FLOAT4_PTR(self, mrb_float4_int);
+  mrb_assert(data);
+
+  ret = mruby_float4_instance_alloc(mrb, mrb_obj_value(mrb_obj_class(mrb, self)));
+#if !MRUBY_FLOAT4_USE_ISTRUCT
+  mrb_data_init(ret, mrb_malloc(mrb, 16), &mruby_float4_data_type);
+#endif
+  ret_data = FLOAT4_PTR(ret, mrb_float4_int);
+
+  ret_data->data[0] = roundf(data->data[0]);
+  ret_data->data[1] = roundf(data->data[1]);
+  ret_data->data[2] = roundf(data->data[2]);
+  ret_data->data[3] = roundf(data->data[3]);
+
+  return ret;
 }
 
 static mrb_value mruby_float4_ivec4_i_floor(mrb_state *mrb, mrb_value self)
@@ -45398,6 +45536,7 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_vec2, "radians", mruby_float4_vec2_i_radians, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "reflect", mruby_float4_vec2_i_reflect, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "refract", mruby_float4_vec2_i_refract, MRB_ARGS_ARG(2, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec2, "round", mruby_float4_vec2_i_round, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "saturate", mruby_float4_vec2_i_saturate, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "sign", mruby_float4_vec2_i_sign, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec2, "sin", mruby_float4_vec2_i_sin, MRB_ARGS_ARG(0, 0));
@@ -45491,6 +45630,7 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_vec3, "radians", mruby_float4_vec3_i_radians, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "reflect", mruby_float4_vec3_i_reflect, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "refract", mruby_float4_vec3_i_refract, MRB_ARGS_ARG(2, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec3, "round", mruby_float4_vec3_i_round, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "saturate", mruby_float4_vec3_i_saturate, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "sign", mruby_float4_vec3_i_sign, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec3, "sin", mruby_float4_vec3_i_sin, MRB_ARGS_ARG(0, 0));
@@ -45674,6 +45814,7 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_vec4, "radians", mruby_float4_vec4_i_radians, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "reflect", mruby_float4_vec4_i_reflect, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "refract", mruby_float4_vec4_i_refract, MRB_ARGS_ARG(2, 0));
+  mrb_define_method(mrb, mruby_float4_klass_vec4, "round", mruby_float4_vec4_i_round, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "saturate", mruby_float4_vec4_i_saturate, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "sign", mruby_float4_vec4_i_sign, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_vec4, "sin", mruby_float4_vec4_i_sin, MRB_ARGS_ARG(0, 0));
@@ -46076,6 +46217,7 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "radians", mruby_float4_ivec2_i_radians, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "reflect", mruby_float4_ivec2_i_reflect, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "refract", mruby_float4_ivec2_i_refract, MRB_ARGS_ARG(2, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec2, "round", mruby_float4_ivec2_i_round, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "saturate", mruby_float4_ivec2_i_saturate, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "sign", mruby_float4_ivec2_i_sign, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec2, "sin", mruby_float4_ivec2_i_sin, MRB_ARGS_ARG(0, 0));
@@ -46169,6 +46311,7 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "radians", mruby_float4_ivec3_i_radians, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "reflect", mruby_float4_ivec3_i_reflect, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "refract", mruby_float4_ivec3_i_refract, MRB_ARGS_ARG(2, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec3, "round", mruby_float4_ivec3_i_round, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "saturate", mruby_float4_ivec3_i_saturate, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "sign", mruby_float4_ivec3_i_sign, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec3, "sin", mruby_float4_ivec3_i_sin, MRB_ARGS_ARG(0, 0));
@@ -46352,6 +46495,7 @@ void mrb_mruby_float4_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "radians", mruby_float4_ivec4_i_radians, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "reflect", mruby_float4_ivec4_i_reflect, MRB_ARGS_ARG(1, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "refract", mruby_float4_ivec4_i_refract, MRB_ARGS_ARG(2, 0));
+  mrb_define_method(mrb, mruby_float4_klass_ivec4, "round", mruby_float4_ivec4_i_round, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "saturate", mruby_float4_ivec4_i_saturate, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "sign", mruby_float4_ivec4_i_sign, MRB_ARGS_ARG(0, 0));
   mrb_define_method(mrb, mruby_float4_klass_ivec4, "sin", mruby_float4_ivec4_i_sin, MRB_ARGS_ARG(0, 0));

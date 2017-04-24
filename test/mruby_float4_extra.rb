@@ -142,3 +142,8 @@ assert('compare with nil') do
 
   assert_true !Vec2.new(1,2).nil?
 end
+
+assert('vec4 round') do
+  assert_equal(Vec4.new(1.1, 1.6, 1.5, 0.0).round, Vec4.new(1, 2, 2, 0))
+  assert_equal(Vec4.new(-1.1, -1.6, -1.5, -0.0).round, Vec4.new(-1, -2, -2, 0))
+end

@@ -885,6 +885,7 @@ static mrb_value mruby_float4_#{klass_c}_#{is_klass ? 'c' : 'i'}_#{name}(mrb_sta
     end
 
     if include_math
+      write_op('round', 'roundf')
       write_op('floor', 'floorf')
       write_op('ceil', 'ceilf')
       write_op('sign', 'mruby_float4_signf')
