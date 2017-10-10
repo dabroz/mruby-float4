@@ -940,7 +940,9 @@ end
 puts "
 static void mruby_float4_check_argc(mrb_state *mrb, mrb_int min_argc, mrb_int max_argc)
 {
-  mrb_int argc = mrb_get_argc(mrb);
+  mrb_value *values;
+  mrb_int count;
+  mrb_int argc = mrb_get_args(mrb, \"*\", &values, &count);
   if (argc < min_argc || argc > max_argc)
   {
     mrb_raisef(mrb, E_ARGUMENT_ERROR, \"wrong number of arguments (%S for %S..%S)\", mrb_fixnum_value(argc), mrb_fixnum_value(min_argc), mrb_fixnum_value(max_argc));
