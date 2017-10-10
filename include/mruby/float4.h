@@ -27,7 +27,7 @@ typedef struct mrb_float4_float
 
 typedef struct mrb_float4_int
 {
-  mrb_int data[4];
+  int32_t data[4];
 } mrb_float4_int;
 
 typedef struct mrb_float4_bool

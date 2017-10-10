@@ -18192,10 +18192,10 @@ static mrb_value mruby_float4_ivec2_i_reflect(mrb_state *mrb, mrb_value self)
 {
   struct mrb_float4_int *data = NULL;
   struct mrb_float4_int *other_data = NULL;
-  mrb_int *I = NULL;
-  mrb_int *N = NULL;
-  mrb_int *R = NULL;
-  mrb_int dot;
+  int32_t *I = NULL;
+  int32_t *N = NULL;
+  int32_t *R = NULL;
+  int32_t dot;
   mrb_value ret;
   mrb_value other;
   struct mrb_float4_int *ret_data = NULL;
@@ -18233,12 +18233,12 @@ static mrb_value mruby_float4_ivec2_i_refract(mrb_state *mrb, mrb_value self)
 {
   struct mrb_float4_int *data = NULL;
   struct mrb_float4_int *other_data = NULL;
-  mrb_int *I = NULL;
-  mrb_int *N = NULL;
-  mrb_int *R = NULL;
-  mrb_int dot;
-  mrb_int k;
-  mrb_int ksqrt;
+  int32_t *I = NULL;
+  int32_t *N = NULL;
+  int32_t *R = NULL;
+  int32_t dot;
+  int32_t k;
+  int32_t ksqrt;
   mrb_float eta;
   mrb_value ret;
   mrb_value other;
@@ -18287,8 +18287,8 @@ static mrb_value mruby_float4_ivec2_i_cross(mrb_state *mrb, mrb_value self)
 {
   struct mrb_float4_int *data = NULL;
   struct mrb_float4_int *other_data = NULL;
-  mrb_int *A = NULL;
-  mrb_int *B = NULL;
+  int32_t *A = NULL;
+  int32_t *B = NULL;
   mrb_value other;
 
   mruby_float4_check_argc(mrb, 1, 1);
@@ -20549,10 +20549,10 @@ static mrb_value mruby_float4_ivec3_i_reflect(mrb_state *mrb, mrb_value self)
 {
   struct mrb_float4_int *data = NULL;
   struct mrb_float4_int *other_data = NULL;
-  mrb_int *I = NULL;
-  mrb_int *N = NULL;
-  mrb_int *R = NULL;
-  mrb_int dot;
+  int32_t *I = NULL;
+  int32_t *N = NULL;
+  int32_t *R = NULL;
+  int32_t dot;
   mrb_value ret;
   mrb_value other;
   struct mrb_float4_int *ret_data = NULL;
@@ -20592,12 +20592,12 @@ static mrb_value mruby_float4_ivec3_i_refract(mrb_state *mrb, mrb_value self)
 {
   struct mrb_float4_int *data = NULL;
   struct mrb_float4_int *other_data = NULL;
-  mrb_int *I = NULL;
-  mrb_int *N = NULL;
-  mrb_int *R = NULL;
-  mrb_int dot;
-  mrb_int k;
-  mrb_int ksqrt;
+  int32_t *I = NULL;
+  int32_t *N = NULL;
+  int32_t *R = NULL;
+  int32_t dot;
+  int32_t k;
+  int32_t ksqrt;
   mrb_float eta;
   mrb_value ret;
   mrb_value other;
@@ -20649,9 +20649,9 @@ static mrb_value mruby_float4_ivec3_i_cross(mrb_state *mrb, mrb_value self)
 {
   struct mrb_float4_int *data = NULL;
   struct mrb_float4_int *other_data = NULL;
-  mrb_int *A = NULL;
-  mrb_int *B = NULL;
-  mrb_int *R = NULL;
+  int32_t *A = NULL;
+  int32_t *B = NULL;
+  int32_t *R = NULL;
   mrb_value ret;
   mrb_value other;
   struct mrb_float4_int *ret_data = NULL;
@@ -25123,10 +25123,10 @@ static mrb_value mruby_float4_ivec4_i_reflect(mrb_state *mrb, mrb_value self)
 {
   struct mrb_float4_int *data = NULL;
   struct mrb_float4_int *other_data = NULL;
-  mrb_int *I = NULL;
-  mrb_int *N = NULL;
-  mrb_int *R = NULL;
-  mrb_int dot;
+  int32_t *I = NULL;
+  int32_t *N = NULL;
+  int32_t *R = NULL;
+  int32_t dot;
   mrb_value ret;
   mrb_value other;
   struct mrb_float4_int *ret_data = NULL;
@@ -25168,12 +25168,12 @@ static mrb_value mruby_float4_ivec4_i_refract(mrb_state *mrb, mrb_value self)
 {
   struct mrb_float4_int *data = NULL;
   struct mrb_float4_int *other_data = NULL;
-  mrb_int *I = NULL;
-  mrb_int *N = NULL;
-  mrb_int *R = NULL;
-  mrb_int dot;
-  mrb_int k;
-  mrb_int ksqrt;
+  int32_t *I = NULL;
+  int32_t *N = NULL;
+  int32_t *R = NULL;
+  int32_t dot;
+  int32_t k;
+  int32_t ksqrt;
   mrb_float eta;
   mrb_value ret;
   mrb_value other;

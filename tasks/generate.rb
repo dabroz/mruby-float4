@@ -7,7 +7,7 @@
 
 TYPES = {
   'Vec' => {math: true, ruby_class: 'float_class', converter: 'mrb_to_flo', type: 'float', ruby_arg: 'f', ruby_arg_type: 'mrb_float', ruby_type: 'float', ruby_convert: 'mrb_float_value(mrb, {ITEM})'},
-  'IVec' => {math: true, logic: true, ruby_class: 'fixnum_class', converter: 'mruby_float4_to_fixnum', type: 'int', ruby_arg: 'i', ruby_arg_type: 'mrb_int', ruby_type: 'mrb_int', ruby_convert: 'mrb_fixnum_value({ITEM})'},
+  'IVec' => {math: true, logic: true, ruby_class: 'fixnum_class', converter: 'mruby_float4_to_fixnum', type: 'int', ruby_arg: 'i', ruby_arg_type: 'mrb_int', ruby_type: 'int32_t', ruby_convert: 'mrb_fixnum_value({ITEM})'},
   'BVec' => {logic: true, ruby_class: 'true_class', converter: 'mruby_float4_to_bool', type: 'bool', ruby_arg: 'b', ruby_arg_type: 'mrb_bool', ruby_type: 'mrb_bool', ruby_convert: 'mrb_bool_value({ITEM})'},
 }
 SIZES = 2..4
