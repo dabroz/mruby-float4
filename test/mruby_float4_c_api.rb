@@ -16,5 +16,5 @@ def assert_same(a, b)
 end
 
 assert('C API: test_mrb_float4_vec') do
-  Float4Test.test_mrb_float4_vec
+  Float4Test.test_mrb_float4_vec(Vec4.new(1,2,3,0))
 end
