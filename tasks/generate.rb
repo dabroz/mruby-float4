@@ -243,6 +243,23 @@ static mrb_value mruby_float4_#{klass_c}_#{is_klass ? 'c' : 'i'}_#{name}(mrb_sta
     end
   end
 
+  def write_glob_value_functions
+    puts
+    puts "MRB_API mrb_value mrb_float4_#{type_name.downcase}_value(mrb_state *mrb, struct #{data_name} *value, mrb_int size)"
+    puts "{"
+    puts "  struct RClass *klass = 0;"
+    puts "  mrb_value args[4];"
+    puts "  mrb_assert(size >= 2 && size <= 4);"
+    (2..4).each do |n|
+      puts "  if (size == #{n}) klass = mrb_class_get(mrb, \"#{type_name}#{n}\");"
+    end
+    (0...4).each do |n|
+      puts "  if (size >= #{n + 1}) args[#{n}] = " + ruby_convert.gsub('{ITEM}', "value->data[#{n}]") + ";"
+    end
+    puts "  return mrb_obj_new(mrb, klass, size, args);"
+    puts "}"
+  end
+
   def write_to_s
     format_arg = (['%S']*size).join(', ')
     format_values = members.each_with_index.map{|member,index|ruby_convert.gsub('{ITEM}',"data->data[#{index}]")}.join(', ')
@@ -949,6 +966,7 @@ static void mruby_float4_check_argc(mrb_state *mrb, mrb_int min_argc, mrb_int ma
 
 TYPES.each do |type_name, type_data|
   MethodWriter.new(type_name, type_data, 4).write_glob_type_functions
+  MethodWriter.new(type_name, type_data, 4).write_glob_value_functions
 end
 
 TYPES.each do |type_name, type_data|

@@ -158,6 +158,21 @@ MRB_API mrb_bool mrb_float4_vec(mrb_state *mrb, mrb_value self, struct mrb_float
   return TRUE;
 }
 
+MRB_API mrb_value mrb_float4_vec_value(mrb_state *mrb, struct mrb_float4_float *value, mrb_int size)
+{
+  struct RClass *klass = 0;
+  mrb_value args[4];
+  mrb_assert(size >= 2 && size <= 4);
+  if (size == 2) klass = mrb_class_get(mrb, "Vec2");
+  if (size == 3) klass = mrb_class_get(mrb, "Vec3");
+  if (size == 4) klass = mrb_class_get(mrb, "Vec4");
+  if (size >= 1) args[0] = mrb_float_value(mrb, value->data[0]);
+  if (size >= 2) args[1] = mrb_float_value(mrb, value->data[1]);
+  if (size >= 3) args[2] = mrb_float_value(mrb, value->data[2]);
+  if (size >= 4) args[3] = mrb_float_value(mrb, value->data[3]);
+  return mrb_obj_new(mrb, klass, size, args);
+}
+
 MRB_API mrb_bool mrb_float4_ivec(mrb_state *mrb, mrb_value self, struct mrb_float4_int *value, mrb_int *size)
 {
   mrb_bool is_vec2 = mrb_obj_class(mrb, self) == mrb_class_get(mrb, "IVec2");
@@ -178,6 +193,21 @@ MRB_API mrb_bool mrb_float4_ivec(mrb_state *mrb, mrb_value self, struct mrb_floa
   return TRUE;
 }
 
+MRB_API mrb_value mrb_float4_ivec_value(mrb_state *mrb, struct mrb_float4_int *value, mrb_int size)
+{
+  struct RClass *klass = 0;
+  mrb_value args[4];
+  mrb_assert(size >= 2 && size <= 4);
+  if (size == 2) klass = mrb_class_get(mrb, "IVec2");
+  if (size == 3) klass = mrb_class_get(mrb, "IVec3");
+  if (size == 4) klass = mrb_class_get(mrb, "IVec4");
+  if (size >= 1) args[0] = mrb_fixnum_value(value->data[0]);
+  if (size >= 2) args[1] = mrb_fixnum_value(value->data[1]);
+  if (size >= 3) args[2] = mrb_fixnum_value(value->data[2]);
+  if (size >= 4) args[3] = mrb_fixnum_value(value->data[3]);
+  return mrb_obj_new(mrb, klass, size, args);
+}
+
 MRB_API mrb_bool mrb_float4_bvec(mrb_state *mrb, mrb_value self, struct mrb_float4_bool *value, mrb_int *size)
 {
   mrb_bool is_vec2 = mrb_obj_class(mrb, self) == mrb_class_get(mrb, "BVec2");
@@ -196,6 +226,21 @@ MRB_API mrb_bool mrb_float4_bvec(mrb_state *mrb, mrb_value self, struct mrb_floa
     memcpy(value, FLOAT4_PTR(self, mrb_float4_bool), sizeof(struct mrb_float4_bool));
   }
   return TRUE;
+}
+
+MRB_API mrb_value mrb_float4_bvec_value(mrb_state *mrb, struct mrb_float4_bool *value, mrb_int size)
+{
+  struct RClass *klass = 0;
+  mrb_value args[4];
+  mrb_assert(size >= 2 && size <= 4);
+  if (size == 2) klass = mrb_class_get(mrb, "BVec2");
+  if (size == 3) klass = mrb_class_get(mrb, "BVec3");
+  if (size == 4) klass = mrb_class_get(mrb, "BVec4");
+  if (size >= 1) args[0] = mrb_bool_value(value->data[0]);
+  if (size >= 2) args[1] = mrb_bool_value(value->data[1]);
+  if (size >= 3) args[2] = mrb_bool_value(value->data[2]);
+  if (size >= 4) args[3] = mrb_bool_value(value->data[3]);
+  return mrb_obj_new(mrb, klass, size, args);
 }
 
 static mrb_value mruby_float4_vec2_i_initialize(mrb_state *mrb, mrb_value self)

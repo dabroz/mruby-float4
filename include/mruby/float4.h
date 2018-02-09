@@ -35,6 +35,10 @@ typedef struct mrb_float4_bool
   mrb_bool data[4];
 } mrb_float4_bool;
 
+MRB_API mrb_value mrb_float4_vec_value(mrb_state *mrb, struct mrb_float4_float *value, mrb_int size);
+MRB_API mrb_value mrb_float4_ivec_value(mrb_state *mrb, struct mrb_float4_int *value, mrb_int size);
+MRB_API mrb_value mrb_float4_bvec_value(mrb_state *mrb, struct mrb_float4_bool *value, mrb_int size);
+
 MRB_API mrb_bool mrb_float4_vec(mrb_state *mrb, mrb_value self, struct mrb_float4_float *value, mrb_int *size);
 MRB_API mrb_bool mrb_float4_ivec(mrb_state *mrb, mrb_value self, struct mrb_float4_int *value, mrb_int *size);
 MRB_API mrb_bool mrb_float4_bvec(mrb_state *mrb, mrb_value self, struct mrb_float4_bool *value, mrb_int *size);

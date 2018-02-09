@@ -18,3 +18,12 @@ end
 assert('C API: test_mrb_float4_vec') do
   Float4Test.test_mrb_float4_vec(Vec4.new(1,2,3,0))
 end
+
+assert('C API: test_mrb_float4_value') do
+  vec = Float4Test.test_mrb_float4_value
+
+  assert_equal vec.class, Vec3
+  assert_equal vec.x, 0.5
+  assert_equal vec.y, 1.0
+  assert_equal vec.z, 1.5
+end
